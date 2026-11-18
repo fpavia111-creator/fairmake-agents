@@ -1,0 +1,52 @@
+{
+  "name": "fairmake-core",
+  "version": "0.1.0",
+  "description": "Shared core for the Fairmake manufacturing back-office agents: pinned-model pack manifests, allow/ask/block policy, Review/Assist/Auto modes with caps and a kill switch, hash-chained JSONL audit logs, a zero-dependency stdio MCP server and fixture-based evals.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./testkit": "./src/testkit.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairmake-approve": "bin/fairmake-approve.js",
+    "fairmake-verify-log": "bin/fairmake-verify-log.js",
+    "fairmake-new-agent": "bin/fairmake-new-agent.js",
+    "fairmake-license": "bin/fairmake-license.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairmake-agents.git",
+    "directory": "packages/fairmake-core"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairmake-agents/tree/main/packages/fairmake-core#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairmake-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "model-context-protocol",
+    "ai-agents",
+    "guardrails",
+    "human-in-the-loop",
+    "audit-log",
+    "fairmake",
+    "manufacturing"
+  ]
+}
