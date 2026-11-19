@@ -18,7 +18,7 @@ th{font-weight:600}td.num,th.num{text-align:right;font-variant-numeric:tabular-n
 .wrap{overflow-x:auto;max-width:100%}svg,img{max-width:100%;height:auto}figure{margin:16px 0}p,li,h1,h2,h3{overflow-wrap:break-word}
 </style></head><body><main>
 <h1>Injury and illness log completeness</h1>
-<p class="mut">8 case(s), 8 marked recordable, 5 with days away or restriction (128 days away, 90 restricted), TRIR 6.4, DART 4: 2 to correct, 4 to complete, 0 still open, 2 complete.</p>
+<p class="mut">8 case(s), 8 marked recordable, 5 with days away or restriction (128 days away, 90 restricted), TRIR 6.4, DART 4: 2 to correct, 3 to complete, 1 to watch, 2 complete.</p>
 <h2>By outcome</h2><div class="wrap"><table><thead><tr><th scope="col">outcome</th><th scope="col">cases</th></tr></thead><tbody>
 <tr><td>days_away</td><td>3</td></tr>
 <tr><td>first_aid</td><td>1</td></tr>
@@ -43,7 +43,7 @@ th{font-weight:600}td.num,th.num{text-align:right;font-variant-numeric:tabular-n
 <tr><td>2026-004</td><td>Press operator</td><td>2026-05-20</td><td>other_recordable</td><td>3</td><td>0</td><td>flag</td><td>Case 2026-004 shows 3 days away but its outcome is &quot;Other recordable&quot;. Case 2026-004 was entered 26 days after it happened.</td></tr>
 <tr><td>2026-005</td><td>Painter</td><td>2026-06-02</td><td>days_away</td><td>0</td><td>0</td><td>flag</td><td>Case 2026-005 is a days-away case with no days entered. Case 2026-005 is marked as a privacy case but a name is entered; the name column should say privacy case.</td></tr>
 <tr><td>2026-006</td><td></td><td>2026-07-08</td><td>other_recordable</td><td>0</td><td>0</td><td>review</td><td>Case 2026-006 is missing job_title, location.</td></tr>
-<tr><td>2026-007</td><td>Material handler</td><td>2026-08-12</td><td>days_away</td><td>120</td><td>90</td><td>review</td><td>Case 2026-007 counts 210 days; the log caps the count at 180. Case 2026-007 has no return-to-work date; keep counting days.</td></tr>
+<tr><td>2026-007</td><td>Material handler</td><td>2026-08-12</td><td>days_away</td><td>120</td><td>90</td><td>watch</td><td>Case 2026-007 counts 210 days; counting may stop at 180, and the totals here count it at 180. Case 2026-007 has no return-to-work date; keep counting days.</td></tr>
 <tr><td>2026-008</td><td>Machinist</td><td>2026-09-01</td><td>first_aid</td><td>0</td><td>0</td><td>review</td><td>Case 2026-008 is marked recordable with a first-aid outcome; check the classification.</td></tr>
 </tbody></table></div>
 <h2>Limits</h2><ul><li>This checks data completeness only. It does not decide whether a case is recordable, is not legal or safety advice, and files nothing with any agency.</li><li>The report file keeps employee names for the safety coordinator; the HTML page leaves them out. Keep the CSV in a private folder.</li><li>Reads only the files you give it. It does not log in to an ERP, MES, CMMS, QMS, EDI network, bank, supplier or customer portal, and changes nothing in them.</li><li>Not legal, tax, customs, safety or accounting advice. A person decides what to change, post, send or pay.</li><li>People&#39;s names in these files are masked in results returned to the AI model. The report and draft files written here keep the real values: keep them in a private folder.</li></ul>

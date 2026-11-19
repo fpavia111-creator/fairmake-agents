@@ -8,12 +8,12 @@ Part of **Fairmake**, the back-office agents for small and mid-size manufacturer
 
 ## What it checks
 
-For each case: flags day counts that contradict the outcome and privacy cases with a name entered; reviews missing fields on recordable cases, missing day counts, counts over the cap, late entries and first-aid cases marked recordable; lists cases with days still running. Counts cases and days by outcome; rates per 200,000 hours if annual hours are set. Names and job titles are masked in results.
+For each case: flags day counts that contradict the outcome and privacy cases with a name entered; reviews missing fields on recordable cases, missing day counts, repeated case numbers, late entries and first-aid cases marked recordable; lists day counts over the cap (counting may stop there) and, when the file has return dates, cases with days still running. Reads OSHA's published ITA case layout (outcome codes 1 to 4). Counts cases and days by outcome; rates per 200,000 hours if annual hours are set. Names and job titles are masked in results.
 
 | Finding | Example from the fictional demo data |
 |---|---|
 | `days_missing` | Case 2026-003 is a restriction case with no restricted days entered. |
-| `days_over_cap` | Case 2026-007 counts 210 days; the log caps the count at 180. |
+| `days_over_cap` | Case 2026-007 counts 210 days; counting may stop at 180, and the totals here count it at 180. |
 | `first_aid_recordable` | Case 2026-008 is marked recordable with a first-aid outcome; check the classification. |
 | `late_entry` | Case 2026-004 was entered 26 days after it happened. |
 | `missing_field` | Case 2026-006 is missing job_title, location. |
@@ -56,12 +56,12 @@ Fairmake OSHA 300 Log demo: eight fictional cases at a fictional plant; every na
 
 ▶ Run the check on the exported files
   status: executed  decision: allow
-  8 case(s), 8 marked recordable, 5 with days away or restriction (128 days away, 90 restricted), TRIR 6.4, DART 4: 2 to correct, 4 to complete, 0 still open, 2 complete.
+  8 case(s), 8 marked recordable, 5 with days away or restriction (128 days away, 90 restricted), TRIR 6.4, DART 4: 2 to correct, 3 to complete, 1 to watch, 2 complete.
     review       2026-003                        days_missing, open_case
     flag         2026-004                        outcome_days_mismatch, late_entry
     flag         2026-005                        days_missing, privacy_name_on_log
     review       2026-006                        missing_field
-    review       2026-007                        days_over_cap, open_case
+    watch        2026-007                        days_over_cap, open_case
     review       2026-008                        first_aid_recordable
 
 ▶ Explain 2026-004
@@ -70,7 +70,7 @@ Fairmake OSHA 300 Log demo: eight fictional cases at a fictional plant; every na
 
 ▶ Write the report (CSV worklist and HTML page)
   status: executed  decision: allow
-  Injury and illness log completeness written: 8 case(s), 8 marked recordable, 5 with days away or restriction (128 days away, 90 restricted), TRIR 6.4, DART 4: 2 to correct, 4 to complete, 0 still open, 2 complete.
+  Injury and illness log completeness written: 8 case(s), 8 marked recordable, 5 with days away or restriction (128 days away, 90 restricted), TRIR 6.4, DART 4: 2 to correct, 3 to complete, 1 to watch, 2 complete.
 
 ▶ Write the draft (Auto is opted in for drafts)
   status: executed  decision: allow  (auto)
@@ -93,7 +93,7 @@ Fairmake OSHA 300 Log demo: eight fictional cases at a fictional plant; every na
 
 | Tool | What it does | Policy |
 |---|---|---|
-| `osha_log_check` | For each case: flags day counts that contradict the outcome and privacy cases with a name entered; reviews missing fields on recordable cases, missing day counts, counts over the cap, late entries and first-aid cases … | runs |
+| `osha_log_check` | For each case: flags day counts that contradict the outcome and privacy cases with a name entered; reviews missing fields on recordable cases, missing day counts, repeated case numbers, late entries and first-aid case… | runs |
 | `osha_log_explain` | Show one case's figures and findings, from the same files as osha_log_check. | runs |
 | `osha_log_write_report` | Write osha-300-log.csv (one row per case, with a blank decision column for people to fill in) and osha-300-log.html into out_dir (default fairmake-out/osha-log). | runs |
 | `osha_log_draft_log_correction_list` | Write drafts/log_correction_list-open.md: every case needing a correction, by case number, for the safety coordinator. | asks first (Auto can be opted in) |

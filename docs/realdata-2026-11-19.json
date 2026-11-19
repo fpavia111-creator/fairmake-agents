@@ -1,0 +1,70 @@
+{
+  "date": "2026-11-19",
+  "osha": {
+    "source": "OSHA ITA Case Detail Data 2024",
+    "url": "https://www.osha.gov/Establishment-Specific-Injury-and-Illness-Data",
+    "file_url": "https://www.osha.gov/sites/default/files/ITA_Case_Detail_Data_2024_through_12-31-2025.zip",
+    "licence": "U.S. government work (public domain), published by OSHA",
+    "rows_in_file": 688649,
+    "manufacturing_rows": 104631,
+    "state": "OH",
+    "cases": 5431,
+    "establishments": 667,
+    "outcomes": {
+      "1": 3,
+      "2": 1770,
+      "3": 1730,
+      "4": 1928
+    },
+    "agent_summary": "5431 case(s), 5431 marked recordable, 3502 with days away or restriction (56301 days away, 97265 restricted): 5 to correct, 30 to complete, 79 to watch, 5317 complete. The file has no return-to-work dates, so open cases are not listed.",
+    "cases_with_findings": 114,
+    "findings_by_code": {
+      "outcome_days_mismatch": 5,
+      "days_missing": 13,
+      "missing_field": 18,
+      "days_over_cap": 79
+    },
+    "recount_disagreements": 0,
+    "disagreement_examples": [],
+    "examples": {
+      "outcome_days_mismatch": [
+        "outcome 3, 1 days away, 7 restricted",
+        "outcome 4, 0 days away, 118 restricted",
+        "outcome 4, 0 days away, 93 restricted"
+      ],
+      "days_missing": [
+        "outcome 3, 4 days away, 0 restricted",
+        "outcome 3, 0 days away, 0 restricted",
+        "outcome 3, 0 days away, 0 restricted"
+      ],
+      "missing_field": [
+        "outcome 4, 0 days away, 0 restricted, missing job_title, location.",
+        "outcome 3, 0 days away, 7 restricted, missing job_title.",
+        "outcome 3, 0 days away, 7 restricted, missing job_title."
+      ],
+      "days_over_cap": [
+        "outcome 2, 14 days away, 180 restricted",
+        "outcome 2, 18 days away, 167 restricted",
+        "outcome 3, 0 days away, 181 restricted"
+      ]
+    },
+    "ms": 637,
+    "return_dates_found": false
+  },
+  "hts": {
+    "source": "USITC Harmonized Tariff Schedule (current edition, JSON export)",
+    "url": "https://hts.usitc.gov/",
+    "file_url": "https://hts.usitc.gov/reststop/exportList?from=0101&to=9999&format=JSON&styles=false",
+    "licence": "U.S. government work (public domain), published by the U.S. International Trade Commission",
+    "lines": 35805,
+    "codes_in_list": 26807,
+    "codes_with_specific_or_compound_duty": 3153,
+    "items": 19949,
+    "entry_lines": 17723,
+    "agent_summary": "19949 item(s), 17723 entry line(s): 0 with a missing or conflicting code or duty, 0 to check, 0 to watch, 19949 consistent; duty differences 0.",
+    "items_with_findings": 0,
+    "findings_by_code": {},
+    "examples": [],
+    "ms": 2156
+  }
+}

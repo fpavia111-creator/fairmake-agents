@@ -22,9 +22,10 @@ test('day counts must agree with the outcome', () => {
   assert.deepEqual(codes(run([c({ outcome: 'Days away', return_date: '2026-03-03' })])), ['days_missing']);
 });
 
-test('days over the cap are reviewed and counted at the cap', () => {
+test('days over the cap are listed to watch and counted at the cap', () => {
   const r = run([c({ outcome: 'Days away', days_away: 200, return_date: '2026-10-01' })]);
-  assert.deepEqual(codes(r), ['days_over_cap']); assert.equal(r.days_away, 180);
+  assert.deepEqual(codes(r), ['days_over_cap']); assert.equal(r.days_away, 180); assert.equal(r.items[0].status, 'watch');
+  assert.match(r.items[0].findings[0].detail, /^Case C1 counts 200 days; counting may stop at 180/);
 });
 
 test('a privacy case must not carry a name; days-away cases without a return date are open', () => {
@@ -40,12 +41,15 @@ test('OSHA ITA case data: outcome codes, several establishments, repeated case n
   // Outcome codes as OSHA publishes them: 2 days away, 3 job transfer or restriction, 4 other recordable.
   assert.deepEqual(codes(run([c({ outcome: '4', days_away: 5 })])), ['outcome_days_mismatch']);
   assert.deepEqual(codes(run([c({ outcome: '2', days_away: 0 })])), ['days_missing']);
+  assert.deepEqual(codes(run([c({ outcome: '4', days_restricted: 6 })])), ['outcome_days_mismatch'], 'restricted days belong in the restriction column');
   assert.equal(run([c({ outcome: '3', days_restricted: 10 })]).items[0].outcome, 'restricted');
   // Case 1 at two establishments is two cases; case 7 twice in one log with different details is reviewed.
   const two = run([c({ establishment: 'E1', case_number: '1' }), c({ establishment: 'E2', case_number: '1', incident_date: '2026-04-01' })]);
   assert.equal(two.cases, 2); assert.deepEqual(two.items.map((i) => i.case_number), ['E1 #1', 'E2 #1']);
   const dup = run([c({ case_number: '7' }), c({ case_number: '7', incident_date: '2026-05-01', employee: 'Lee Other' })]);
   assert.equal(dup.cases, 1); assert.deepEqual(codes(dup), ['duplicate_case_number']);
+  // Numbers that differ only in letter case are two cases, each checked (as in OSHA's 2024 data).
+  assert.equal(run([c({ case_number: 'ALL-2024-1' }), c({ case_number: 'All-2024-1', incident_date: '2026-06-01' })]).cases, 2);
 });
 
 test('late entries and first-aid cases marked recordable are reviewed', () => {

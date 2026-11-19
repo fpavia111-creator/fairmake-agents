@@ -8,8 +8,8 @@
     "clean_agents": 29,
     "clean_rows": 440,
     "clean_false_positives": 0,
-    "mutation_cases": 83,
-    "mutation_caught": 83
+    "mutation_cases": 84,
+    "mutation_caught": 84
   },
   "agents": [
     {
@@ -287,8 +287,8 @@
       "clean_rows": 8,
       "clean_findings": [],
       "clean_note": null,
-      "mutation_cases": 3,
-      "mutation_caught": 3,
+      "mutation_cases": 4,
+      "mutation_caught": 4,
       "mutation_missed": [],
       "mutation_side_findings": 0
     },

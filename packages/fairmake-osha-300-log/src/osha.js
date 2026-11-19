@@ -48,20 +48,24 @@ export function oshaLog(rows, s = DEFAULTS) {
   // A file with no return-to-work dates at all (OSHA's published data, many EHS exports) cannot say which cases are still open.
   const returnDates = rows.some((r) => str(r.return_date));
   const caseOf = (r) => (str(r.establishment) ? `${str(r.establishment)} #${str(r.case_number)}` : str(r.case_number));
-  const items = [...groupBy(rows.filter((r) => str(r.case_number)), (r) => itemKey(caseOf(r))).values()].map((ls) => {
+  // Case numbers are compared exactly as written (trimmed): OSHA's 2024 data has "ALL-2024-1" and "All-2024-1" as two cases.
+  const items = [...groupBy(rows.filter((r) => str(r.case_number)), (r) => caseOf(r)).values()].map((ls) => {
     const r = ls[0]; const o = outcomeOf(r.outcome); const rec = r.recordable === null || r.recordable === undefined || str(r.recordable) === '' ? o !== 'first_aid' : yes(r.recordable);
     const away = Number(r.days_away) || 0, rest = Number(r.days_restricted) || 0; const f = [];
     const differs = ls.some((x) => str(x.incident_date) !== str(r.incident_date) || str(x.employee) !== str(r.employee) || str(x.job_title) !== str(r.job_title));
     if (differs) f.push(finding('duplicate_case_number', null, `Case number ${caseOf(r)} is used for ${ls.length} rows with different dates or people; each case needs its own number (or, for several establishments in one file, an establishment column). Only the first row was checked.`, 'review'));
-    if (rec) { const miss = ['job_title', 'incident_date', 'location', 'description', 'injury_type', 'outcome'].filter((k) => !str(r[k])); if (miss.length) f.push(finding('missing_field', null, `Case ${r.case_number} is missing ${miss.join(', ')}.`, 'review')); }
-    if (o && o !== 'days_away' && o !== 'death' && away > 0) f.push(finding('outcome_days_mismatch', null, `Case ${r.case_number} shows ${away} days away but its outcome is "${str(r.outcome)}".`));
-    if (o === 'restricted' && rest === 0 && !r.return_date) f.push(finding('days_missing', null, `Case ${r.case_number} is a restriction case with no restricted days entered.`, 'review'));
-    if (o === 'days_away' && away === 0) f.push(finding('days_missing', null, `Case ${r.case_number} is a days-away case with no days entered.`, 'review'));
-    if (away + rest > s.day_cap) f.push(finding('days_over_cap', null, `Case ${r.case_number} counts ${away + rest} days; the log caps the count at ${s.day_cap}.`, 'review'));
-    if (yes(r.privacy_case) && str(r.employee) && !/privacy/i.test(str(r.employee))) f.push(finding('privacy_name_on_log', null, `Case ${r.case_number} is marked as a privacy case but a name is entered; the name column should say privacy case.`));
-    if (returnDates && (o === 'days_away' || o === 'restricted') && !r.return_date) f.push(finding('open_case', null, `Case ${r.case_number} has no return-to-work date; keep counting days.`, 'watch'));
-    if (r.entered_date && r.incident_date && daysBetween(r.incident_date, r.entered_date) > s.entry_days) f.push(finding('late_entry', null, `Case ${r.case_number} was entered ${daysBetween(r.incident_date, r.entered_date)} days after it happened.`, 'review'));
-    if (o === 'first_aid' && yes(r.recordable)) f.push(finding('first_aid_recordable', null, `Case ${r.case_number} is marked recordable with a first-aid outcome; check the classification.`, 'review'));
+    if (rec) { const miss = ['job_title', 'incident_date', 'location', 'description', 'injury_type', 'outcome'].filter((k) => !str(r[k])); if (miss.length) f.push(finding('missing_field', null, `Case ${caseOf(r)} is missing ${miss.join(', ')}.`, 'review')); }
+    if (o && o !== 'days_away' && o !== 'death' && away > 0) f.push(finding('outcome_days_mismatch', null, `Case ${caseOf(r)} shows ${away} days away but its outcome is "${str(r.outcome)}".`));
+    // On the 300 log a case with restricted or transfer days belongs in the restriction column, not "other recordable".
+    else if (o === 'other_recordable' && rest > 0) f.push(finding('outcome_days_mismatch', null, `Case ${caseOf(r)} shows ${rest} days of restriction or transfer but its outcome is "${str(r.outcome)}".`));
+    if (o === 'restricted' && rest === 0 && !r.return_date) f.push(finding('days_missing', null, `Case ${caseOf(r)} is a restriction case with no restricted days entered.`, 'review'));
+    if (o === 'days_away' && away === 0) f.push(finding('days_missing', null, `Case ${caseOf(r)} is a days-away case with no days entered.`, 'review'));
+    // Counting may stop at the cap (180 days on the OSHA log) but is not required to: worth knowing, not an error.
+    if (away + rest > s.day_cap) f.push(finding('days_over_cap', null, `Case ${caseOf(r)} counts ${away + rest} days; counting may stop at ${s.day_cap}, and the totals here count it at ${s.day_cap}.`, 'watch'));
+    if (yes(r.privacy_case) && str(r.employee) && !/privacy/i.test(str(r.employee))) f.push(finding('privacy_name_on_log', null, `Case ${caseOf(r)} is marked as a privacy case but a name is entered; the name column should say privacy case.`));
+    if (returnDates && (o === 'days_away' || o === 'restricted') && !r.return_date) f.push(finding('open_case', null, `Case ${caseOf(r)} has no return-to-work date; keep counting days.`, 'watch'));
+    if (r.entered_date && r.incident_date && daysBetween(r.incident_date, r.entered_date) > s.entry_days) f.push(finding('late_entry', null, `Case ${caseOf(r)} was entered ${daysBetween(r.incident_date, r.entered_date)} days after it happened.`, 'review'));
+    if (o === 'first_aid' && yes(r.recordable)) f.push(finding('first_aid_recordable', null, `Case ${caseOf(r)} is marked recordable with a first-aid outcome; check the classification.`, 'review'));
     return { case_number: caseOf(r), employee: str(r.employee), job_title: str(r.job_title), incident_date: r.incident_date || null, outcome: o || 'blank', recordable: rec, days_away: away, days_restricted: rest, status: statusOf(f), findings: f };
   }).sort((a, b) => (itemKey(a.case_number) < itemKey(b.case_number) ? -1 : 1));
   const recs = items.filter((i) => i.recordable); const dart = recs.filter((i) => i.days_away > 0 || i.days_restricted > 0 || i.outcome === 'days_away' || i.outcome === 'restricted').length;

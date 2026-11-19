@@ -462,6 +462,7 @@ export const SPECS = {
       { id: 'entered-late', op: ['set', 'cases.csv', { case_number: '2026-001' }, { entered_date: '2026-03-01' }], expect: ['2026-001', 'late_entry'] },
       { id: 'job-title-blank', op: ['set', 'cases.csv', { case_number: '2026-001' }, { job_title: '' }], expect: ['2026-001', 'missing_field'] },
       { id: 'outcome-contradicts-days', op: ['set', 'cases.csv', { case_number: '2026-002' }, { outcome: 'Other recordable' }], expect: ['2026-002', 'outcome_days_mismatch'] },
+      { id: 'restriction-days-on-other-recordable', op: ['set', 'cases.csv', { case_number: '2026-001' }, { days_restricted: '5' }], expect: ['2026-001', 'outcome_days_mismatch'] },
     ],
   },
 
