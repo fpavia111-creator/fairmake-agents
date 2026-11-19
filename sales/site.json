@@ -2,7 +2,7 @@
   "product": "Fairmake",
   "industry": "Manufacturers and distributors",
   "kicker": "Small and mid-size manufacturers and distributors",
-  "lede": "Thirty small agents that check a manufacturer's or distributor's back office from the files it already exports, work order costs, purchasing, inventory, production, retail and EDI compliance, quality and safety, and wait for a named person before anything is posted, paid, shipped or sent.",
+  "lede": "Thirty small agents that check a manufacturer's or distributor's back office from the files it already exports (work order costs, purchasing, inventory, production, retail and EDI compliance, quality and safety) and wait for a named person before anything is posted, paid, shipped or sent.",
   "from": "$2,000",
   "packages": [
     ["$2,500 · One plant", "Cost and margin pack", "Standard against actual by work order, purchase price variance, BOM roll-up, overhead absorption, WIP aging, job margins, landed cost (7 agents)"],
@@ -23,7 +23,7 @@
     "Not legal, tax, customs, safety or accounting advice: the agents do not classify goods or decide whether an injury is recordable.",
     "Report pages can be in nine languages; the translations are Claude's and have not been reviewed by native speakers."
   ],
-  "warn": "Your files and reports stay on your computer. The agents never post to the ERP, pay, ship, change a standard or schedule, release a hold, transmit EDI, file with an agency or message anyone: each of those is refused or waits for one named person's click. Employee names are masked in anything sent to an AI model.",
+  "warn": "Your files and reports stay on your computer. The agents never post to the ERP, pay, ship, change a standard or schedule, release a hold, transmit EDI, file with an agency or message anyone: each of those is refused or waits for one named person's click. Employee names, and job titles in the injury log, are masked in anything sent to an AI model; supplier and customer names, amounts and dates are sent as they are.",
   "groups": [
     ["Cost and margin", [
       ["Standard against actual cost", "Material, labor and overhead variance on every work order, and orders closed with cost and no output"],

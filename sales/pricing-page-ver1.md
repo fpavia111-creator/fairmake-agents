@@ -42,4 +42,4 @@ Included: installation on your computer, mapping your exports, your settings (to
 
 Not included: posting to the ERP, paying or short-paying suppliers, shipping, changing standards, reorder points or schedules, releasing holds, transmitting EDI, filing with customs or any agency, or messaging customers and suppliers (the agents never do these; a person on your team does). Legal, tax, customs, safety or accounting advice; the agents do not classify goods or decide whether an injury is recordable. Logging in to your ERP, MES, EDI network, bank or customer portals.
 
-Your files and reports stay on your computer. Employee and owner names are masked in anything the agents send to an AI model.
+Your files and reports stay on your computer. Employee and owner names, and job titles in the injury log, are masked in anything the agents send to an AI model; supplier and customer names, amounts and dates are sent as they are.

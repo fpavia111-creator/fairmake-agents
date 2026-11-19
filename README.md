@@ -35,7 +35,7 @@ Freight bills, carrier invoices and parcel audits are covered by Fairhaul; the g
 
 - **One job each.** Every agent has its own tool allowlist; any other tool name, including ones a model invents, is blocked.
 - **Nothing binding happens on its own.** No agent posts to the ERP, pays, ships, changes a standard, a reorder point or a schedule, releases a hold, transmits EDI, files with an agency or sends a message. Those actions are refused outright or wait for one named person's click, even in Auto mode. Drafts are written to a file marked DRAFT; approving one records the decision, and a person acts on it.
-- **Personal data is masked.** Employee, operator, estimator and owner names are replaced with tokens such as `A.R.#3f9a2c` in everything returned to the AI model. The report and draft files written on your computer keep the real values, so keep them in a private folder.
+- **Personal data is masked.** Employee, estimator and NCR or CAPA owner names, and job titles in the injury log, are replaced with tokens such as `A.R.#3f9a2c` in everything returned to the AI model. Supplier and customer names, amounts, dates and free-text fields such as stop reasons are sent as they are (details in [docs/model-view-2026-11-19.md](docs/model-view-2026-11-19.md)). The report and draft files written on your computer keep the real values, so keep them in a private folder.
 - **Local files only.** No network calls, no telemetry, no credentials. Every call goes to a hash-chained audit log under `.fairmake/`.
 - **Your rules, not ours.** Tolerances, targets, dispute windows, fines, specs, code lists and day caps are settings in your own file. The defaults are working examples; the result always says which settings it used.
 
