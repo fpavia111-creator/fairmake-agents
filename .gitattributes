@@ -1,0 +1,7 @@
+# Generated text (READMEs, eval cases, plugin files, clean fixtures) is compared byte for byte by the
+# --check scripts, so every checkout keeps LF, including a Windows clone with core.autocrlf=true.
+* text=auto eol=lf
+# Test exports in other languages keep the encodings and CRLF line endings real exports use.
+packages/*/fixtures/intl/** -text
+# Calendar files use CRLF (RFC 5545).
+*.ics -text
