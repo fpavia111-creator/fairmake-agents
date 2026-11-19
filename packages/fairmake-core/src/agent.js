@@ -198,7 +198,7 @@ export function defineFairmakeAgent(spec) {
   rules.push({ tool: '*', decision: 'block', reason: `Not on the ${name} allowlist.` });
   return defineManifest({
     name, version, description: spec.description, model: MODEL_PIN, caps: { maxSteps: 60, maxSpendUsd: 0 },
-    configSchemas: spec.settings ? { settings: spec.settings.schema } : {}, sources, argDocs: spec.argDocs || {},
+    configSchemas: { ...(spec.configSchemas || {}), ...(spec.settings ? { settings: spec.settings.schema } : {}) }, sources, argDocs: spec.argDocs || {},
     prompts: spec.prompt ? [{ name: spec.prompt.name, title: spec.prompt.title, description: spec.prompt.description || spec.prompt.title, arguments: required.map((k) => ({ name: k, description: (args[k] && args[k].description) || k, required: true })), text: spec.prompt.text }] : [],
     tools, policy: { rules },
   });

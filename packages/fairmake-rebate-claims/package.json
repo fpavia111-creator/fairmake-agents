@@ -1,0 +1,58 @@
+{
+  "name": "fairmake-rebate-claims",
+  "version": "0.1.0",
+  "description": "Fairmake Rebate Claims: supplier rebate tiers reached and not claimed, claim-by dates passed, spend near the next tier and purchases above the agreed price, with a claim draft per agreement.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairmake-rebate-claims": "bin/fairmake-rebate-claims.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/fairmake-rebate-claims.js demo",
+    "eval": "node bin/fairmake-rebate-claims.js eval"
+  },
+  "dependencies": {
+    "fairmake-core": "^0.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairmake-agents.git",
+    "directory": "packages/fairmake-rebate-claims"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairmake-agents/tree/main/packages/fairmake-rebate-claims#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairmake-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "manufacturing",
+    "distribution",
+    "erp",
+    "fairmake",
+    "rebates",
+    "price-agreements",
+    "purchasing",
+    "supplier-contracts",
+    "netsuite"
+  ]
+}

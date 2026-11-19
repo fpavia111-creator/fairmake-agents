@@ -1,0 +1,385 @@
+{
+  "suite": "fairmake-rebate-claims",
+  "root": "..",
+  "data_note": "Fictional agreements, purchases and credits in ../fixtures, as of 2026-11-18. No model is called.",
+  "cases": [
+    {
+      "id": "check-totals",
+      "tool": "rebates_check",
+      "args": {
+        "purchases": "fixtures/purchases.csv",
+        "agreements": "fixtures/agreements.json",
+        "claims": "fixtures/claims.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "equals": {
+          "result.agreements": 4,
+          "result.spend_covered": 147200,
+          "result.to_claim": 1400,
+          "result.overpaid": 200,
+          "result.flag": 2,
+          "result.review": 0,
+          "result.watch": 1,
+          "result.ok": 1
+        }
+      }
+    },
+    {
+      "id": "every-planted-finding",
+      "tool": "rebates_check",
+      "args": {
+        "purchases": "fixtures/purchases.csv",
+        "agreements": "fixtures/agreements.json",
+        "claims": "fixtures/claims.csv",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "contains": [
+          "rebate_unclaimed",
+          "rebate_accruing",
+          "near_next_tier",
+          "over_contract_price",
+          "claim_window_passed",
+          "1500 more spend by 2026-12-31 reaches the 4% tier",
+          "P6 at 0.06"
+        ]
+      }
+    },
+    {
+      "id": "explain-steel-agreement",
+      "tool": "rebates_explain",
+      "args": {
+        "purchases": "fixtures/purchases.csv",
+        "agreements": "fixtures/agreements.json",
+        "claims": "fixtures/claims.csv",
+        "as_of": "2026-11-18",
+        "agreement": "nwm-2026"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.items.0.spend": 120000,
+          "result.items.0.earned": 2400,
+          "result.items.0.to_claim": 1400,
+          "result.items.0.lines": 3
+        }
+      }
+    },
+    {
+      "id": "closer-tier-window",
+      "tool": "rebates_check",
+      "args": {
+        "purchases": "fixtures/purchases.csv",
+        "agreements": "fixtures/agreements.json",
+        "claims": "fixtures/claims.csv",
+        "settings": "fixtures/settings-close.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "equals": {
+          "result.watch": 1,
+          "result.settings_used.near_tier_pct": 5
+        },
+        "not_contains": [
+          "near_next_tier"
+        ]
+      }
+    },
+    {
+      "id": "netsuite-purchase-lines",
+      "tool": "rebates_check",
+      "args": {
+        "purchases": "fixtures/exports/netsuite-purchase-lines.csv",
+        "agreements": "fixtures/agreements.json",
+        "claims": "fixtures/claims.csv",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "equals": {
+          "result.spend_covered": 78000,
+          "result.items.2.agreement": "NWM-2026",
+          "result.items.2.earned": 780
+        }
+      }
+    },
+    {
+      "id": "draft-rebate-claim-after-approval",
+      "tool": "rebates_draft_rebate_claim",
+      "args": {
+        "purchases": "fixtures/purchases.csv",
+        "agreements": "fixtures/agreements.json",
+        "claims": "fixtures/claims.csv",
+        "as_of": "2026-11-18",
+        "agreement": "NWM-2026",
+        "from": "Robin Buyer (fictional)"
+      },
+      "approve": "Pat Example",
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.amount": 1400,
+          "result.open_markers": 2
+        },
+        "contains": [
+          "rebate claim NWM-2026 drafted for 1400"
+        ]
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "rebates_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "purchases"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "rebates_check",
+      "args": {
+        "purchases": "../../../outside.csv",
+        "agreements": "fixtures/agreements.json",
+        "claims": "fixtures/claims.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "rebates_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "rebates_check",
+      "mode": "review",
+      "args": {
+        "purchases": "fixtures/purchases.csv",
+        "agreements": "fixtures/agreements.json",
+        "claims": "fixtures/claims.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.agreements": 4,
+          "result.spend_covered": 147200,
+          "result.to_claim": 1400,
+          "result.overpaid": 200,
+          "result.flag": 2,
+          "result.review": 0,
+          "result.watch": 1,
+          "result.ok": 1
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "rebates_check",
+      "args": {
+        "purchases": "fixtures/purchases.csv",
+        "agreements": "fixtures/agreements.json",
+        "claims": "fixtures/claims.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.agreements": 4,
+          "result.spend_covered": 147200,
+          "result.to_claim": 1400,
+          "result.overpaid": 200,
+          "result.flag": 2,
+          "result.review": 0,
+          "result.watch": 1,
+          "result.ok": 1
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "rebates_explain",
+      "args": {
+        "purchases": "fixtures/purchases.csv",
+        "agreements": "fixtures/agreements.json",
+        "claims": "fixtures/claims.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18",
+        "agreement": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-its-files",
+      "tool": "rebates_write_report",
+      "args": {
+        "purchases": "fixtures/purchases.csv",
+        "agreements": "fixtures/agreements.json",
+        "claims": "fixtures/claims.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "status": "executed",
+        "min": {
+          "result.files.length": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "draft-waits-for-a-person",
+      "tool": "rebates_draft_rebate_claim",
+      "args": {
+        "purchases": "fixtures/purchases.csv",
+        "agreements": "fixtures/agreements.json",
+        "claims": "fixtures/claims.csv",
+        "as_of": "2026-11-18",
+        "agreement": "NWM-2026",
+        "from": "Robin Buyer (fictional)"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-drafts-nothing",
+      "tool": "rebates_draft_rebate_claim",
+      "mode": "review",
+      "args": {
+        "purchases": "fixtures/purchases.csv",
+        "agreements": "fixtures/agreements.json",
+        "claims": "fixtures/claims.csv",
+        "as_of": "2026-11-18",
+        "agreement": "NWM-2026",
+        "from": "Robin Buyer (fictional)"
+      },
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "request-stays-one-click-in-auto",
+      "tool": "rebates_request_send",
+      "mode": "auto",
+      "auto_actions": [
+        "rebates_draft_rebate_claim"
+      ],
+      "args": {
+        "draft": "fairmake-out/rebates/drafts/none.md",
+        "draft_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-ap-deduct-from-payment",
+      "tool": "ap_deduct_from_payment",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-supplier-portal-submit",
+      "tool": "supplier_portal_submit",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-check-totals",
+      "tool": "rebates_check",
+      "args": {
+        "purchases": "fixtures/intl/de/purchases.csv",
+        "agreements": "fixtures/agreements.json",
+        "claims": "fixtures/intl/de/claims.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "equals": {
+          "result.agreements": 4,
+          "result.spend_covered": 147200,
+          "result.to_claim": 1400,
+          "result.overpaid": 200,
+          "result.flag": 2,
+          "result.review": 0,
+          "result.watch": 1,
+          "result.ok": 1
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"check-totals\"."
+    },
+    {
+      "id": "intl-ja-check-totals",
+      "tool": "rebates_check",
+      "args": {
+        "purchases": "fixtures/intl/ja/purchases.csv",
+        "agreements": "fixtures/agreements.json",
+        "claims": "fixtures/intl/ja/claims.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "equals": {
+          "result.agreements": 4,
+          "result.spend_covered": 147200,
+          "result.to_claim": 1400,
+          "result.overpaid": 200,
+          "result.flag": 2,
+          "result.review": 0,
+          "result.watch": 1,
+          "result.ok": 1
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"check-totals\"."
+    }
+  ]
+}

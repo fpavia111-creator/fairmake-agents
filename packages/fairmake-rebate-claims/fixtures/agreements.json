@@ -1,0 +1,9 @@
+{
+  "note": "Fictional supplier agreements.",
+  "agreements": [
+    { "id": "NWM-2026", "supplier": "Northwind Metals", "start": "2026-01-01", "end": "2026-09-30", "claim_by": "2026-10-31", "tiers": [{ "min_spend": 50000, "pct": 1 }, { "min_spend": 100000, "pct": 2 }] },
+    { "id": "FEC-2026", "supplier": "Fastener Example Co", "item": "SCR-M8", "contract_price": 0.05, "start": "2026-01-01", "end": "2026-12-31", "tiers": [{ "min_spend": 2000, "pct": 3 }] },
+    { "id": "DSI-2026", "supplier": "Demo Seals Inc", "start": "2026-07-01", "end": "2026-12-31", "tiers": [{ "min_spend": 10000, "pct": 2 }, { "min_spend": 20000, "pct": 4 }] },
+    { "id": "SSS-2025", "supplier": "Sample Steel Supply", "start": "2025-01-01", "end": "2025-12-31", "claim_by": "2026-03-31", "tiers": [{ "min_spend": 5000, "pct": 1 }] }
+  ]
+}
