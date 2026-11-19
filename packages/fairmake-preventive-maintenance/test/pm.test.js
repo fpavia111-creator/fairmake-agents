@@ -41,7 +41,7 @@ test('the report writes a calendar with one event per due task', async () => {
   const root = mkdtempSync(join(tmpdir(), 'pm-')); cpSync(fileURLToPath(new URL('../fixtures', import.meta.url)), root, { recursive: true });
   const r = await new AgentRuntime(manifest, { root, audit: false }).call('pm_write_report', { schedule: 'pm-schedule.csv', completions: 'completions.csv', as_of: '2026-11-18' });
   assert.equal(r.status, 'executed', r.reason); assert.equal(r.result.files.length, 3);
-  const ics = readFileSync(r.result.files[2], 'utf8'); assert.match(ics, /PM overdue: CNC-2 Way cover inspection/); assert.equal((ics.match(/BEGIN:VEVENT/g) || []).length, 8);
+  const ics = readFileSync(join(root, r.result.files[2]), 'utf8'); assert.match(ics, /PM overdue: CNC-2 Way cover inspection/); assert.equal((ics.match(/BEGIN:VEVENT/g) || []).length, 8);
 });
 
 test('the PM list puts safety-critical tasks first', () => {

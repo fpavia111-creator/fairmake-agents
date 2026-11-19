@@ -92,7 +92,8 @@
         "contains": [
           "PS-502/BAR-4140/H-1003"
         ]
-      }
+      },
+      "english_layout": true
     },
     {
       "id": "specs-must-be-valid",

@@ -41,7 +41,7 @@ test('the warning window and default minimum come from settings', () => {
 test('the report writes an expiry calendar for lots still in stock', async () => {
   const root = mkdtempSync(join(tmpdir(), 'shelf-')); cpSync(fileURLToPath(new URL('../fixtures', import.meta.url)), root, { recursive: true });
   const r = await new AgentRuntime(manifest, { root, audit: false }).call('shelf_life_write_report', { lots: 'lots.csv', shipments: 'shipments.csv', as_of: '2026-11-18' });
-  assert.equal(r.status, 'executed', r.reason); const ics = readFileSync(r.result.files[2], 'utf8');
+  assert.equal(r.status, 'executed', r.reason); const ics = readFileSync(join(root, r.result.files[2]), 'utf8');
   assert.equal((ics.match(/BEGIN:VEVENT/g) || []).length, 5); assert.doesNotMatch(ics, /L-2601/);
 });
 

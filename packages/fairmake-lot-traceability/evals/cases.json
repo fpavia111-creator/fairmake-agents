@@ -95,7 +95,8 @@
           "result.flag": 4,
           "result.ok": 1
         }
-      }
+      },
+      "english_layout": true
     },
     {
       "id": "draft-trace-gaps-after-approval",

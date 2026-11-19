@@ -89,7 +89,8 @@
           "result.flag": 2,
           "result.past_due_value": 5200
         }
-      }
+      },
+      "english_layout": true
     },
     {
       "id": "draft-expedite-request-after-approval",

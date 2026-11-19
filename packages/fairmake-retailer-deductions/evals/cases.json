@@ -99,7 +99,8 @@
         "contains": [
           "CHK-77/INV-3001/ASN"
         ]
-      }
+      },
+      "english_layout": true
     },
     {
       "id": "draft-dispute-after-approval",

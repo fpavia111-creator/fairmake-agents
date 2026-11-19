@@ -42,7 +42,7 @@ test('the look-ahead comes from settings', () => {
 test('the report writes a calendar of due dates for gauges in service', async () => {
   const root = mkdtempSync(join(tmpdir(), 'cal-')); cpSync(fileURLToPath(new URL('../fixtures', import.meta.url)), root, { recursive: true });
   const r = await new AgentRuntime(manifest, { root, audit: false }).call('calibration_write_report', { gauges: 'gauges.csv', usage: 'usage.csv', as_of: '2026-11-18' });
-  assert.equal(r.status, 'executed', r.reason); const ics = readFileSync(r.result.files[2], 'utf8');
+  assert.equal(r.status, 'executed', r.reason); const ics = readFileSync(join(root, r.result.files[2]), 'utf8');
   assert.equal((ics.match(/BEGIN:VEVENT/g) || []).length, 6); assert.match(ics, /Calibration overdue: CAL-003/); assert.doesNotMatch(ics, /CMM-007/);
 });
 

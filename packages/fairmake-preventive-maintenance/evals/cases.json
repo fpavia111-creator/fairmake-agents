@@ -109,7 +109,8 @@
         "contains": [
           "CNC-2/Way cover inspection"
         ]
-      }
+      },
+      "english_layout": true
     },
     {
       "id": "draft-pm-list-after-approval",

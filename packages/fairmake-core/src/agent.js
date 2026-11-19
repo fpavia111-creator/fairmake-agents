@@ -14,6 +14,7 @@
 // `personal: true` (people's names, contact details) are masked in everything returned to
 // the AI model; the report and draft files written on the customer's machine keep them.
 import { fileURLToPath } from 'node:url';
+import { relative, sep } from 'node:path';
 import { defineManifest } from './manifest.js';
 import { MODEL_PIN, writeWorklist, draftPair, refusedTools } from './kit.js';
 import { toIcs } from './formats.js';
@@ -175,6 +176,8 @@ export function defineFairmakeAgent(spec) {
           const cal = report.ics(r, a);
           if (cal && cal.events && cal.events.length) w.files.push(ctx.writeFile(ctx.outDir(dir), `${report.base}.ics`, toIcs(cal.events, { calName: cal.calName || title })));
         }
+        // Paths relative to --root with forward slashes, so no host path reaches the model.
+        w.files = w.files.map((f) => relative(ctx.root, f).split(sep).join('/'));
         return masker.apply({ summary: `${title} written: ${spec.line(r)}`, ...w });
       },
     },

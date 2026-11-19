@@ -38,7 +38,8 @@ for (const n of agents) {
   const manifest = (await import(pathToFileURL(join(PK, n, 'src', 'manifest.js')).href)).manifest;
   const data = JSON.parse(readFileSync(join(PK, n, 'evals', 'cases.json'), 'utf8'));
   // intl-* cases already read German or Japanese files; translating those again tests nothing.
-  const cases = (data.cases || data).filter((c) => !/^intl-/.test(c.id));
+  // A case marked "english_layout": true reads a named export by its English column labels (and builds its row id from several of them); a translated copy of it is a different file, so it is not re-run here.
+  const cases = (data.cases || data).filter((c) => !/^intl-/.test(c.id) && !c.english_layout);
   const csvCases = cases.filter((c) => argFiles(c.args).length);
   if (!csvCases.length) { summary.push({ agent: n, cases: 0 }); continue; }
   const base = await runEvals(manifest, strip(csvCases), { root: join(PK, n) });

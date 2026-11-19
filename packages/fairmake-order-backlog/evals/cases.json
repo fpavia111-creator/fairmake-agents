@@ -94,7 +94,8 @@
           "result.ok": 1,
           "result.past_due_value": 2000
         }
-      }
+      },
+      "english_layout": true
     },
     {
       "id": "draft-promise-update-after-approval",

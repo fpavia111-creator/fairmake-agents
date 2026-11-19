@@ -85,7 +85,8 @@
         "contains": [
           "CAS-310@A-02"
         ]
-      }
+      },
+      "english_layout": true
     },
     {
       "id": "draft-adjustment-after-approval",

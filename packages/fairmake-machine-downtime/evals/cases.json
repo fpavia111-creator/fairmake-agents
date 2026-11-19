@@ -94,7 +94,8 @@
           "result.unplanned_hours": 7.5,
           "result.ok": 4
         }
-      }
+      },
+      "english_layout": true
     },
     {
       "id": "draft-maintenance-request-after-approval",
