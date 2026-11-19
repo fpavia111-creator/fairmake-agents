@@ -1,0 +1,353 @@
+{
+  "suite": "fairmake-labor-efficiency",
+  "root": "..",
+  "data_note": "Fictional labor tickets and completions in ../fixtures; employee names are made up. No model is called.",
+  "cases": [
+    {
+      "id": "check-totals",
+      "tool": "labor_check",
+      "args": {
+        "labor": "fixtures/labor.csv",
+        "earned": "fixtures/earned.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "equals": {
+          "result.work_centers": 5,
+          "result.entries": 10,
+          "result.direct_hours": 61,
+          "result.indirect_hours": 6,
+          "result.earned_hours": 60.5,
+          "result.flag": 1,
+          "result.review": 2,
+          "result.ok": 2
+        }
+      }
+    },
+    {
+      "id": "every-planted-finding-and-no-names",
+      "tool": "labor_check",
+      "args": {
+        "labor": "fixtures/labor.csv",
+        "earned": "fixtures/earned.csv"
+      },
+      "expect": {
+        "contains": [
+          "low_efficiency",
+          "high_efficiency",
+          "high_indirect",
+          "hours_no_output",
+          "output_no_hours"
+        ],
+        "not_contains": [
+          "Ana Fictional",
+          "Cara Sample",
+          "Eli Placeholder"
+        ]
+      }
+    },
+    {
+      "id": "explain-weld",
+      "tool": "labor_explain",
+      "args": {
+        "labor": "fixtures/labor.csv",
+        "earned": "fixtures/earned.csv",
+        "work_center": "weld"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "WELD earned 15 standard hours on 20 direct hours (75%, target at least 85%)",
+          "4 of 24 hours were indirect (16.7%)"
+        ]
+      }
+    },
+    {
+      "id": "wider-band",
+      "tool": "labor_check",
+      "args": {
+        "labor": "fixtures/labor.csv",
+        "earned": "fixtures/earned.csv",
+        "settings": "fixtures/settings-wide.json"
+      },
+      "expect": {
+        "equals": {
+          "result.flag": 0,
+          "result.review": 2,
+          "result.ok": 3,
+          "result.settings_used.min_efficiency_pct": 70
+        }
+      }
+    },
+    {
+      "id": "jobboss-labor-detail",
+      "tool": "labor_check",
+      "args": {
+        "labor": "fixtures/exports/jobboss-labor-detail.csv",
+        "earned": "fixtures/earned.csv"
+      },
+      "expect": {
+        "equals": {
+          "result.entries": 3,
+          "result.direct_hours": 26
+        },
+        "not_contains": [
+          "Ben Example"
+        ]
+      }
+    },
+    {
+      "id": "draft-standards-review-after-approval",
+      "tool": "labor_draft_standards_review",
+      "args": {
+        "labor": "fixtures/labor.csv",
+        "earned": "fixtures/earned.csv",
+        "from": "Morgan Ops Manager (fictional)"
+      },
+      "approve": "Pat Example",
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.open_markers": 1
+        },
+        "contains": [
+          "standards review open drafted"
+        ]
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "labor_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "labor"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "labor_check",
+      "args": {
+        "labor": "../../../outside.csv",
+        "earned": "fixtures/earned.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "labor_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "labor_check",
+      "mode": "review",
+      "args": {
+        "labor": "fixtures/labor.csv",
+        "earned": "fixtures/earned.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.work_centers": 5,
+          "result.entries": 10,
+          "result.direct_hours": 61,
+          "result.indirect_hours": 6,
+          "result.earned_hours": 60.5,
+          "result.flag": 1,
+          "result.review": 2,
+          "result.ok": 2
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "labor_check",
+      "args": {
+        "labor": "fixtures/labor.csv",
+        "earned": "fixtures/earned.csv",
+        "settings": "fixtures/settings.json",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.work_centers": 5,
+          "result.entries": 10,
+          "result.direct_hours": 61,
+          "result.indirect_hours": 6,
+          "result.earned_hours": 60.5,
+          "result.flag": 1,
+          "result.review": 2,
+          "result.ok": 2
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "labor_explain",
+      "args": {
+        "labor": "fixtures/labor.csv",
+        "earned": "fixtures/earned.csv",
+        "settings": "fixtures/settings.json",
+        "work_center": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-its-files",
+      "tool": "labor_write_report",
+      "args": {
+        "labor": "fixtures/labor.csv",
+        "earned": "fixtures/earned.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "min": {
+          "result.files.length": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "draft-waits-for-a-person",
+      "tool": "labor_draft_standards_review",
+      "args": {
+        "labor": "fixtures/labor.csv",
+        "earned": "fixtures/earned.csv",
+        "from": "Morgan Ops Manager (fictional)"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-drafts-nothing",
+      "tool": "labor_draft_standards_review",
+      "mode": "review",
+      "args": {
+        "labor": "fixtures/labor.csv",
+        "earned": "fixtures/earned.csv",
+        "from": "Morgan Ops Manager (fictional)"
+      },
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "request-stays-one-click-in-auto",
+      "tool": "labor_request_send",
+      "mode": "auto",
+      "auto_actions": [
+        "labor_draft_standards_review"
+      ],
+      "args": {
+        "draft": "fairmake-out/labor/drafts/none.md",
+        "draft_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-payroll-change",
+      "tool": "payroll_change",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-timeclock-edit",
+      "tool": "timeclock_edit",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-check-totals",
+      "tool": "labor_check",
+      "args": {
+        "labor": "fixtures/intl/de/labor.csv",
+        "earned": "fixtures/intl/de/earned.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "equals": {
+          "result.work_centers": 5,
+          "result.entries": 10,
+          "result.direct_hours": 61,
+          "result.indirect_hours": 6,
+          "result.earned_hours": 60.5,
+          "result.flag": 1,
+          "result.review": 2,
+          "result.ok": 2
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"check-totals\"."
+    },
+    {
+      "id": "intl-ja-check-totals",
+      "tool": "labor_check",
+      "args": {
+        "labor": "fixtures/intl/ja/labor.csv",
+        "earned": "fixtures/intl/ja/earned.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "equals": {
+          "result.work_centers": 5,
+          "result.entries": 10,
+          "result.direct_hours": 61,
+          "result.indirect_hours": 6,
+          "result.earned_hours": 60.5,
+          "result.flag": 1,
+          "result.review": 2,
+          "result.ok": 2
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"check-totals\"."
+    }
+  ]
+}

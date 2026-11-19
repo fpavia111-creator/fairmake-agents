@@ -1,0 +1,7 @@
+Fertigungsauftrag;Arbeitsplatz;Gefertigte Menge;std_hours_per_unit
+WO-1;CNC;40;0,4
+WO-2;CNC;20;0,4
+WO-3;WELD;50;0,3
+WO-4;ASSY;30;0,5
+WO-6;PAINT;10;0,45
+WO-7;SAW;20;0,1

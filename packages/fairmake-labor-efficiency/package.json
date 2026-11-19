@@ -1,0 +1,58 @@
+{
+  "name": "fairmake-labor-efficiency",
+  "version": "0.1.0",
+  "description": "Fairmake Labor Efficiency: standard hours earned against direct hours clocked by work center, indirect time, and hours or completions with nothing on the other side. By work center, names masked.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairmake-labor-efficiency": "bin/fairmake-labor-efficiency.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/fairmake-labor-efficiency.js demo",
+    "eval": "node bin/fairmake-labor-efficiency.js eval"
+  },
+  "dependencies": {
+    "fairmake-core": "^0.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairmake-agents.git",
+    "directory": "packages/fairmake-labor-efficiency"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairmake-agents/tree/main/packages/fairmake-labor-efficiency#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairmake-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "manufacturing",
+    "distribution",
+    "erp",
+    "fairmake",
+    "labor",
+    "efficiency",
+    "work-center",
+    "standard-hours",
+    "jobboss"
+  ]
+}

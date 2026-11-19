@@ -1,0 +1,11 @@
+entry;Mitarbeiter;Arbeitsplatz;Fertigungsauftrag;labor_date;Stunden;indirect
+L1;Ana Fictional;CNC;WO-1;02.11.2026;8;N
+L2;Ben Example;CNC;WO-1;02.11.2026;8;N
+L3;Ana Fictional;CNC;WO-2;03.11.2026;8;N
+L4;Ben Example;CNC;;03.11.2026;2;Y
+L5;Cara Sample;WELD;WO-3;02.11.2026;10;N
+L6;Dev Sample;WELD;WO-3;03.11.2026;10;N
+L7;Cara Sample;WELD;;04.11.2026;4;Y
+L8;Eli Placeholder;ASSY;WO-4;02.11.2026;6;N
+L9;Eli Placeholder;ASSY;WO-5;03.11.2026;6;N
+L10;Fay Demo;PAINT;WO-6;04.11.2026;5;N
