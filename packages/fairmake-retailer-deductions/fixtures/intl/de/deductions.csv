@@ -1,0 +1,10 @@
+deduction;Kunde;deduction_date;Betrag;Grundcode;Referenz;Beschreibung
+D-9001;Example Mart;01.11.2026;250,00;ASN;INV-3001;Late ASN fine
+D-9002;Example Mart;01.11.2026;180,00;SHT;INV-3002;Shortage
+D-9003;Example Mart;05.11.2026;75,00;LBL;INV-3003;Label non-compliance
+D-9004;Sample Hardware Co;20.09.2026;400,00;ASN;INV-3004;Late ASN fine
+D-9005;Sample Hardware Co;10.11.2026;30,00;PRC;INV-3005;Price difference
+D-9006;Sample Hardware Co;12.11.2026;520,00;ASN;INV-3006;Late ASN fine
+D-9007;Demo Builders Supply;08.11.2026;95,00;ZZ9;;Unexplained
+D-9008;Demo Builders Supply;09.11.2026;210,00;SHT;INV-3008;Shortage
+D-9009;Example Mart;14.11.2026;60,00;PRM;INV-3999;Promotion

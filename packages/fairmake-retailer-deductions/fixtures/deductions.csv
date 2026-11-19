@@ -1,0 +1,10 @@
+deduction,customer,deduction_date,amount,reason_code,reference,description
+D-9001,Example Mart,2026-11-01,250,ASN,INV-3001,Late ASN fine
+D-9002,Example Mart,2026-11-01,180,SHT,INV-3002,Shortage
+D-9003,Example Mart,2026-11-05,75,LBL,INV-3003,Label non-compliance
+D-9004,Sample Hardware Co,2026-09-20,400,ASN,INV-3004,Late ASN fine
+D-9005,Sample Hardware Co,2026-11-10,30,PRC,INV-3005,Price difference
+D-9006,Sample Hardware Co,2026-11-12,520,ASN,INV-3006,Late ASN fine
+D-9007,Demo Builders Supply,2026-11-08,95,ZZ9,,Unexplained
+D-9008,Demo Builders Supply,2026-11-09,210,SHT,INV-3008,Shortage
+D-9009,Example Mart,2026-11-14,60,PRM,INV-3999,Promotion

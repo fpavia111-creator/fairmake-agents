@@ -1,0 +1,375 @@
+{
+  "suite": "fairmake-retailer-deductions",
+  "root": "..",
+  "data_note": "Fictional deductions and shipment records in ../fixtures, as of 2026-11-18. No model is called.",
+  "cases": [
+    {
+      "id": "check-totals",
+      "tool": "deductions_check",
+      "args": {
+        "deductions": "fixtures/deductions.csv",
+        "shipments": "fixtures/shipments.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "equals": {
+          "result.deductions": 9,
+          "result.amount": 1820,
+          "result.disputable_open": 430,
+          "result.disputable_lost": 400,
+          "result.flag": 2,
+          "result.review": 6,
+          "result.watch": 1,
+          "result.ok": 0
+        }
+      }
+    },
+    {
+      "id": "every-planted-finding",
+      "tool": "deductions_check",
+      "args": {
+        "deductions": "fixtures/deductions.csv",
+        "shipments": "fixtures/shipments.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "contains": [
+          "disputable",
+          "needs_evidence",
+          "window_closed",
+          "no_reference",
+          "unknown_reason",
+          "small_amount",
+          "2.5 hours after shipping",
+          "120 shipped against 120 invoiced with a clean proof of delivery"
+        ]
+      }
+    },
+    {
+      "id": "explain-late-asn-fine",
+      "tool": "deductions_explain",
+      "args": {
+        "deductions": "fixtures/deductions.csv",
+        "shipments": "fixtures/shipments.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18",
+        "deduction": "d-9001"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.items.0.dispute_by": "2026-12-16",
+          "result.items.0.status": "flag"
+        }
+      }
+    },
+    {
+      "id": "strict-asn-rule-and-longer-windows",
+      "tool": "deductions_check",
+      "args": {
+        "deductions": "fixtures/deductions.csv",
+        "shipments": "fixtures/shipments.csv",
+        "settings": "fixtures/settings-strict.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "equals": {
+          "result.flag": 1,
+          "result.disputable_open": 180,
+          "result.disputable_lost": 0,
+          "result.settings_used.asn_grace_hours": 0
+        }
+      }
+    },
+    {
+      "id": "retailer-remittance-export",
+      "tool": "deductions_check",
+      "args": {
+        "deductions": "fixtures/exports/retailer-remittance.csv",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "equals": {
+          "result.deductions": 2,
+          "result.amount": 430,
+          "result.review": 2
+        },
+        "contains": [
+          "CHK-77/INV-3001/ASN"
+        ]
+      }
+    },
+    {
+      "id": "draft-dispute-after-approval",
+      "tool": "deductions_draft_dispute",
+      "args": {
+        "deductions": "fixtures/deductions.csv",
+        "shipments": "fixtures/shipments.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18",
+        "customer": "example mart",
+        "from": "Alex AR (fictional)"
+      },
+      "approve": "Pat Example",
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.amount": 430,
+          "result.open_markers": 3
+        },
+        "contains": [
+          "dispute Example Mart drafted for 430"
+        ]
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "deductions_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "deductions"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "deductions_check",
+      "args": {
+        "deductions": "../../../outside.csv",
+        "shipments": "fixtures/shipments.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "deductions_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "deductions_check",
+      "mode": "review",
+      "args": {
+        "deductions": "fixtures/deductions.csv",
+        "shipments": "fixtures/shipments.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.deductions": 9,
+          "result.amount": 1820,
+          "result.disputable_open": 430,
+          "result.disputable_lost": 400,
+          "result.flag": 2,
+          "result.review": 6,
+          "result.watch": 1,
+          "result.ok": 0
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "deductions_check",
+      "args": {
+        "deductions": "fixtures/deductions.csv",
+        "shipments": "fixtures/shipments.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.deductions": 9,
+          "result.amount": 1820,
+          "result.disputable_open": 430,
+          "result.disputable_lost": 400,
+          "result.flag": 2,
+          "result.review": 6,
+          "result.watch": 1,
+          "result.ok": 0
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "deductions_explain",
+      "args": {
+        "deductions": "fixtures/deductions.csv",
+        "shipments": "fixtures/shipments.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18",
+        "deduction": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-its-files",
+      "tool": "deductions_write_report",
+      "args": {
+        "deductions": "fixtures/deductions.csv",
+        "shipments": "fixtures/shipments.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "status": "executed",
+        "min": {
+          "result.files.length": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "draft-waits-for-a-person",
+      "tool": "deductions_draft_dispute",
+      "args": {
+        "deductions": "fixtures/deductions.csv",
+        "shipments": "fixtures/shipments.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18",
+        "customer": "example mart",
+        "from": "Alex AR (fictional)"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-drafts-nothing",
+      "tool": "deductions_draft_dispute",
+      "mode": "review",
+      "args": {
+        "deductions": "fixtures/deductions.csv",
+        "shipments": "fixtures/shipments.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18",
+        "customer": "example mart",
+        "from": "Alex AR (fictional)"
+      },
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "request-stays-one-click-in-auto",
+      "tool": "deductions_request_send",
+      "mode": "auto",
+      "auto_actions": [
+        "deductions_draft_dispute"
+      ],
+      "args": {
+        "draft": "fairmake-out/deductions/drafts/none.md",
+        "draft_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-ar-write-off",
+      "tool": "ar_write_off",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-retailer-portal-submit",
+      "tool": "retailer_portal_submit",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-check-totals",
+      "tool": "deductions_check",
+      "args": {
+        "deductions": "fixtures/intl/de/deductions.csv",
+        "shipments": "fixtures/intl/de/shipments.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "equals": {
+          "result.deductions": 9,
+          "result.amount": 1820,
+          "result.disputable_open": 430,
+          "result.disputable_lost": 400,
+          "result.flag": 2,
+          "result.review": 6,
+          "result.watch": 1,
+          "result.ok": 0
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"check-totals\"."
+    },
+    {
+      "id": "intl-ja-check-totals",
+      "tool": "deductions_check",
+      "args": {
+        "deductions": "fixtures/intl/ja/deductions.csv",
+        "shipments": "fixtures/intl/ja/shipments.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "equals": {
+          "result.deductions": 9,
+          "result.amount": 1820,
+          "result.disputable_open": 430,
+          "result.disputable_lost": 400,
+          "result.flag": 2,
+          "result.review": 6,
+          "result.watch": 1,
+          "result.ok": 0
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"check-totals\"."
+    }
+  ]
+}

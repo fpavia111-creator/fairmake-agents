@@ -1,0 +1,1 @@
+{ "note": "Fictional trading partner terms.", "default_window_days": 30, "dispute_window_days": { "Example Mart": 45, "Demo Builders Supply": 20 }, "small_amount": 50, "asn_grace_hours": 24 }

@@ -1,0 +1,3 @@
+Retailer,Check Number,Check Date,Invoice Number,Deduction Amount,Reason Code,Reason Description
+Example Mart,CHK-77,11/01/2026,INV-3001,-250.00,ASN,Late ASN
+Example Mart,CHK-77,11/01/2026,INV-3002,-180.00,SHT,Shortage
