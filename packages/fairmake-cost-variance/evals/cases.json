@@ -1,0 +1,352 @@
+{
+  "suite": "fairmake-cost-variance",
+  "root": "..",
+  "data_note": "Fictional work orders in ../fixtures. No model is called.",
+  "cases": [
+    {
+      "id": "check-totals",
+      "tool": "cost_variance_check",
+      "args": {
+        "work_orders": "fixtures/work-orders.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "equals": {
+          "result.work_orders": 10,
+          "result.standard": 29500,
+          "result.actual": 31630,
+          "result.variance": 2130,
+          "result.flagged_over": 1850,
+          "result.flag": 4,
+          "result.review": 2,
+          "result.ok": 4
+        }
+      }
+    },
+    {
+      "id": "every-planted-finding",
+      "tool": "cost_variance_check",
+      "args": {
+        "work_orders": "fixtures/work-orders.csv"
+      },
+      "expect": {
+        "contains": [
+          "material_over",
+          "labor_over",
+          "overhead_over",
+          "large_favorable",
+          "no_standard",
+          "cost_no_output",
+          "Labor 1400 against standard 800: 600 over (75%)"
+        ]
+      }
+    },
+    {
+      "id": "explain-one-work-order",
+      "tool": "cost_variance_explain",
+      "args": {
+        "work_orders": "fixtures/work-orders.csv",
+        "work_order": "wo-1003"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "labor 1400 vs 800",
+          "overhead 700 vs 400"
+        ]
+      }
+    },
+    {
+      "id": "looser-tolerances-flag-less",
+      "tool": "cost_variance_check",
+      "args": {
+        "work_orders": "fixtures/work-orders.csv",
+        "settings": "fixtures/settings-loose.json"
+      },
+      "expect": {
+        "equals": {
+          "result.flag": 2,
+          "result.review": 2,
+          "result.ok": 6,
+          "result.flagged_over": 600,
+          "result.settings_used.tolerance_pct": 50,
+          "result.settings_used.favorable_pct": 15
+        }
+      }
+    },
+    {
+      "id": "epicor-job-cost-export",
+      "tool": "cost_variance_check",
+      "args": {
+        "work_orders": "fixtures/exports/epicor-job-cost.csv"
+      },
+      "expect": {
+        "equals": {
+          "result.work_orders": 3,
+          "result.flag": 1,
+          "result.review": 1,
+          "result.by_finding.material_over.amount": 600
+        }
+      }
+    },
+    {
+      "id": "only-flagged-items",
+      "tool": "cost_variance_check",
+      "args": {
+        "work_orders": "fixtures/work-orders.csv",
+        "status": "flag"
+      },
+      "expect": {
+        "equals": {
+          "result.items_shown": 4,
+          "result.items_total": 10,
+          "result.flag": 4
+        }
+      }
+    },
+    {
+      "id": "draft-variance-review-after-approval",
+      "tool": "cost_variance_draft_variance_review",
+      "args": {
+        "work_orders": "fixtures/work-orders.csv",
+        "from": "Casey Controller (fictional)"
+      },
+      "approve": "Pat Example",
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.amount": 1850,
+          "result.open_markers": 1
+        },
+        "contains": [
+          "variance review open drafted for 1850"
+        ]
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "cost_variance_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "work_orders"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "cost_variance_check",
+      "args": {
+        "work_orders": "../../../outside.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "cost_variance_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "cost_variance_check",
+      "mode": "review",
+      "args": {
+        "work_orders": "fixtures/work-orders.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.work_orders": 10,
+          "result.standard": 29500,
+          "result.actual": 31630,
+          "result.variance": 2130,
+          "result.flagged_over": 1850,
+          "result.flag": 4,
+          "result.review": 2,
+          "result.ok": 4
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "cost_variance_check",
+      "args": {
+        "work_orders": "fixtures/work-orders.csv",
+        "settings": "fixtures/settings.json",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.work_orders": 10,
+          "result.standard": 29500,
+          "result.actual": 31630,
+          "result.variance": 2130,
+          "result.flagged_over": 1850,
+          "result.flag": 4,
+          "result.review": 2,
+          "result.ok": 4
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "cost_variance_explain",
+      "args": {
+        "work_orders": "fixtures/work-orders.csv",
+        "settings": "fixtures/settings.json",
+        "work_order": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-its-files",
+      "tool": "cost_variance_write_report",
+      "args": {
+        "work_orders": "fixtures/work-orders.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "min": {
+          "result.files.length": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "draft-waits-for-a-person",
+      "tool": "cost_variance_draft_variance_review",
+      "args": {
+        "work_orders": "fixtures/work-orders.csv",
+        "from": "Casey Controller (fictional)"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-drafts-nothing",
+      "tool": "cost_variance_draft_variance_review",
+      "mode": "review",
+      "args": {
+        "work_orders": "fixtures/work-orders.csv",
+        "from": "Casey Controller (fictional)"
+      },
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "request-stays-one-click-in-auto",
+      "tool": "cost_variance_request_send",
+      "mode": "auto",
+      "auto_actions": [
+        "cost_variance_draft_variance_review"
+      ],
+      "args": {
+        "draft": "fairmake-out/cost_variance/drafts/none.md",
+        "draft_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-erp-post-journal",
+      "tool": "erp_post_journal",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-erp-update-standard-cost",
+      "tool": "erp_update_standard_cost",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-check-totals",
+      "tool": "cost_variance_check",
+      "args": {
+        "work_orders": "fixtures/intl/de/work-orders.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "equals": {
+          "result.work_orders": 10,
+          "result.standard": 29500,
+          "result.actual": 31630,
+          "result.variance": 2130,
+          "result.flagged_over": 1850,
+          "result.flag": 4,
+          "result.review": 2,
+          "result.ok": 4
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"check-totals\"."
+    },
+    {
+      "id": "intl-ja-check-totals",
+      "tool": "cost_variance_check",
+      "args": {
+        "work_orders": "fixtures/intl/ja/work-orders.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "equals": {
+          "result.work_orders": 10,
+          "result.standard": 29500,
+          "result.actual": 31630,
+          "result.variance": 2130,
+          "result.flagged_over": 1850,
+          "result.flag": 4,
+          "result.review": 2,
+          "result.ok": 4
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"check-totals\"."
+    }
+  ]
+}

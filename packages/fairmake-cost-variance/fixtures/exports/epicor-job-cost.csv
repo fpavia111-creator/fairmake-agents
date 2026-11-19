@@ -1,0 +1,4 @@
+Job,Part,Job Status,Closed Date,Qty Completed,Est Mtl Cost,Act Mtl Cost,Est Lbr Cost,Act Lbr Cost,Est Burden Cost,Act Burden Cost
+J-20011,BRK-100,Closed,11/03/2026,100,1000.00,1020.00,500.00,510.00,300.00,300.00
+J-20012,BRK-200,Closed,11/04/2026,50,2000.00,2600.00,700.00,720.00,400.00,410.00
+J-20013,HSG-300,Released,,0,1500.00,900.00,800.00,300.00,400.00,150.00

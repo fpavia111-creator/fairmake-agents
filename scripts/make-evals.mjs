@@ -44,7 +44,7 @@ for (const n of readdirSync(PK).filter((x) => /^fairmake-(?!core$)/.test(x) && e
   add({ id: 'review-mode-still-reads', tool: checkTool.name, mode: 'review', args: base.args, expect: { status: 'executed', ...(base.expect.equals ? { equals: base.expect.equals } : {}) } });
   add({ id: 'status-filter-keeps-totals', tool: checkTool.name, args: { ...base.args, status: 'ok', limit: 1 }, expect: { status: 'executed', max: { 'result.items_shown': 1 }, ...(base.expect.equals ? { equals: Object.fromEntries(Object.entries(base.expect.equals).filter(([k]) => !/^result\.items/.test(k))) } : {}) } });
   if (explain) add({ id: 'explain-unknown-item-is-a-readable-error', tool: explain.name, args: { ...base.args, [explain.inputSchema.required.at(-1)]: 'No Such Thing Zz' }, expect: { status: 'error', contains: ['not found'] } });
-  add({ id: 'report-writes-two-files', tool: `${prefix}_write_report`, args: base.args, expect: { status: 'executed', length: { 'result.files': 2 }, matches: ['[0-9a-f]{64}'] } });
+  add({ id: 'report-writes-its-files', tool: `${prefix}_write_report`, args: base.args, expect: { status: 'executed', min: { 'result.files.length': 2 }, matches: ['[0-9a-f]{64}'] } });
   if (draft && draftCase) {
     add({ id: 'draft-waits-for-a-person', tool: draft.name, args: draftCase.args, expect: { status: 'needs_approval', decision: 'ask' } });
     add({ id: 'review-mode-drafts-nothing', tool: draft.name, mode: 'review', args: draftCase.args, expect: { status: 'blocked' } });

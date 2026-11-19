@@ -1,0 +1,6 @@
+{
+  "note": "Fictional variance settings for the demo plant.",
+  "tolerance_pct": 5,
+  "tolerance_amount": 250,
+  "favorable_pct": 15
+}

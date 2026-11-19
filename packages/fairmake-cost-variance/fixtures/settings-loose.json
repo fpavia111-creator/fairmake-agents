@@ -1,0 +1,5 @@
+{
+  "note": "Looser tolerances: only large overruns are flagged.",
+  "tolerance_pct": 50,
+  "tolerance_amount": 500
+}
