@@ -64,8 +64,8 @@ test('the agent factory: check, explain, report, a draft that asks, a request th
   const manifest = defineFairmakeAgent({
     name: 'demo-of-tests', version: '0.0.1', prefix: 'demo', description: 'Test agent.',
     args: { rows: { type: 'string', description: 'Rows file' } }, required: ['rows'],
-    sources: { rows: { label: 'Rows', args: ['rows'], fields: { id: { aliases: ['ID'], required: true }, amount: { aliases: ['Amount'], type: 'money' } } } },
-    run: (a, ctx) => { const items = ctx.records(a.rows).map((r) => ({ id: r.id, status: Number(r.amount) > 10 ? 'review' : 'ok', findings: Number(r.amount) > 10 ? [finding('big', r.amount, `Amount ${r.amount} is big.`)] : [] })); return { rows: items.length, items, by_finding: tallyFindings(items) }; },
+    sources: { rows: { label: 'Rows', args: ['rows'], fields: { id: { aliases: ['ID'], required: true }, amount: { aliases: ['Amount'], type: 'money' }, owner: { aliases: ['Owner'], personal: true } } } },
+    run: ({ a, read }) => { const items = read('rows').map((r) => ({ id: r.id, owner: r.owner, status: r.amount > 10 ? 'review' : 'ok', findings: r.amount > 10 ? [finding('big', r.amount, `Amount ${r.amount} is big, owner ${r.owner}.`)] : [] })); return { rows: items.length, items, by_finding: tallyFindings(items) }; },
     line: (r) => `${r.rows} row(s).`,
     item: { key: 'id', arg: 'id', label: 'row' },
     check: { title: 'Check rows', description: 'Check every row.' },
@@ -73,11 +73,13 @@ test('the agent factory: check, explain, report, a draft that asks, a request th
     draft: { noun: 'note', verb: 'send', description: 'Draft a note.', build: (r) => ({ id: 'all', text: `**To:** [TO CONFIRM recipient]\n\n${r.rows} rows.` }) },
     refused: [{ name: 'erp_post_journal', category: 'move_money', description: 'Never posts.' }],
   });
-  const root = mkdtempSync(join(tmpdir(), 'factory-')); writeFileSync(join(root, 'rows.csv'), 'ID,Amount\nA1,5\nA2,25\n');
+  const root = mkdtempSync(join(tmpdir(), 'factory-')); writeFileSync(join(root, 'rows.csv'), 'ID,Amount,Owner\nA1,5,Dana Example\nA2,25,Rowan Sample\n');
   const rt = new AgentRuntime(manifest, { root, audit: false });
   const c = await rt.call('demo_check', { rows: 'rows.csv' });
   assert.equal(c.status, 'executed'); assert.equal(c.result.summary, '2 row(s).'); assert.equal(c.result.by_finding.big.amount, 25);
-  const e = await rt.call('demo_explain', { rows: 'rows.csv', id: ' a2 ' }); assert.match(e.result.summary, /A2: review\. Amount 25 is big\./);
+  const e = await rt.call('demo_explain', { rows: 'rows.csv', id: ' a2 ' }); assert.match(e.result.summary, /A2: review\. Amount 25 is big, owner R\.S\.#[0-9a-f]{6}\./);
+  assert.doesNotMatch(JSON.stringify(c.result), /Rowan Sample|Dana Example/); assert.equal(c.result.items_total, 2);
+  const byToken = await rt.call('demo_explain', { rows: 'rows.csv', id: 'a1' }); assert.equal(byToken.status, 'executed');
   const miss = await rt.call('demo_explain', { rows: 'rows.csv', id: 'Z'.repeat(500) }); assert.equal(miss.status, 'error'); assert.ok(miss.reason.length < 300);
   const w = await rt.call('demo_write_report', { rows: 'rows.csv' }); assert.equal(w.status, 'executed'); assert.equal(w.result.files.length, 2);
   assert.equal((await rt.call('demo_draft_note', { rows: 'rows.csv' })).status, 'needs_approval');

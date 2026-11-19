@@ -79,8 +79,17 @@ export function agingBucket(days, edges = [30, 60, 90]) {
 
 // ---------------------------------------------------------------- findings ----
 
-/** One finding on an item: { code, amount, detail }. amount is money (or null when there is none). */
-export const finding = (code, amount, detail) => ({ code, amount: amount === null || amount === undefined || !Number.isFinite(Number(amount)) ? null : round2(amount), detail });
+/**
+ * One finding on an item: { code, level, amount, detail }. level is 'flag' (act on it), 'review' (data missing
+ * or unclear; a person looks) or 'watch' (worth knowing). amount is money, or null when there is none.
+ */
+export const finding = (code, amount, detail, level = 'flag') => ({ code, level, amount: amount === null || amount === undefined || amount === '' || !Number.isFinite(Number(amount)) ? null : round2(amount), detail });
+
+export const STATUS_RANK = Object.freeze({ flag: 3, review: 2, watch: 1, ok: 0 });
+/** The status of an item: the most serious level among its findings, or 'ok'. */
+export const statusOf = (findings) => (findings || []).reduce((s, f) => (STATUS_RANK[f.level] > STATUS_RANK[s] ? f.level : s), 'ok');
+/** Sum of the positive amounts on findings with one of the given levels. */
+export const amountOf = (findings, levels = ['flag']) => round2((findings || []).filter((f) => levels.includes(f.level) && f.amount > 0).reduce((s, f) => s + f.amount, 0));
 
 /** Count and total findings by code across items: { code: { count, amount } }. Codes are sorted. */
 export function tallyFindings(items) {

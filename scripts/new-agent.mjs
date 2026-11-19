@@ -4,14 +4,14 @@
 // manifest (which exports `manifest` and `DEMO`), fixtures, evals, domain tests and
 // README are written by hand.
 //
-//   node scripts/new-agent.mjs <metal>-of-<process> "<one-line description>" kw1,kw2 <logic-module>
+//   node scripts/new-agent.mjs fairmake-<job words> "<one-line description>" kw1,kw2 <logic-module>
 import { mkdirSync, writeFileSync, existsSync, readFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const repo = join(dirname(fileURLToPath(import.meta.url)), '..');
 const [name, description, kw = '', logic = 'logic'] = process.argv.slice(2);
-if (!name || !/^[a-z]+-of-[a-z-]+$/.test(name) || !description) { console.error('usage: new-agent.mjs <metal>-of-<process> "<description>" kw1,kw2 <logic-module>'); process.exit(2); }
+if (!name || !/^fairmake-[a-z0-9]+(-[a-z0-9]+)*$/.test(name) || !description) { console.error('usage: new-agent.mjs fairmake-<job words> "<description>" kw1,kw2 <logic-module>'); process.exit(2); }
 const root = join(repo, 'packages', name);
 const corePkg = JSON.parse(readFileSync(join(repo, 'packages/fairmake-core/package.json'), 'utf8'));
 const write = (f, text, { keep = false } = {}) => { const p = join(root, f); if (keep && existsSync(p)) return; mkdirSync(dirname(p), { recursive: true }); writeFileSync(p, text); };
