@@ -1,0 +1,375 @@
+{
+  "suite": "fairmake-order-backlog",
+  "root": "..",
+  "data_note": "Fictional open order lines in ../fixtures, as of 2026-11-18. No model is called.",
+  "cases": [
+    {
+      "id": "check-totals",
+      "tool": "backlog_check",
+      "args": {
+        "orders": "fixtures/orders.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "equals": {
+          "result.open_lines": 8,
+          "result.backlog_value": 8150,
+          "result.past_due_value": 2700,
+          "result.flag": 2,
+          "result.review": 2,
+          "result.watch": 2,
+          "result.ok": 2
+        },
+        "length": {
+          "result.by_month": 4
+        }
+      }
+    },
+    {
+      "id": "every-planted-finding",
+      "tool": "backlog_check",
+      "args": {
+        "orders": "fixtures/orders.csv",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "contains": [
+          "past_due",
+          "due_soon",
+          "no_promise",
+          "promised_after_request",
+          "on_hold",
+          "promised 2026-11-05 (13 days ago), 2000 of backlog"
+        ],
+        "not_contains": [
+          "SO-506-1",
+          "SO-501-2"
+        ]
+      }
+    },
+    {
+      "id": "explain-late-line",
+      "tool": "backlog_explain",
+      "args": {
+        "orders": "fixtures/orders.csv",
+        "as_of": "2026-11-18",
+        "order_line": "so-504-1"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.items.0.open_value": 700,
+          "result.items.0.days_to_promise": -19
+        }
+      }
+    },
+    {
+      "id": "one-day-look-ahead",
+      "tool": "backlog_check",
+      "args": {
+        "orders": "fixtures/orders.csv",
+        "settings": "fixtures/settings-tight.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "equals": {
+          "result.watch": 1,
+          "result.ok": 3,
+          "result.settings_used.at_risk_days": 1
+        }
+      }
+    },
+    {
+      "id": "netsuite-open-sales-orders",
+      "tool": "backlog_check",
+      "args": {
+        "orders": "fixtures/exports/netsuite-open-sales-orders.csv",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "equals": {
+          "result.open_lines": 2,
+          "result.flag": 1,
+          "result.ok": 1,
+          "result.past_due_value": 2000
+        }
+      }
+    },
+    {
+      "id": "draft-promise-update-after-approval",
+      "tool": "backlog_draft_promise_update",
+      "args": {
+        "orders": "fixtures/orders.csv",
+        "as_of": "2026-11-18",
+        "customer": "example pumps co",
+        "from": "Sam Service (fictional)"
+      },
+      "approve": "Pat Example",
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.amount": 3200,
+          "result.open_markers": 2
+        },
+        "contains": [
+          "promise update Example Pumps Co drafted for 3200"
+        ]
+      }
+    },
+    {
+      "id": "customer-on-schedule",
+      "tool": "backlog_draft_promise_update",
+      "args": {
+        "orders": "fixtures/orders.csv",
+        "as_of": "2026-11-18",
+        "customer": "Northwind Tools"
+      },
+      "approve": "Pat Example",
+      "expect": {
+        "status": "error",
+        "contains": [
+          "on schedule"
+        ]
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "backlog_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "orders"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "backlog_check",
+      "args": {
+        "orders": "../../../outside.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "backlog_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "backlog_check",
+      "mode": "review",
+      "args": {
+        "orders": "fixtures/orders.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.open_lines": 8,
+          "result.backlog_value": 8150,
+          "result.past_due_value": 2700,
+          "result.flag": 2,
+          "result.review": 2,
+          "result.watch": 2,
+          "result.ok": 2
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "backlog_check",
+      "args": {
+        "orders": "fixtures/orders.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.open_lines": 8,
+          "result.backlog_value": 8150,
+          "result.past_due_value": 2700,
+          "result.flag": 2,
+          "result.review": 2,
+          "result.watch": 2,
+          "result.ok": 2
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "backlog_explain",
+      "args": {
+        "orders": "fixtures/orders.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18",
+        "order_line": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-its-files",
+      "tool": "backlog_write_report",
+      "args": {
+        "orders": "fixtures/orders.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "status": "executed",
+        "min": {
+          "result.files.length": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "draft-waits-for-a-person",
+      "tool": "backlog_draft_promise_update",
+      "args": {
+        "orders": "fixtures/orders.csv",
+        "as_of": "2026-11-18",
+        "customer": "example pumps co",
+        "from": "Sam Service (fictional)"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-drafts-nothing",
+      "tool": "backlog_draft_promise_update",
+      "mode": "review",
+      "args": {
+        "orders": "fixtures/orders.csv",
+        "as_of": "2026-11-18",
+        "customer": "example pumps co",
+        "from": "Sam Service (fictional)"
+      },
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "request-stays-one-click-in-auto",
+      "tool": "backlog_request_send",
+      "mode": "auto",
+      "auto_actions": [
+        "backlog_draft_promise_update"
+      ],
+      "args": {
+        "draft": "fairmake-out/backlog/drafts/none.md",
+        "draft_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-erp-change-promise-date",
+      "tool": "erp_change_promise_date",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-customer-email-send",
+      "tool": "customer_email_send",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-check-totals",
+      "tool": "backlog_check",
+      "args": {
+        "orders": "fixtures/intl/de/orders.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "equals": {
+          "result.open_lines": 8,
+          "result.backlog_value": 8150,
+          "result.past_due_value": 2700,
+          "result.flag": 2,
+          "result.review": 2,
+          "result.watch": 2,
+          "result.ok": 2
+        },
+        "length": {
+          "result.by_month": 4
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"check-totals\"."
+    },
+    {
+      "id": "intl-ja-check-totals",
+      "tool": "backlog_check",
+      "args": {
+        "orders": "fixtures/intl/ja/orders.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "equals": {
+          "result.open_lines": 8,
+          "result.backlog_value": 8150,
+          "result.past_due_value": 2700,
+          "result.flag": 2,
+          "result.review": 2,
+          "result.watch": 2,
+          "result.ok": 2
+        },
+        "length": {
+          "result.by_month": 4
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"check-totals\"."
+    }
+  ]
+}

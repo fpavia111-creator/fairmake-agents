@@ -1,0 +1,3 @@
+Document Number,Line ID,Customer,Item,Date,Expected Ship Date,Quantity Remaining,Rate,Status
+SO-501,1,Example Pumps Co,PMP-100,10/01/2026,11/05/2026,5,400.00,Pending Fulfillment
+SO-505,1,Northwind Tools,HSG-300,11/12/2026,12/30/2026,6,180.00,Pending Fulfillment

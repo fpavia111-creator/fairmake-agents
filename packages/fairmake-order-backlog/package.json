@@ -1,0 +1,58 @@
+{
+  "name": "fairmake-order-backlog",
+  "version": "0.1.0",
+  "description": "Fairmake Order Backlog: open customer order lines past due, due soon, never promised, promised after the requested date or on hold, by promise month and customer, with status update drafts. Changes no date.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairmake-order-backlog": "bin/fairmake-order-backlog.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/fairmake-order-backlog.js demo",
+    "eval": "node bin/fairmake-order-backlog.js eval"
+  },
+  "dependencies": {
+    "fairmake-core": "^0.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairmake-agents.git",
+    "directory": "packages/fairmake-order-backlog"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairmake-agents/tree/main/packages/fairmake-order-backlog#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairmake-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "manufacturing",
+    "distribution",
+    "erp",
+    "fairmake",
+    "order-backlog",
+    "promise-date",
+    "sales-orders",
+    "customer-service",
+    "netsuite"
+  ]
+}

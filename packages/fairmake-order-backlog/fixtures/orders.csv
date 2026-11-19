@@ -1,0 +1,11 @@
+order_line,order_number,customer,item,order_date,requested_date,promise_date,qty_open,unit_price,line_status
+SO-501-1,SO-501,Example Pumps Co,PMP-100,2026-10-01,2026-11-01,2026-11-05,5,400,Open
+SO-501-2,SO-501,Example Pumps Co,SEAL-KIT,2026-10-01,2026-11-01,2026-11-01,0,25,Open
+SO-502-1,SO-502,Example Pumps Co,PMP-100,2026-10-20,2026-11-20,2026-12-10,3,400,Open
+SO-503-1,SO-503,Sample Robotics LLC,ACT-9,2026-11-01,2026-11-22,2026-11-22,10,150,Open
+SO-503-2,SO-503,Sample Robotics LLC,ACT-9,2026-11-01,2026-12-15,,4,150,Open
+SO-504-1,SO-504,Demo Ag Equipment,GEAR-6,2026-09-15,2026-10-15,2026-10-30,20,35,Open
+SO-504-2,SO-504,Demo Ag Equipment,GEAR-6,2026-11-10,2026-12-20,2026-12-20,10,35,Credit Hold
+SO-505-1,SO-505,Northwind Tools,HSG-300,2026-11-12,2026-12-30,2026-12-30,6,180,Open
+SO-505-2,SO-505,Northwind Tools,HSG-300,2026-11-12,2027-01-15,2027-01-15,4,180,Open
+SO-506-1,SO-506,Northwind Tools,BRK-100,2026-08-01,2026-08-30,2026-08-30,100,4,Cancelled
