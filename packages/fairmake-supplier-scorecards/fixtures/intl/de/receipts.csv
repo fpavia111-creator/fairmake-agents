@@ -1,0 +1,15 @@
+Wareneingang;Lieferant;Artikel;Fälligkeitsdatum;Eingangsdatum;Gelieferte Menge;Rückweisungsmenge;Einzelpreis;po_price
+R1;Northwind Metals;BAR-4140;10.10.2026;09.10.2026;1.000;0;4,80;4,80
+R2;Northwind Metals;BAR-4140;20.10.2026;20.10.2026;1.000;0;4,80;4,80
+R3;Northwind Metals;BAR-4140;01.11.2026;03.11.2026;1.000;0;4,90;4,80
+R4;Demo Castings LLC;CAS-310;05.10.2026;05.10.2026;40;2;99,00;99,00
+R5;Demo Castings LLC;CAS-310;25.10.2026;24.10.2026;40;1;99,00;99,00
+R6;Demo Castings LLC;CAS-310;10.11.2026;10.11.2026;40;0;99,00;99,00
+R7;Fastener Example Co;SCR-M8;01.10.2026;01.10.2026;20.000;0;0,05;0,05
+R8;Fastener Example Co;SCR-M8;15.10.2026;14.10.2026;20.000;0;0,05;0,05
+R9;Fastener Example Co;SCR-M8;01.11.2026;01.11.2026;10.000;10;0,06;0,05
+R10;Sample Steel Supply;PLT-A36;12.10.2026;12.10.2026;40;0;52,00;52,00
+R11;Sample Steel Supply;PLT-A36;06.11.2026;06.11.2026;30;0;52,00;52,00
+R12;Demo Seals Inc;SEAL-10;05.10.2026;05.10.2026;1.000;0;1,20;1,20
+R13;Demo Seals Inc;SEAL-10;20.10.2026;20.10.2026;1.000;0;1,20;1,20
+R14;Demo Seals Inc;SEAL-10;05.11.2026;05.11.2026;1.000;0;1,20;1,20

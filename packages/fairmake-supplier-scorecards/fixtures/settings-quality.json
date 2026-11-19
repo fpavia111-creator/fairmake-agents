@@ -1,0 +1,1 @@
+{ "note": "Two days of grace, quality weighs most.", "weights": { "on_time": 30, "quality": 60, "price": 10 }, "grace_days": 2, "min_receipts": 2 }

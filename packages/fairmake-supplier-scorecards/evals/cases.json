@@ -1,0 +1,338 @@
+{
+  "suite": "fairmake-supplier-scorecards",
+  "root": "..",
+  "data_note": "Fictional receipts in ../fixtures. No model is called.",
+  "cases": [
+    {
+      "id": "check-totals",
+      "tool": "scorecard_check",
+      "args": {
+        "receipts": "fixtures/receipts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "equals": {
+          "result.suppliers": 5,
+          "result.receipts": 14,
+          "result.flag": 2,
+          "result.review": 1,
+          "result.watch": 1,
+          "result.ok": 1,
+          "result.items.0.supplier": "Demo Seals Inc",
+          "result.items.4.supplier": "Northwind Metals"
+        }
+      }
+    },
+    {
+      "id": "every-planted-finding",
+      "tool": "scorecard_check",
+      "args": {
+        "receipts": "fixtures/receipts.csv"
+      },
+      "expect": {
+        "contains": [
+          "low_on_time",
+          "high_ppm",
+          "price_over_po",
+          "few_receipts",
+          "3 rejected of 120 received (25000 ppm"
+        ]
+      }
+    },
+    {
+      "id": "explain-foundry",
+      "tool": "scorecard_explain",
+      "args": {
+        "receipts": "fixtures/receipts.csv",
+        "supplier": "demo castings llc"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.items.0.ppm": 25000,
+          "result.items.0.score": 85,
+          "result.items.0.rank": 4
+        }
+      }
+    },
+    {
+      "id": "quality-heavy-weights-and-grace",
+      "tool": "scorecard_check",
+      "args": {
+        "receipts": "fixtures/receipts.csv",
+        "settings": "fixtures/settings-quality.json"
+      },
+      "expect": {
+        "equals": {
+          "result.flag": 1,
+          "result.review": 0,
+          "result.watch": 1,
+          "result.ok": 3,
+          "result.weights_used.quality": 60,
+          "result.settings_used.grace_days": 2
+        }
+      }
+    },
+    {
+      "id": "acumatica-receipts",
+      "tool": "scorecard_check",
+      "args": {
+        "receipts": "fixtures/exports/acumatica-receipts.csv"
+      },
+      "expect": {
+        "equals": {
+          "result.suppliers": 2,
+          "result.flag": 1,
+          "result.review": 1
+        }
+      }
+    },
+    {
+      "id": "draft-scorecard-after-approval",
+      "tool": "scorecard_draft_scorecard",
+      "args": {
+        "receipts": "fixtures/receipts.csv",
+        "supplier": "Demo Castings LLC",
+        "from": "Robin Buyer (fictional)",
+        "period": "October and November 2026"
+      },
+      "approve": "Pat Example",
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.open_markers": 1
+        },
+        "contains": [
+          "scorecard Demo Castings LLC drafted"
+        ]
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "scorecard_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "receipts"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "scorecard_check",
+      "args": {
+        "receipts": "../../../outside.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "scorecard_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "scorecard_check",
+      "mode": "review",
+      "args": {
+        "receipts": "fixtures/receipts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.suppliers": 5,
+          "result.receipts": 14,
+          "result.flag": 2,
+          "result.review": 1,
+          "result.watch": 1,
+          "result.ok": 1,
+          "result.items.0.supplier": "Demo Seals Inc",
+          "result.items.4.supplier": "Northwind Metals"
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "scorecard_check",
+      "args": {
+        "receipts": "fixtures/receipts.csv",
+        "settings": "fixtures/settings.json",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.suppliers": 5,
+          "result.receipts": 14,
+          "result.flag": 2,
+          "result.review": 1,
+          "result.watch": 1,
+          "result.ok": 1
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "scorecard_explain",
+      "args": {
+        "receipts": "fixtures/receipts.csv",
+        "settings": "fixtures/settings.json",
+        "supplier": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-its-files",
+      "tool": "scorecard_write_report",
+      "args": {
+        "receipts": "fixtures/receipts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "min": {
+          "result.files.length": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "draft-waits-for-a-person",
+      "tool": "scorecard_draft_scorecard",
+      "args": {
+        "receipts": "fixtures/receipts.csv",
+        "supplier": "Demo Castings LLC",
+        "from": "Robin Buyer (fictional)",
+        "period": "October and November 2026"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-drafts-nothing",
+      "tool": "scorecard_draft_scorecard",
+      "mode": "review",
+      "args": {
+        "receipts": "fixtures/receipts.csv",
+        "supplier": "Demo Castings LLC",
+        "from": "Robin Buyer (fictional)",
+        "period": "October and November 2026"
+      },
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "request-stays-one-click-in-auto",
+      "tool": "scorecard_request_send",
+      "mode": "auto",
+      "auto_actions": [
+        "scorecard_draft_scorecard"
+      ],
+      "args": {
+        "draft": "fairmake-out/scorecard/drafts/none.md",
+        "draft_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-supplier-disqualify",
+      "tool": "supplier_disqualify",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-ap-hold-payments",
+      "tool": "ap_hold_payments",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-check-totals",
+      "tool": "scorecard_check",
+      "args": {
+        "receipts": "fixtures/intl/de/receipts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "equals": {
+          "result.suppliers": 5,
+          "result.receipts": 14,
+          "result.flag": 2,
+          "result.review": 1,
+          "result.watch": 1,
+          "result.ok": 1,
+          "result.items.0.supplier": "Demo Seals Inc",
+          "result.items.4.supplier": "Northwind Metals"
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"check-totals\"."
+    },
+    {
+      "id": "intl-ja-check-totals",
+      "tool": "scorecard_check",
+      "args": {
+        "receipts": "fixtures/intl/ja/receipts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "equals": {
+          "result.suppliers": 5,
+          "result.receipts": 14,
+          "result.flag": 2,
+          "result.review": 1,
+          "result.watch": 1,
+          "result.ok": 1,
+          "result.items.0.supplier": "Demo Seals Inc",
+          "result.items.4.supplier": "Northwind Metals"
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"check-totals\"."
+    }
+  ]
+}

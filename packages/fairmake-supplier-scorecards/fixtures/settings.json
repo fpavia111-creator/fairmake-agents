@@ -1,0 +1,1 @@
+{ "note": "Fictional scorecard weights and targets.", "weights": { "on_time": 50, "quality": 30, "price": 20 }, "grace_days": 0, "min_receipts": 3, "on_time_target": 95, "ppm_target": 5000 }
