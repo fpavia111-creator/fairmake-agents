@@ -1,0 +1,72 @@
+{
+  "product": "Fairmake",
+  "industry": "Manufacturers and distributors",
+  "kicker": "Small and mid-size manufacturers and distributors",
+  "lede": "Thirty small agents that check a manufacturer's or distributor's back office from the files it already exports, work order costs, purchasing, inventory, production, retail and EDI compliance, quality and safety, and wait for a named person before anything is posted, paid, shipped or sent.",
+  "from": "$2,000",
+  "packages": [
+    ["$2,500 · One plant", "Cost and margin pack", "Standard against actual by work order, purchase price variance, BOM roll-up, overhead absorption, WIP aging, job margins, landed cost (7 agents)"],
+    ["$2,500 · One plant", "Production pack", "BOM and routing gaps, scrap and yield, labor efficiency, machine downtime, capacity load, preventive maintenance (6 agents)"],
+    ["$2,000 · One site", "Inventory and traceability pack", "Cycle counts, slow-moving and obsolete stock, shelf life, reorder points, lot traceability (5 agents)"],
+    ["$2,000 · One business", "Purchasing and supplier pack", "Late purchase orders, supplier scorecards, rebates and price agreements, material certificates (4 agents)"],
+    ["$3,000 · One business", "Retail and EDI compliance pack", "Order backlog, retailer deductions, ASN errors, invoices against customer orders, set to one trading partner's guide (4 agents)"],
+    ["$2,000 · One plant", "Quality, safety and trade pack", "Calibration due dates, NCR and CAPA aging, injury log completeness, tariff code consistency (4 agents)"],
+    ["$9,500 · One plant", "Whole plant", "All 30 agents mapped to your exports and set to your rules, one training session"],
+    ["$13,500 · 2 to 4 plants", "Multi-plant", "Whole plant for each plant on one ERP, mapped once, each plant with its own settings"],
+    ["$15,000 · Up to 10 clients", "Partner rollout", "For accounting firms, fractional controllers, ERP consultants and 3PLs serving many manufacturers: all 30 agents, one shared setup, every client mapped"]
+  ],
+  "support": "Support after setup: $200 a month for one pack, $450 a month for the whole plant, $300 a month per plant for multi-plant, $1,200 a month for a partner rollout. Includes export changes, setting updates, new versions and a monthly check-in.",
+  "notes": [
+    "Reads the files you export; it does not log in to your ERP, MES, EDI network, bank or customer portals.",
+    "Export layouts were written from knowledge of each system and are confirmed on your files during setup; none was tested against a live account.",
+    "Tolerances, retailer fines and dispute windows, material specs, tariff code lists and injury-log day caps are your settings; the agents do not know any customer's, agency's or standard's rules.",
+    "Not legal, tax, customs, safety or accounting advice: the agents do not classify goods or decide whether an injury is recordable.",
+    "Report pages can be in nine languages; the translations are Claude's and have not been reviewed by native speakers."
+  ],
+  "warn": "Your files and reports stay on your computer. The agents never post to the ERP, pay, ship, change a standard or schedule, release a hold, transmit EDI, file with an agency or message anyone: each of those is refused or waits for one named person's click. Employee names are masked in anything sent to an AI model.",
+  "groups": [
+    ["Cost and margin", [
+      ["Standard against actual cost", "Material, labor and overhead variance on every work order, and orders closed with cost and no output"],
+      ["Purchase price variance", "Receipt prices against standard, price jumps from the same supplier, unit-of-measure slips"],
+      ["BOM cost roll-up", "Every assembly costed from its bill of materials and the latest prices, against its standard"],
+      ["Overhead absorption", "Overhead applied to jobs against overhead spent, by work center, with proposed rates"],
+      ["WIP aging", "Work in process by age, stale orders, and closed orders still holding WIP"],
+      ["Job margins", "Quoted against actual cost and invoiced amount for every job"],
+      ["Landed cost and freight-in", "Freight, duty and brokerage bills matched to receipts and to what was put into item cost"]
+    ]],
+    ["Production and engineering", [
+      ["BOM and routing gaps", "Made items with no BOM or routing, inactive components, zero quantities, loops"],
+      ["Scrap and yield", "Scrap against each item's standard, with the cost of the excess, by work center and reason"],
+      ["Labor efficiency", "Standard hours earned against hours clocked, by work center, never by person"],
+      ["Machine downtime", "Availability, MTTR and MTBF from MES exports, recurring stop reasons"],
+      ["Capacity load", "Open operation hours by week against each work center's available hours"],
+      ["Preventive maintenance", "PM tasks overdue by date or run hours, with a calendar of due dates"]
+    ]],
+    ["Inventory and traceability", [
+      ["Cycle counts", "Counts against system quantity with tolerances by ABC class, and repeat variances"],
+      ["Slow-moving and obsolete stock", "Stock by months since it moved and months of supply, with a reserve proposal"],
+      ["Shelf life", "Expired stock, short-dated shipments and first-expired-first-out misses"],
+      ["Reorder points", "Stockouts, stock under safety stock and reorder points that no longer fit usage"],
+      ["Lot traceability", "Breaks in the lot and serial chain from receipt through production to shipment"]
+    ]],
+    ["Purchasing and suppliers", [
+      ["Late purchase orders", "Open lines past due, never confirmed, or promised after production needs them"],
+      ["Supplier scorecards", "On-time delivery, rejects in ppm and price against PO, weighted and ranked"],
+      ["Rebates and price agreements", "Rebate tiers reached and not claimed, and purchases above the agreed price"],
+      ["Material certificates", "Certificates missing, for another heat, or outside your purchase specs"]
+    ]],
+    ["Customers, EDI and retail compliance", [
+      ["Order backlog", "Open order lines past their promise date, never promised, or promised later than asked"],
+      ["Retailer deductions", "Deductions and chargebacks checked against your ASN and delivery records, with dispute dates"],
+      ["ASN errors", "Ship notices (856) against customer orders (850) and shipments: missing, late, wrong quantities"],
+      ["Invoices against customer orders", "Invoices (810) priced or counted differently from the customer's PO"]
+    ]],
+    ["Quality, safety and trade", [
+      ["Calibration due dates", "Gauges overdue or due soon, and work orders measured with a suspect gauge"],
+      ["NCR and CAPA aging", "Open nonconformances, overdue or unverified corrective actions, repeat defects"],
+      ["Injury log completeness", "Missing fields, day counts that contradict the outcome, privacy cases with names"],
+      ["Tariff code consistency", "Missing or conflicting tariff codes, origins and duty rates across your own records"]
+    ]]
+  ],
+  "closing": "Each one does one job, on your computer, from a file you export. Nothing is posted, paid, shipped or sent until a named person on your team says so."
+}
