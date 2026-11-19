@@ -9,13 +9,13 @@ const run = (purchases, agreements, claims = [], s = DEFAULTS) => rebateClaims({
 const codes = (r) => r.items[0].findings.map((f) => f.code);
 
 test('spend in the period reaches the highest tier it passes; a finished period with rebate open is to claim', () => {
-  const r = run([p('1', 'Sup', '2026-02-01',**Total requested** | **180**0, 10), p('2', 'sup', '2026-07-15', 1000, 10)], [ag()]);
-  assert.equal(r.items[0].spend,**Total requested** | **180**00); assert.equal(r.items[0].tier_pct, 3); assert.deepEqual(r.items[0].findings.map((f) => [f.code, f.amount]), [['rebate_unclaimed', 180]]);
+  const r = run([p('1', 'Sup', '2026-02-01', 600, 10), p('2', 'sup', '2026-07-15', 1000, 10)], [ag()]);
+  assert.equal(r.items[0].spend, 6000); assert.equal(r.items[0].tier_pct, 3); assert.deepEqual(r.items[0].findings.map((f) => [f.code, f.amount]), [['rebate_unclaimed', 180]]);
 });
 
 test('credits received reduce what is still to claim', () => {
-  assert.equal(run([p('1', 'Sup', '2026-02-01',**Total requested** | **180**0, 10)], [ag()], [{ agreement: 'A1', amount: 180 }]).items[0].status, 'ok');
-  assert.equal(run([p('1', 'Sup', '2026-02-01',**Total requested** | **180**0, 10)], [ag()], [{ agreement: 'a1', amount: 100 }]).items[0].to_claim, 80);
+  assert.equal(run([p('1', 'Sup', '2026-02-01', 600, 10)], [ag()], [{ agreement: 'A1', amount: 180 }]).items[0].status, 'ok');
+  assert.equal(run([p('1', 'Sup', '2026-02-01', 600, 10)], [ag()], [{ agreement: 'a1', amount: 100 }]).items[0].to_claim, 80);
 });
 
 test('an open period accrues; spend close to the next tier is listed', () => {
@@ -25,7 +25,7 @@ test('an open period accrues; spend close to the next tier is listed', () => {
 });
 
 test('a passed claim-by date is reviewed while rebate is still open', () => {
-  assert.deepEqual(codes(run([p('1', 'Sup', '2026-02-01',**Total requested** | **180**0, 10)], [ag({ claim_by: '2026-08-31' })])), ['rebate_unclaimed', 'claim_window_passed']);
+  assert.deepEqual(codes(run([p('1', 'Sup', '2026-02-01', 600, 10)], [ag({ claim_by: '2026-08-31' })])), ['rebate_unclaimed', 'claim_window_passed']);
 });
 
 test('lines above the agreed price for the agreement item are overpaid', () => {
@@ -34,10 +34,10 @@ test('lines above the agreed price for the agreement item are overpaid', () => {
 });
 
 test('purchases from another supplier or outside the dates do not count', () => {
-  assert.equal(run([p('1', 'Other', '2026-02-01',**Total requested** | **180**0, 10), p('2', 'Sup', '2025-12-31', 600, 10)], [ag()]).items[0].spend, 0);
+  assert.equal(run([p('1', 'Other', '2026-02-01', 600, 10), p('2', 'Sup', '2025-12-31', 600, 10)], [ag()]).items[0].spend, 0);
 });
 
 test('the claim draft totals rebate due and overpayment and asks for the detail to be attached', () => {
-  const r = run([p('1', 'Sup', '2026-02-01',**Total requested** | **180**0, 10)], [ag()]);
-  const d = claimText(r.items[0], {}); assert.match(d, /\*\*Total requested\*\* \| \*\*60\*\*/); assert.match(d, /\[ATTACH purchase line detail\]/);
+  const r = run([p('1', 'Sup', '2026-02-01', 600, 10)], [ag()]);
+  const d = claimText(r.items[0], {}); assert.ok(d.includes('| **Total requested** | **180** |')); assert.match(d, /\[ATTACH purchase line detail\]/);
 });
