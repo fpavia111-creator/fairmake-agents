@@ -1,4 +1,6 @@
-# fairmake-rebate-claims
+# Fairmake Rebate Claims
+
+`fairmake-rebate-claims` · MCP server and CLI · MIT
 
 Supplier rebate tiers reached and not claimed, claim-by dates passed, spend near the next tier and purchases above the agreed price, with a claim draft per agreement.
 
@@ -24,7 +26,6 @@ Put the ones you want to change in a JSON file and pass it as `settings`; anythi
 
 | Setting | Default | Meaning |
 |---|---|---|
-| `note` | `` | Free text for your own records |
 | `near_tier_pct` | `10` | Spend within this percentage below the next tier is listed |
 
 <!-- generated:start -->

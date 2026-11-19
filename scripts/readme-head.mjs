@@ -29,7 +29,7 @@ for (const n of readdirSync(PK).filter((x) => /^fairmake-(?!core$)/.test(x) && (
   const props = manifest.configSchemas.settings ? manifest.configSchemas.settings.properties : {};
   const pkg = JSON.parse(readFileSync(join(PK, n, 'package.json'), 'utf8'));
   const desc = pkg.description.replace(/^[^:]+:\s*/, '');
-  const L = [`# ${titleOf(n)}`, '', ``${n}` · MCP server and CLI · MIT`, '', desc.charAt(0).toUpperCase() + desc.slice(1), '',
+  const L = [`# ${titleOf(n)}`, '', '`' + n + '` · MCP server and CLI · MIT', '', desc.charAt(0).toUpperCase() + desc.slice(1), '',
     `Part of **Fairmake**, the back-office agents for small and mid-size manufacturers and distributors by Mythos Machines. The software is free (MIT); the paid part is a fixed-price setup on your own files. Every result is computed from your files with plain arithmetic, on your computer; no AI model is called by the tools.`, '',
     '## What it checks', '', manifest.tools[0].description, '',
     '| Finding | Example from the fictional demo data |', '|---|---|',

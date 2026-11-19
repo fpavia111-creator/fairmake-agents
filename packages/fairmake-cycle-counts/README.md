@@ -1,4 +1,6 @@
-# fairmake-cycle-counts
+# Fairmake Cycle Counts
+
+`fairmake-cycle-counts` · MCP server and CLI · MIT
 
 Counted against system quantity with tolerances by ABC class, repeat variances, lines not counted and accuracy by class, with an adjustment list for approval. Posts nothing.
 
@@ -23,7 +25,6 @@ Put the ones you want to change in a JSON file and pass it as `settings`; anythi
 
 | Setting | Default | Meaning |
 |---|---|---|
-| `note` | `` | Free text for your own records |
 | `tolerance_pct` | `{"A":2,"B":5,"C":10}` | Quantity tolerance % by ABC class |
 | `default_tolerance_pct` | `5` | Tolerance % for items with no class |
 | `value_tolerance` | `100` | A variance worth less than this is within tolerance whatever its % |

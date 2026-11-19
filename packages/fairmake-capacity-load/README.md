@@ -1,4 +1,6 @@
-# fairmake-capacity-load
+# Fairmake Capacity Load
+
+`fairmake-capacity-load` · MCP server and CLI · MIT
 
 Open operation hours by work center and week against available hours, overloaded weeks, past-due load and work centers with no calendar. Reschedules nothing.
 
@@ -23,7 +25,6 @@ Put the ones you want to change in a JSON file and pass it as `settings`; anythi
 
 | Setting | Default | Meaning |
 |---|---|---|
-| `note` | `` | Free text for your own records |
 | `weeks` | `6` | Weeks ahead to load, starting with the week of as_of |
 | `overload_pct` | `100` | A week loaded above this percentage of available hours is overloaded |
 | `watch_pct` | `90` | A week above this percentage is listed to watch |

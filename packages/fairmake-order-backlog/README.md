@@ -1,4 +1,6 @@
-# fairmake-order-backlog
+# Fairmake Order Backlog
+
+`fairmake-order-backlog` · MCP server and CLI · MIT
 
 Open customer order lines past due, due soon, never promised, promised after the requested date or on hold, by promise month and customer, with status update drafts. Changes no date.
 
@@ -24,7 +26,6 @@ Put the ones you want to change in a JSON file and pass it as `settings`; anythi
 
 | Setting | Default | Meaning |
 |---|---|---|
-| `note` | `` | Free text for your own records |
 | `at_risk_days` | `7` | An open line promised within this many days is listed as due soon |
 
 <!-- generated:start -->

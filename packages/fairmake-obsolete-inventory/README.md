@@ -1,4 +1,6 @@
-# fairmake-obsolete-inventory
+# Fairmake Obsolete Inventory
+
+`fairmake-obsolete-inventory` · MCP server and CLI · MIT
 
 Stock sorted into obsolete, slow-moving, excess and active by months since it moved and months of supply, inactive items with stock, and a reserve proposal. Scraps nothing.
 
@@ -24,7 +26,6 @@ Put the ones you want to change in a JSON file and pass it as `settings`; anythi
 
 | Setting | Default | Meaning |
 |---|---|---|
-| `note` | `` | Free text for your own records |
 | `slow_months` | `6` | No movement for this many months makes stock slow-moving |
 | `obsolete_months` | `12` | No movement for this many months (or never) makes stock obsolete |
 | `excess_months` | `24` | Stock above this many months of supply (at the last 12 months' usage) is excess |

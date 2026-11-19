@@ -1,4 +1,6 @@
-# fairmake-edi-invoice-check
+# Fairmake EDI Invoice Check
+
+`fairmake-edi-invoice-check` · MCP server and CLI · MIT
 
 Your invoices to customers (EDI 810 or tables) against their purchase orders (850): price and quantity differences, items not ordered, unknown POs and duplicates. Transmits nothing.
 
@@ -24,7 +26,6 @@ Put the ones you want to change in a JSON file and pass it as `settings`; anythi
 
 | Setting | Default | Meaning |
 |---|---|---|
-| `note` | `` | Free text for your own records |
 | `price_tolerance` | `0.01` | Unit price differences up to this amount are ignored |
 
 <!-- generated:start -->

@@ -1,4 +1,6 @@
-# fairmake-job-margins
+# Fairmake Job Margins
+
+`fairmake-job-margins` · MCP server and CLI · MIT
 
 Quoted against actual cost and invoiced amount per job, with losses, overruns, under-billing and margins by customer and estimator. Changes no price.
 
@@ -24,7 +26,6 @@ Put the ones you want to change in a JSON file and pass it as `settings`; anythi
 
 | Setting | Default | Meaning |
 |---|---|---|
-| `note` | `` | Free text for your own records |
 | `target_margin_pct` | `20` | A job below this gross margin percentage is listed for review |
 | `overrun_pct` | `10` | Actual cost this far above the quoted cost is a cost overrun |
 | `min_amount` | `100` | Overruns and under-billing below this amount are ignored |

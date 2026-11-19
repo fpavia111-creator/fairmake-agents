@@ -1,4 +1,6 @@
-# fairmake-material-certs
+# Fairmake Material Certs
+
+`fairmake-material-certs` · MCP server and CLI · MIT
 
 Mill test reports and certificates of conformance on receipts against your purchase specs: missing, wrong lot or heat, out of spec or incomplete. Releases no hold.
 

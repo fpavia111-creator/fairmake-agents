@@ -1,4 +1,6 @@
-# fairmake-preventive-maintenance
+# Fairmake Preventive Maintenance
+
+`fairmake-preventive-maintenance` · MCP server and CLI · MIT
 
 PM tasks overdue by date or run hours, due soon, never done or with no interval, with a due-date calendar. Opens nothing in the CMMS.
 
@@ -24,7 +26,6 @@ Put the ones you want to change in a JSON file and pass it as `settings`; anythi
 
 | Setting | Default | Meaning |
 |---|---|---|
-| `note` | `` | Free text for your own records |
 | `due_soon_days` | `14` | A task due within this many days is listed as due soon |
 
 <!-- generated:start -->

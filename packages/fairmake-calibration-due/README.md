@@ -1,4 +1,6 @@
-# fairmake-calibration-due
+# Fairmake Calibration Due
+
+`fairmake-calibration-due` · MCP server and CLI · MIT
 
 Gauges overdue or due soon, never calibrated, and work orders measured with a gauge that was overdue or had failed calibration, with a due-date calendar. Releases no hold.
 
@@ -25,7 +27,6 @@ Put the ones you want to change in a JSON file and pass it as `settings`; anythi
 
 | Setting | Default | Meaning |
 |---|---|---|
-| `note` | `` | Free text for your own records |
 | `due_soon_days` | `30` | A gauge due within this many days is listed as due soon |
 
 <!-- generated:start -->

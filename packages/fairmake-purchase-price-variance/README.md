@@ -1,4 +1,6 @@
-# fairmake-purchase-price-variance
+# Fairmake Purchase Price Variance
+
+`fairmake-purchase-price-variance` · MCP server and CLI · MIT
 
 Receipt prices against standard cost, price jumps and unit-of-measure slips by supplier, with a price query draft. Changes no standard.
 
@@ -24,7 +26,6 @@ Put the ones you want to change in a JSON file and pass it as `settings`; anythi
 
 | Setting | Default | Meaning |
 |---|---|---|
-| `note` | `` | Free text for your own records |
 | `tolerance_pct` | `5` | A receipt line is flagged when its price is more than this percentage over standard |
 | `tolerance_amount` | `100` | and its variance (price minus standard, times quantity) is more than this amount |
 | `jump_pct` | `10` | A price this far above the same supplier's previous receipt of the item is listed to watch |

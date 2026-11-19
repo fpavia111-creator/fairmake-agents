@@ -1,4 +1,6 @@
-# fairmake-scrap-yield
+# Fairmake Scrap Yield
+
+`fairmake-scrap-yield` · MCP server and CLI · MIT
 
 Scrap rates against standard by work order with the cost of the excess, missing reasons and counts that do not add up, by work center and reason. Posts no scrap.
 
@@ -23,7 +25,6 @@ Put the ones you want to change in a JSON file and pass it as `settings`; anythi
 
 | Setting | Default | Meaning |
 |---|---|---|
-| `note` | `` | Free text for your own records |
 | `default_scrap_pct` | `3` | Standard scrap % for items with no standard |
 | `alert_factor` | `1.5` | Scrap above the standard times this factor is flagged |
 | `min_amount` | `50` | Excess scrap worth less than this is not flagged |

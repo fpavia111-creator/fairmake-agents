@@ -1,4 +1,6 @@
-# fairmake-overhead-absorption
+# Fairmake Overhead Absorption
+
+`fairmake-overhead-absorption` · MCP server and CLI · MIT
 
 Overhead applied to jobs (hours times rate) against overhead spent, by work center, with proposed rates. Posts nothing.
 
@@ -24,7 +26,6 @@ Put the ones you want to change in a JSON file and pass it as `settings`; anythi
 
 | Setting | Default | Meaning |
 |---|---|---|
-| `note` | `` | Free text for your own records |
 | `tolerance_pct` | `5` | Under- or over-absorption beyond this percentage of actual overhead is reported |
 | `volume_pct` | `15` | Hours this far below budget hours are listed as a volume shortfall |
 

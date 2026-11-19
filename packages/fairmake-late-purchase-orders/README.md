@@ -1,4 +1,6 @@
-# fairmake-late-purchase-orders
+# Fairmake Late Purchase Orders
+
+`fairmake-late-purchase-orders` · MCP server and CLI · MIT
 
 Open PO lines past due, unconfirmed, promised after the production need date or over-received, by supplier, with delivery status requests. Changes no PO.
 
@@ -24,7 +26,6 @@ Put the ones you want to change in a JSON file and pass it as `settings`; anythi
 
 | Setting | Default | Meaning |
 |---|---|---|
-| `note` | `` | Free text for your own records |
 | `confirm_days` | `3` | An open line with no promise date this many days after ordering is unconfirmed |
 | `grace_days` | `0` | Days past the promise (or due) date before a line counts as past due |
 

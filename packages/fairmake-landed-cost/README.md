@@ -1,4 +1,6 @@
-# fairmake-landed-cost
+# Fairmake Landed Cost
+
+`fairmake-landed-cost` · MCP server and CLI · MIT
 
 Freight-in, duty and brokerage bills matched to receipts and to the landed cost allocated into item cost. Not a goods three-way match; posts nothing.
 
@@ -24,7 +26,6 @@ Put the ones you want to change in a JSON file and pass it as `settings`; anythi
 
 | Setting | Default | Meaning |
 |---|---|---|
-| `note` | `` | Free text for your own records |
 | `min_amount` | `25` | Differences between billed and allocated landed cost below this amount are ignored |
 | `outlier_factor` | `2` | A receipt whose landed cost share of goods value is this many times the median share is listed to watch |
 | `collect_suppliers` | `[]` | Suppliers whose freight you pay (collect or FOB origin): a receipt from them with no freight bill is reviewed |

@@ -1,4 +1,6 @@
-# fairmake-ncr-capa-aging
+# Fairmake NCR CAPA Aging
+
+`fairmake-ncr-capa-aging` · MCP server and CLI · MIT
 
 Open nonconformances past the limit, overdue or unverified corrective actions, missing dispositions and root causes, and repeat defects with no CAPA. Owners masked; closes nothing.
 
@@ -26,7 +28,6 @@ Put the ones you want to change in a JSON file and pass it as `settings`; anythi
 
 | Setting | Default | Meaning |
 |---|---|---|
-| `note` | `` | Free text for your own records |
 | `ncr_days` | `30` | An NCR open longer than this many days is overdue |
 | `repeat_count` | `3` | This many NCRs for the same part and defect with no CAPA is a repeat defect |
 

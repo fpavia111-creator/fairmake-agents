@@ -1,4 +1,6 @@
-# fairmake-wip-aging
+# Fairmake WIP Aging
+
+`fairmake-wip-aging` · MCP server and CLI · MIT
 
 Open work orders aged by days since release, stale and past-due orders, and closed orders still holding WIP. Closes nothing.
 
@@ -24,7 +26,6 @@ Put the ones you want to change in a JSON file and pass it as `settings`; anythi
 
 | Setting | Default | Meaning |
 |---|---|---|
-| `note` | `` | Free text for your own records |
 | `stale_days` | `30` | An open work order with WIP and no activity for this many days is flagged as stale |
 | `buckets` | `[30,60,90]` | Age bucket edges in days since release |
 

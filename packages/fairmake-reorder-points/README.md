@@ -1,4 +1,6 @@
-# fairmake-reorder-points
+# Fairmake Reorder Points
+
+`fairmake-reorder-points` · MCP server and CLI · MIT
 
 Stockouts, stock under safety stock, items at the reorder point, and reorder points that no longer fit usage and lead time. Places no order.
 
@@ -24,7 +26,6 @@ Put the ones you want to change in a JSON file and pass it as `settings`; anythi
 
 | Setting | Default | Meaning |
 |---|---|---|
-| `note` | `` | Free text for your own records |
 | `lookback_days` | `90` | Days of usage history to average |
 | `review_pct` | `25` | A reorder point this far from usage times lead time plus safety stock is listed for review |
 

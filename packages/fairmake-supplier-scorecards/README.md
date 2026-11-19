@@ -1,4 +1,6 @@
-# fairmake-supplier-scorecards
+# Fairmake Supplier Scorecards
+
+`fairmake-supplier-scorecards` · MCP server and CLI · MIT
 
 On-time delivery, rejects in ppm and price against PO per supplier, weighted and ranked, with a scorecard draft per supplier. Disqualifies nobody.
 
@@ -23,7 +25,6 @@ Put the ones you want to change in a JSON file and pass it as `settings`; anythi
 
 | Setting | Default | Meaning |
 |---|---|---|
-| `note` | `` | Free text for your own records |
 | `weights` | `{"on_time":50,"quality":30,"price":20}` | Weight of on_time, quality and price in the score |
 | `grace_days` | `0` | Days after the due date that still count as on time |
 | `min_receipts` | `3` | Fewer receipts than this make the score a weak signal |

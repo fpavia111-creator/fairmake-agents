@@ -1,4 +1,6 @@
-# fairmake-retailer-deductions
+# Fairmake Retailer Deductions
+
+`fairmake-retailer-deductions` · MCP server and CLI · MIT
 
 Customer deductions and retailer chargebacks by reason, late-ASN fines and shortages checked against your records, dispute-by dates and dispute drafts. Writes nothing off.
 
@@ -25,7 +27,6 @@ Put the ones you want to change in a JSON file and pass it as `settings`; anythi
 
 | Setting | Default | Meaning |
 |---|---|---|
-| `note` | `` | Free text for your own records |
 | `default_window_days` | `30` | Days from the deduction date to dispute it, for customers not named below |
 | `dispute_window_days` | `{}` | Dispute window in days by customer (from your trading partner terms) |
 | `small_amount` | `50` | Deductions under this amount are listed as write-off candidates (a person decides) |

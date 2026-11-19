@@ -1,4 +1,6 @@
-# fairmake-bom-routing-gaps
+# Fairmake BOM Routing Gaps
+
+`fairmake-bom-routing-gaps` · MCP server and CLI · MIT
 
 Made items with no BOM or routing, inactive or unknown components, zero quantities, routing steps with no work center or time, and BOM loops. Edits nothing.
 
@@ -29,7 +31,6 @@ Put the ones you want to change in a JSON file and pass it as `settings`; anythi
 
 | Setting | Default | Meaning |
 |---|---|---|
-| `note` | `` | Free text for your own records |
 | `make_words` | `["make","manufactured","assembly","subassembly","produced"]` | Item type words that mean the item is made in house (needs a BOM and a routing) |
 | `buy_words` | `["buy","purchased","purchase","bought"]` | Item type words that mean the item is bought (should not carry a BOM) |
 | `inactive_words` | `["obsolete","inactive","discontinued","blocked","no","false"]` | Status words that mean an item is no longer used |

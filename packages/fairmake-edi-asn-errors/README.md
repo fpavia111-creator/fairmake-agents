@@ -1,4 +1,6 @@
-# fairmake-edi-asn-errors
+# Fairmake EDI ASN Errors
+
+`fairmake-edi-asn-errors` · MCP server and CLI · MIT
 
 Advance ship notices (856) against customer POs (850) and shipment records: missing or late ASNs, quantity mismatches, items not ordered, SSCC problems. Transmits nothing.
 
@@ -27,7 +29,6 @@ Put the ones you want to change in a JSON file and pass it as `settings`; anythi
 
 | Setting | Default | Meaning |
 |---|---|---|
-| `note` | `` | Free text for your own records |
 | `asn_grace_hours` | `1` | An ASN sent within this many hours after the shipment counts as on time (most retailer guides want it before the truck arrives) |
 | `fines` | `{}` | Fine per finding code from the customer's compliance guide (no_asn, asn_late, asn_qty_mismatch, ...), to show the money at risk |
 

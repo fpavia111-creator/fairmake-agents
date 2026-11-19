@@ -1,4 +1,6 @@
-# fairmake-machine-downtime
+# Fairmake Machine Downtime
+
+`fairmake-machine-downtime` · MCP server and CLI · MIT
 
 Availability, MTTR and MTBF per machine from MES downtime exports, chronic stop reasons, and stops with no reason, no end or overlapping. Changes no schedule.
 
@@ -25,7 +27,6 @@ Put the ones you want to change in a JSON file and pass it as `settings`; anythi
 
 | Setting | Default | Meaning |
 |---|---|---|
-| `note` | `` | Free text for your own records |
 | `min_availability_pct` | `85` | A machine available less than this share of its scheduled hours (unplanned stops only) is flagged |
 | `chronic_count` | `3` | An unplanned reason seen this many times on one machine is chronic |
 

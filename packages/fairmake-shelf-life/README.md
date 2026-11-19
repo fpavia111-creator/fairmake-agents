@@ -1,4 +1,6 @@
-# fairmake-shelf-life
+# Fairmake Shelf Life
+
+`fairmake-shelf-life` · MCP server and CLI · MIT
 
 Expired lots on hand, lots expiring soon or with no expiry, and shipments that went out expired, short-dated or out of first-expired-first-out order, with an expiry calendar.
 
@@ -25,7 +27,6 @@ Put the ones you want to change in a JSON file and pass it as `settings`; anythi
 
 | Setting | Default | Meaning |
 |---|---|---|
-| `note` | `` | Free text for your own records |
 | `warn_days` | `60` | A lot expiring within this many days is listed as expiring soon |
 | `default_min_days` | `0` | Shelf life a shipment must have left, for customers not named below |
 | `customer_min_days` | `{}` | Minimum days of shelf life left at shipment, by customer |

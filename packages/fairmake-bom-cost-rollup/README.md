@@ -1,4 +1,6 @@
-# fairmake-bom-cost-rollup
+# Fairmake BOM Cost Rollup
+
+`fairmake-bom-cost-rollup` · MCP server and CLI · MIT
 
 Every assembly's cost rebuilt from its bill of materials and latest purchase prices, against its standard cost, with missing and stale prices and BOM loops. Loads nothing.
 
@@ -24,7 +26,6 @@ Put the ones you want to change in a JSON file and pass it as `settings`; anythi
 
 | Setting | Default | Meaning |
 |---|---|---|
-| `note` | `` | Free text for your own records |
 | `change_pct` | `5` | A rolled-up cost this far above (or below) the standard is flagged (or listed to watch) |
 | `stale_days` | `365` | A purchase price older than this many days is listed as stale |
 

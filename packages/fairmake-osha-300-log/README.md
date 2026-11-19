@@ -1,4 +1,6 @@
-# fairmake-osha-300-log
+# Fairmake OSHA 300 Log
+
+`fairmake-osha-300-log` · MCP server and CLI · MIT
 
 Completeness of the injury and illness case log: missing fields, outcomes against day counts, day caps, privacy cases with names, open cases and late entries. Names masked; decides and files nothing.
 
@@ -27,7 +29,6 @@ Put the ones you want to change in a JSON file and pass it as `settings`; anythi
 
 | Setting | Default | Meaning |
 |---|---|---|
-| `note` | `` | Free text for your own records |
 | `day_cap` | `180` | Most days away plus restricted to count for one case (the cap your log uses) |
 | `entry_days` | `7` | A case entered more than this many days after it happened is listed as a late entry |
 | `annual_hours` | `null` | Hours worked by all employees in the year, to compute rates per 200,000 hours (leave out to skip rates) |

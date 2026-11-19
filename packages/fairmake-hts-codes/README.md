@@ -1,4 +1,6 @@
-# fairmake-hts-codes
+# Fairmake HTS Codes
+
+`fairmake-hts-codes` · MCP server and CLI · MIT
 
 Tariff codes and countries of origin checked for gaps, format and consistency with your own code list and with customs entry lines. No classification advice; files nothing.
 
@@ -27,7 +29,6 @@ Put the ones you want to change in a JSON file and pass it as `settings`; anythi
 
 | Setting | Default | Meaning |
 |---|---|---|
-| `note` | `` | Free text for your own records |
 | `codes` | `{}` | Your own list of tariff codes in use (from your broker or classification file), with the duty % you expect for each |
 
 <!-- generated:start -->

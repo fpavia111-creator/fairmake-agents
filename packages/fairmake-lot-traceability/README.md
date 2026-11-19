@@ -1,4 +1,6 @@
-# fairmake-lot-traceability
+# Fairmake Lot Traceability
+
+`fairmake-lot-traceability` · MCP server and CLI · MIT
 
 Breaks in the chain from received lots through production to shipments: missing lots, lots never received or used before receipt, unknown shipped lots and serials shipped twice.
 

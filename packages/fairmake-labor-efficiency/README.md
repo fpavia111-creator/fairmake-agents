@@ -1,4 +1,6 @@
-# fairmake-labor-efficiency
+# Fairmake Labor Efficiency
+
+`fairmake-labor-efficiency` · MCP server and CLI · MIT
 
 Standard hours earned against direct hours clocked by work center, indirect time, and hours or completions with nothing on the other side. By work center, names masked.
 
@@ -24,7 +26,6 @@ Put the ones you want to change in a JSON file and pass it as `settings`; anythi
 
 | Setting | Default | Meaning |
 |---|---|---|
-| `note` | `` | Free text for your own records |
 | `min_efficiency_pct` | `85` | Earned hours below this percentage of direct hours are flagged |
 | `max_efficiency_pct` | `120` | Above this percentage the standard may be loose; listed to watch |
 | `max_indirect_pct` | `15` | Indirect hours above this share of all hours are reviewed |

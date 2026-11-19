@@ -1,4 +1,6 @@
-# fairmake-cost-variance
+# Fairmake Cost Variance
+
+`fairmake-cost-variance` · MCP server and CLI · MIT
 
 Standard against actual cost by work order (material, labor, overhead), with a variance review draft for the production manager. Posts nothing.
 
@@ -25,7 +27,6 @@ Put the ones you want to change in a JSON file and pass it as `settings`; anythi
 
 | Setting | Default | Meaning |
 |---|---|---|
-| `note` | `` | Free text for your own records |
 | `tolerance_pct` | `5` | An element is flagged over when its variance is above this percentage of standard |
 | `tolerance_amount` | `250` | and above this amount (both must be exceeded) |
 | `favorable_pct` | `15` | A cost this far under standard (and above the amount) is sent for review: the standard may be loose or costs may be missing |
