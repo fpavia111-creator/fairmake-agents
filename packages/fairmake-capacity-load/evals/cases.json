@@ -1,0 +1,365 @@
+{
+  "suite": "fairmake-capacity-load",
+  "root": "..",
+  "data_note": "Fictional operations and calendars in ../fixtures, loaded from 2026-11-16. No model is called.",
+  "cases": [
+    {
+      "id": "check-totals",
+      "tool": "capacity_check",
+      "args": {
+        "operations": "fixtures/operations.csv",
+        "calendar": "fixtures/calendar.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "equals": {
+          "result.work_centers": 5,
+          "result.open_hours": 265,
+          "result.horizon": "2026-11-16 to 2026-12-27",
+          "result.flag": 1,
+          "result.review": 2,
+          "result.ok": 2
+        },
+        "length": {
+          "result.by_week": 30
+        }
+      }
+    },
+    {
+      "id": "every-planted-finding",
+      "tool": "capacity_check",
+      "args": {
+        "operations": "fixtures/operations.csv",
+        "calendar": "fixtures/calendar.csv",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "contains": [
+          "overloaded_week",
+          "near_capacity",
+          "past_due_load",
+          "no_calendar",
+          "2026-11-16 75/68 h (110.3%)"
+        ]
+      }
+    },
+    {
+      "id": "explain-cnc",
+      "tool": "capacity_explain",
+      "args": {
+        "operations": "fixtures/operations.csv",
+        "calendar": "fixtures/calendar.csv",
+        "as_of": "2026-11-16",
+        "work_center": "cnc"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.items.0.available_per_week": 68,
+          "result.items.0.open_hours": 167
+        },
+        "contains": [
+          "near capacity in 2026-11-30 (91.2%)"
+        ]
+      }
+    },
+    {
+      "id": "planned-overtime",
+      "tool": "capacity_check",
+      "args": {
+        "operations": "fixtures/operations.csv",
+        "calendar": "fixtures/calendar.csv",
+        "settings": "fixtures/settings-overtime.json",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "equals": {
+          "result.flag": 0,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 2,
+          "result.settings_used.weeks": 4
+        }
+      }
+    },
+    {
+      "id": "infor-job-operations",
+      "tool": "capacity_check",
+      "args": {
+        "operations": "fixtures/exports/infor-job-operations.csv",
+        "calendar": "fixtures/calendar.csv",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "equals": {
+          "result.work_centers": 4,
+          "result.open_hours": 88,
+          "result.flag": 1,
+          "result.ok": 3
+        }
+      }
+    },
+    {
+      "id": "draft-capacity-review-after-approval",
+      "tool": "capacity_draft_capacity_review",
+      "args": {
+        "operations": "fixtures/operations.csv",
+        "calendar": "fixtures/calendar.csv",
+        "as_of": "2026-11-16",
+        "from": "Pat Planner (fictional)"
+      },
+      "approve": "Pat Example",
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.open_markers": 1
+        },
+        "contains": [
+          "capacity review open drafted"
+        ]
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "capacity_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "operations"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "capacity_check",
+      "args": {
+        "operations": "../../../outside.csv",
+        "calendar": "fixtures/calendar.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "capacity_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "capacity_check",
+      "mode": "review",
+      "args": {
+        "operations": "fixtures/operations.csv",
+        "calendar": "fixtures/calendar.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.work_centers": 5,
+          "result.open_hours": 265,
+          "result.horizon": "2026-11-16 to 2026-12-27",
+          "result.flag": 1,
+          "result.review": 2,
+          "result.ok": 2
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "capacity_check",
+      "args": {
+        "operations": "fixtures/operations.csv",
+        "calendar": "fixtures/calendar.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.work_centers": 5,
+          "result.open_hours": 265,
+          "result.horizon": "2026-11-16 to 2026-12-27",
+          "result.flag": 1,
+          "result.review": 2,
+          "result.ok": 2
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "capacity_explain",
+      "args": {
+        "operations": "fixtures/operations.csv",
+        "calendar": "fixtures/calendar.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16",
+        "work_center": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-its-files",
+      "tool": "capacity_write_report",
+      "args": {
+        "operations": "fixtures/operations.csv",
+        "calendar": "fixtures/calendar.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "status": "executed",
+        "min": {
+          "result.files.length": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "draft-waits-for-a-person",
+      "tool": "capacity_draft_capacity_review",
+      "args": {
+        "operations": "fixtures/operations.csv",
+        "calendar": "fixtures/calendar.csv",
+        "as_of": "2026-11-16",
+        "from": "Pat Planner (fictional)"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-drafts-nothing",
+      "tool": "capacity_draft_capacity_review",
+      "mode": "review",
+      "args": {
+        "operations": "fixtures/operations.csv",
+        "calendar": "fixtures/calendar.csv",
+        "as_of": "2026-11-16",
+        "from": "Pat Planner (fictional)"
+      },
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "request-stays-one-click-in-auto",
+      "tool": "capacity_request_send",
+      "mode": "auto",
+      "auto_actions": [
+        "capacity_draft_capacity_review"
+      ],
+      "args": {
+        "draft": "fairmake-out/capacity/drafts/none.md",
+        "draft_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-erp-reschedule-orders",
+      "tool": "erp_reschedule_orders",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-customer-promise-send",
+      "tool": "customer_promise_send",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-check-totals",
+      "tool": "capacity_check",
+      "args": {
+        "operations": "fixtures/intl/de/operations.csv",
+        "calendar": "fixtures/intl/de/calendar.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "equals": {
+          "result.work_centers": 5,
+          "result.open_hours": 265,
+          "result.horizon": "2026-11-16 to 2026-12-27",
+          "result.flag": 1,
+          "result.review": 2,
+          "result.ok": 2
+        },
+        "length": {
+          "result.by_week": 30
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"check-totals\"."
+    },
+    {
+      "id": "intl-ja-check-totals",
+      "tool": "capacity_check",
+      "args": {
+        "operations": "fixtures/intl/ja/operations.csv",
+        "calendar": "fixtures/intl/ja/calendar.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-16"
+      },
+      "expect": {
+        "equals": {
+          "result.work_centers": 5,
+          "result.open_hours": 265,
+          "result.horizon": "2026-11-16 to 2026-12-27",
+          "result.flag": 1,
+          "result.review": 2,
+          "result.ok": 2
+        },
+        "length": {
+          "result.by_week": 30
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"check-totals\"."
+    }
+  ]
+}
