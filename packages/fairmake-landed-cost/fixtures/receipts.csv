@@ -1,0 +1,9 @@
+receipt,supplier,receipt_date,goods_value,landed_allocated
+RCV-701,Northwind Metals,2026-11-02,10000,0
+RCV-702,Northwind Metals,2026-11-03,8000,320
+RCV-703,Overseas Example Ltd,2026-11-04,20000,1500
+RCV-704,Demo Castings LLC,2026-11-05,5000,0
+RCV-705,Sample Steel Supply,2026-11-06,6000,400
+RCV-706,Fastener Example Co,2026-11-07,3000,60
+RCV-707,Fastener Example Co,2026-11-08,1000,0
+RCV-708,Northwind Metals,2026-11-09,4000,160

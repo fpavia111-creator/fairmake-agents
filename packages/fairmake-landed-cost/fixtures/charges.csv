@@ -1,0 +1,11 @@
+charge_id,receipt,vendor,charge_type,amount,invoice_date
+FB-1,RCV-701,Ridgeline Freight Example,Freight,400,2026-11-05
+FB-2,RCV-702,Ridgeline Freight Example,Freight,320,2026-11-06
+DT-1,RCV-703,Customs Broker Example,Duty,1200,2026-11-08
+BR-1,RCV-703,Customs Broker Example,Brokerage,150,2026-11-08
+FB-3,RCV-703,Ocean Line Example,Ocean freight,900,2026-11-09
+FB-4,RCV-706,Ridgeline Freight Example,Freight,60,2026-11-10
+FB-5,RCV-707,Parcel Example Express,Expedited freight,260,2026-11-10
+FB-6,RCV-708,Ridgeline Freight Example,Freight,160,2026-11-12
+FB-7,RCV-799,Ridgeline Freight Example,Freight,180,2026-11-12
+FB-8,,Parcel Example Express,Freight,95,2026-11-13

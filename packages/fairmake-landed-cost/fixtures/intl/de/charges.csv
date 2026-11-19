@@ -1,0 +1,11 @@
+charge_id;Wareneingang;Lieferant;charge_type;Betrag;Rechnungsdatum
+FB-1;RCV-701;Ridgeline Freight Example;Freight;400,00;05.11.2026
+FB-2;RCV-702;Ridgeline Freight Example;Freight;320,00;06.11.2026
+DT-1;RCV-703;Customs Broker Example;Duty;1.200,00;08.11.2026
+BR-1;RCV-703;Customs Broker Example;Brokerage;150,00;08.11.2026
+FB-3;RCV-703;Ocean Line Example;Ocean freight;900,00;09.11.2026
+FB-4;RCV-706;Ridgeline Freight Example;Freight;60,00;10.11.2026
+FB-5;RCV-707;Parcel Example Express;Expedited freight;260,00;10.11.2026
+FB-6;RCV-708;Ridgeline Freight Example;Freight;160,00;12.11.2026
+FB-7;RCV-799;Ridgeline Freight Example;Freight;180,00;12.11.2026
+FB-8;;Parcel Example Express;Freight;95,00;13.11.2026

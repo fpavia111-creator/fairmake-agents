@@ -1,0 +1,1 @@
+{ "note": "Fictional landed cost settings.", "min_amount": 25, "outlier_factor": 2, "collect_suppliers": ["Demo Castings LLC"] }

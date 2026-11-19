@@ -1,0 +1,58 @@
+{
+  "name": "fairmake-landed-cost",
+  "version": "0.1.0",
+  "description": "Fairmake Landed Cost: freight-in, duty and brokerage bills matched to receipts and to the landed cost allocated into item cost. Not a goods three-way match; posts nothing.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairmake-landed-cost": "bin/fairmake-landed-cost.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/fairmake-landed-cost.js demo",
+    "eval": "node bin/fairmake-landed-cost.js eval"
+  },
+  "dependencies": {
+    "fairmake-core": "^0.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairmake-agents.git",
+    "directory": "packages/fairmake-landed-cost"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairmake-agents/tree/main/packages/fairmake-landed-cost#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairmake-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "manufacturing",
+    "distribution",
+    "erp",
+    "fairmake",
+    "landed-cost",
+    "freight-in",
+    "duty",
+    "inbound-freight",
+    "acumatica"
+  ]
+}

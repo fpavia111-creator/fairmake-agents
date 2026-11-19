@@ -1,0 +1,359 @@
+{
+  "suite": "fairmake-landed-cost",
+  "root": "..",
+  "data_note": "Fictional receipts and bills in ../fixtures. No model is called.",
+  "cases": [
+    {
+      "id": "check-totals",
+      "tool": "landed_cost_check",
+      "args": {
+        "receipts": "fixtures/receipts.csv",
+        "charges": "fixtures/charges.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "equals": {
+          "result.receipts": 8,
+          "result.charges": 10,
+          "result.billed": 3725,
+          "result.allocated": 2440,
+          "result.not_allocated": 1410,
+          "result.unmatched": 275,
+          "result.flag": 3,
+          "result.review": 4,
+          "result.ok": 3
+        }
+      }
+    },
+    {
+      "id": "every-planted-finding",
+      "tool": "landed_cost_check",
+      "args": {
+        "receipts": "fixtures/receipts.csv",
+        "charges": "fixtures/charges.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "contains": [
+          "not_allocated",
+          "over_allocated",
+          "no_freight_bill",
+          "landed_pct_outlier",
+          "unmatched_charge",
+          "names receipt RCV-799, which is not in the receipts file"
+        ]
+      }
+    },
+    {
+      "id": "explain-import-receipt",
+      "tool": "landed_cost_explain",
+      "args": {
+        "receipts": "fixtures/receipts.csv",
+        "charges": "fixtures/charges.csv",
+        "reference": "RCV-703"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "2250 of freight, duty and brokerage billed, 1500 allocated",
+          "DT-1 Duty 1200"
+        ]
+      }
+    },
+    {
+      "id": "wider-tolerance",
+      "tool": "landed_cost_check",
+      "args": {
+        "receipts": "fixtures/receipts.csv",
+        "charges": "fixtures/charges.csv",
+        "settings": "fixtures/settings-wide.json"
+      },
+      "expect": {
+        "equals": {
+          "result.flag": 2,
+          "result.review": 3,
+          "result.watch": 1,
+          "result.ok": 4,
+          "result.settings_used.min_amount": 300
+        }
+      }
+    },
+    {
+      "id": "acumatica-receipt-lines",
+      "tool": "landed_cost_check",
+      "args": {
+        "receipts": "fixtures/exports/acumatica-receipts.csv",
+        "charges": "fixtures/charges.csv"
+      },
+      "expect": {
+        "equals": {
+          "result.receipts": 2,
+          "result.goods_value": 18000,
+          "result.not_allocated": 400,
+          "result.flag": 1
+        },
+        "length": {
+          "result.unmatched_charges": 8
+        }
+      }
+    },
+    {
+      "id": "draft-adjustment-after-approval",
+      "tool": "landed_cost_draft_landed_cost_adjustment",
+      "args": {
+        "receipts": "fixtures/receipts.csv",
+        "charges": "fixtures/charges.csv",
+        "from": "Casey Controller (fictional)"
+      },
+      "approve": "Pat Example",
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.amount": 1410,
+          "result.open_markers": 1
+        },
+        "contains": [
+          "landed cost adjustment open drafted for 1410"
+        ]
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "landed_cost_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "receipts"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "landed_cost_check",
+      "args": {
+        "receipts": "../../../outside.csv",
+        "charges": "fixtures/charges.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "landed_cost_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "landed_cost_check",
+      "mode": "review",
+      "args": {
+        "receipts": "fixtures/receipts.csv",
+        "charges": "fixtures/charges.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.receipts": 8,
+          "result.charges": 10,
+          "result.billed": 3725,
+          "result.allocated": 2440,
+          "result.not_allocated": 1410,
+          "result.unmatched": 275,
+          "result.flag": 3,
+          "result.review": 4,
+          "result.ok": 3
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "landed_cost_check",
+      "args": {
+        "receipts": "fixtures/receipts.csv",
+        "charges": "fixtures/charges.csv",
+        "settings": "fixtures/settings.json",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.receipts": 8,
+          "result.charges": 10,
+          "result.billed": 3725,
+          "result.allocated": 2440,
+          "result.not_allocated": 1410,
+          "result.unmatched": 275,
+          "result.flag": 3,
+          "result.review": 4,
+          "result.ok": 3
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "landed_cost_explain",
+      "args": {
+        "receipts": "fixtures/receipts.csv",
+        "charges": "fixtures/charges.csv",
+        "settings": "fixtures/settings.json",
+        "reference": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-its-files",
+      "tool": "landed_cost_write_report",
+      "args": {
+        "receipts": "fixtures/receipts.csv",
+        "charges": "fixtures/charges.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "min": {
+          "result.files.length": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "draft-waits-for-a-person",
+      "tool": "landed_cost_draft_landed_cost_adjustment",
+      "args": {
+        "receipts": "fixtures/receipts.csv",
+        "charges": "fixtures/charges.csv",
+        "from": "Casey Controller (fictional)"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-drafts-nothing",
+      "tool": "landed_cost_draft_landed_cost_adjustment",
+      "mode": "review",
+      "args": {
+        "receipts": "fixtures/receipts.csv",
+        "charges": "fixtures/charges.csv",
+        "from": "Casey Controller (fictional)"
+      },
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "request-stays-one-click-in-auto",
+      "tool": "landed_cost_request_approve",
+      "mode": "auto",
+      "auto_actions": [
+        "landed_cost_draft_landed_cost_adjustment"
+      ],
+      "args": {
+        "draft": "fairmake-out/landed_cost/drafts/none.md",
+        "draft_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-erp-post-landed-cost",
+      "tool": "erp_post_landed_cost",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-ap-pay-invoice",
+      "tool": "ap_pay_invoice",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-check-totals",
+      "tool": "landed_cost_check",
+      "args": {
+        "receipts": "fixtures/intl/de/receipts.csv",
+        "charges": "fixtures/intl/de/charges.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "equals": {
+          "result.receipts": 8,
+          "result.charges": 10,
+          "result.billed": 3725,
+          "result.allocated": 2440,
+          "result.not_allocated": 1410,
+          "result.unmatched": 275,
+          "result.flag": 3,
+          "result.review": 4,
+          "result.ok": 3
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"check-totals\"."
+    },
+    {
+      "id": "intl-ja-check-totals",
+      "tool": "landed_cost_check",
+      "args": {
+        "receipts": "fixtures/intl/ja/receipts.csv",
+        "charges": "fixtures/intl/ja/charges.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "equals": {
+          "result.receipts": 8,
+          "result.charges": 10,
+          "result.billed": 3725,
+          "result.allocated": 2440,
+          "result.not_allocated": 1410,
+          "result.unmatched": 275,
+          "result.flag": 3,
+          "result.review": 4,
+          "result.ok": 3
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"check-totals\"."
+    }
+  ]
+}
