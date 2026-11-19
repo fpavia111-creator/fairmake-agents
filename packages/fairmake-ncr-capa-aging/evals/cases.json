@@ -1,0 +1,374 @@
+{
+  "suite": "fairmake-ncr-capa-aging",
+  "root": "..",
+  "data_note": "Fictional NCRs and CAPAs in ../fixtures, as of 2026-11-18; owner names are made up. No model is called.",
+  "cases": [
+    {
+      "id": "check-totals",
+      "tool": "ncr_check",
+      "args": {
+        "ncrs": "fixtures/ncrs.csv",
+        "capas": "fixtures/capas.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "equals": {
+          "result.ncrs": 10,
+          "result.open_ncrs": 5,
+          "result.capas": 4,
+          "result.flag": 4,
+          "result.review": 3,
+          "result.ok": 7
+        },
+        "length": {
+          "result.repeat_defects": 1
+        }
+      }
+    },
+    {
+      "id": "every-planted-finding-and-no-names",
+      "tool": "ncr_check",
+      "args": {
+        "ncrs": "fixtures/ncrs.csv",
+        "capas": "fixtures/capas.csv",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "contains": [
+          "ncr_overdue",
+          "no_disposition",
+          "capa_not_found",
+          "capa_overdue",
+          "no_root_cause",
+          "closed_unverified",
+          "repeat_without_capa",
+          "NCR-101, NCR-102, NCR-103"
+        ],
+        "not_contains": [
+          "Riley Quality",
+          "Jamie Inspector",
+          "Morgan Engineer"
+        ]
+      }
+    },
+    {
+      "id": "explain-overdue-capa",
+      "tool": "ncr_explain",
+      "args": {
+        "ncrs": "fixtures/ncrs.csv",
+        "capas": "fixtures/capas.csv",
+        "as_of": "2026-11-18",
+        "id": "capa-21"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "CAPA CAPA-21 was due 2026-10-31 (18 days ago)"
+        ]
+      }
+    },
+    {
+      "id": "looser-limits",
+      "tool": "ncr_check",
+      "args": {
+        "ncrs": "fixtures/ncrs.csv",
+        "capas": "fixtures/capas.csv",
+        "settings": "fixtures/settings-loose.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "equals": {
+          "result.flag": 2,
+          "result.review": 4,
+          "result.ok": 8,
+          "result.settings_used.repeat_count": 4
+        },
+        "length": {
+          "result.repeat_defects": 0
+        }
+      }
+    },
+    {
+      "id": "qms-ncr-log-export",
+      "tool": "ncr_check",
+      "args": {
+        "ncrs": "fixtures/exports/qms-ncr-log.csv",
+        "capas": "fixtures/capas.csv",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "equals": {
+          "result.ncrs": 2,
+          "result.flag": 3,
+          "result.review": 1,
+          "result.ok": 2
+        }
+      }
+    },
+    {
+      "id": "draft-capa-reminder-after-approval",
+      "tool": "ncr_draft_capa_reminder",
+      "args": {
+        "ncrs": "fixtures/ncrs.csv",
+        "capas": "fixtures/capas.csv",
+        "as_of": "2026-11-18",
+        "from": "Quinn Quality (fictional)"
+      },
+      "approve": "Pat Example",
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.open_markers": 1
+        },
+        "contains": [
+          "capa reminder open drafted"
+        ],
+        "not_contains": [
+          "Riley Quality"
+        ]
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "ncr_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "ncrs"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "ncr_check",
+      "args": {
+        "ncrs": "../../../outside.csv",
+        "capas": "fixtures/capas.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "ncr_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "ncr_check",
+      "mode": "review",
+      "args": {
+        "ncrs": "fixtures/ncrs.csv",
+        "capas": "fixtures/capas.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.ncrs": 10,
+          "result.open_ncrs": 5,
+          "result.capas": 4,
+          "result.flag": 4,
+          "result.review": 3,
+          "result.ok": 7
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "ncr_check",
+      "args": {
+        "ncrs": "fixtures/ncrs.csv",
+        "capas": "fixtures/capas.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.ncrs": 10,
+          "result.open_ncrs": 5,
+          "result.capas": 4,
+          "result.flag": 4,
+          "result.review": 3,
+          "result.ok": 7
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "ncr_explain",
+      "args": {
+        "ncrs": "fixtures/ncrs.csv",
+        "capas": "fixtures/capas.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18",
+        "id": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-its-files",
+      "tool": "ncr_write_report",
+      "args": {
+        "ncrs": "fixtures/ncrs.csv",
+        "capas": "fixtures/capas.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "status": "executed",
+        "min": {
+          "result.files.length": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "draft-waits-for-a-person",
+      "tool": "ncr_draft_capa_reminder",
+      "args": {
+        "ncrs": "fixtures/ncrs.csv",
+        "capas": "fixtures/capas.csv",
+        "as_of": "2026-11-18",
+        "from": "Quinn Quality (fictional)"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-drafts-nothing",
+      "tool": "ncr_draft_capa_reminder",
+      "mode": "review",
+      "args": {
+        "ncrs": "fixtures/ncrs.csv",
+        "capas": "fixtures/capas.csv",
+        "as_of": "2026-11-18",
+        "from": "Quinn Quality (fictional)"
+      },
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "request-stays-one-click-in-auto",
+      "tool": "ncr_request_send",
+      "mode": "auto",
+      "auto_actions": [
+        "ncr_draft_capa_reminder"
+      ],
+      "args": {
+        "draft": "fairmake-out/ncr/drafts/none.md",
+        "draft_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-qms-close-capa",
+      "tool": "qms_close_capa",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-supplier-notice-send",
+      "tool": "supplier_notice_send",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-check-totals",
+      "tool": "ncr_check",
+      "args": {
+        "ncrs": "fixtures/intl/de/ncrs.csv",
+        "capas": "fixtures/intl/de/capas.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "equals": {
+          "result.ncrs": 10,
+          "result.open_ncrs": 5,
+          "result.capas": 4,
+          "result.flag": 4,
+          "result.review": 3,
+          "result.ok": 7
+        },
+        "length": {
+          "result.repeat_defects": 1
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"check-totals\"."
+    },
+    {
+      "id": "intl-ja-check-totals",
+      "tool": "ncr_check",
+      "args": {
+        "ncrs": "fixtures/intl/ja/ncrs.csv",
+        "capas": "fixtures/intl/ja/capas.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "equals": {
+          "result.ncrs": 10,
+          "result.open_ncrs": 5,
+          "result.capas": 4,
+          "result.flag": 4,
+          "result.review": 3,
+          "result.ok": 7
+        },
+        "length": {
+          "result.repeat_defects": 1
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"check-totals\"."
+    }
+  ]
+}
