@@ -7,7 +7,8 @@ const t = (aliases, extra = {}) => ({ aliases, ...extra });
 export const CASE_FIELDS = Object.freeze({
   case_number: t(['Case Number', 'Case No.', 'Case', 'Incident ID'], { required: true }),
   employee: t(['Employee', 'Employee Name', 'Name'], { personal: true }),
-  job_title: t(['Job Title', 'Position', 'Job']),
+  // Masked too: a job title with an incident date and outcome can point to one person in a small plant.
+  job_title: t(['Job Title', 'Position', 'Job'], { personal: true }),
   incident_date: t(['Incident Date', 'Date of Injury', 'Date of Injury or Illness', 'Date'], { type: 'date' }),
   entered_date: t(['Entered Date', 'Date Recorded', 'Logged On', 'Created'], { type: 'date' }),
   location: t(['Location', 'Where', 'Where the Event Occurred', 'Area']),

@@ -1,0 +1,374 @@
+[
+  {
+    "agent": "fairmake-bom-cost-rollup",
+    "masked": [],
+    "text_in_clear": [
+      "component",
+      "item",
+      "parent"
+    ],
+    "free_text_in_clear": [],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairmake-bom-routing-gaps",
+    "masked": [],
+    "text_in_clear": [
+      "component",
+      "item",
+      "item_type",
+      "parent"
+    ],
+    "free_text_in_clear": [],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairmake-calibration-due",
+    "masked": [],
+    "text_in_clear": [
+      "cal_result",
+      "description",
+      "gauge",
+      "gauge_status",
+      "location",
+      "work_order"
+    ],
+    "free_text_in_clear": [
+      "description",
+      "location"
+    ],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairmake-capacity-load",
+    "masked": [],
+    "text_in_clear": [
+      "work_center"
+    ],
+    "free_text_in_clear": [],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairmake-cost-variance",
+    "masked": [],
+    "text_in_clear": [
+      "item",
+      "wo_status",
+      "work_order"
+    ],
+    "free_text_in_clear": [],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairmake-cycle-counts",
+    "masked": [],
+    "text_in_clear": [
+      "count_id",
+      "item",
+      "location"
+    ],
+    "free_text_in_clear": [
+      "location"
+    ],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairmake-edi-asn-errors",
+    "masked": [],
+    "text_in_clear": [
+      "asn",
+      "item",
+      "po_number"
+    ],
+    "free_text_in_clear": [],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairmake-edi-invoice-check",
+    "masked": [],
+    "text_in_clear": [
+      "invoice",
+      "item",
+      "po_number"
+    ],
+    "free_text_in_clear": [],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairmake-hts-codes",
+    "masked": [],
+    "text_in_clear": [
+      "description",
+      "entry_line",
+      "item",
+      "supplier"
+    ],
+    "free_text_in_clear": [
+      "description"
+    ],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairmake-job-margins",
+    "masked": [
+      "estimator"
+    ],
+    "text_in_clear": [
+      "customer",
+      "job",
+      "job_status"
+    ],
+    "free_text_in_clear": [],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairmake-labor-efficiency",
+    "masked": [
+      "employee"
+    ],
+    "text_in_clear": [
+      "work_center",
+      "work_order"
+    ],
+    "free_text_in_clear": [],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairmake-landed-cost",
+    "masked": [],
+    "text_in_clear": [
+      "charge_id",
+      "charge_type",
+      "receipt",
+      "supplier",
+      "vendor"
+    ],
+    "free_text_in_clear": [],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairmake-late-purchase-orders",
+    "masked": [],
+    "text_in_clear": [
+      "item",
+      "po_line",
+      "po_number",
+      "supplier"
+    ],
+    "free_text_in_clear": [],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairmake-lot-traceability",
+    "masked": [],
+    "text_in_clear": [
+      "component",
+      "component_lot",
+      "customer",
+      "finished_lot",
+      "item",
+      "lot",
+      "lot_or_serial",
+      "work_order"
+    ],
+    "free_text_in_clear": [],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairmake-machine-downtime",
+    "masked": [],
+    "text_in_clear": [
+      "event",
+      "machine",
+      "reason"
+    ],
+    "free_text_in_clear": [
+      "reason"
+    ],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairmake-material-certs",
+    "masked": [],
+    "text_in_clear": [
+      "cert_id",
+      "item",
+      "lot",
+      "property",
+      "receipt",
+      "supplier"
+    ],
+    "free_text_in_clear": [],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairmake-ncr-capa-aging",
+    "masked": [
+      "owner"
+    ],
+    "text_in_clear": [
+      "capa",
+      "defect_code",
+      "ncr",
+      "part"
+    ],
+    "free_text_in_clear": [
+      "defect_code"
+    ],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairmake-obsolete-inventory",
+    "masked": [],
+    "text_in_clear": [
+      "description",
+      "item"
+    ],
+    "free_text_in_clear": [
+      "description"
+    ],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairmake-order-backlog",
+    "masked": [],
+    "text_in_clear": [
+      "customer",
+      "item",
+      "line_status",
+      "order_line",
+      "order_number"
+    ],
+    "free_text_in_clear": [],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairmake-osha-300-log",
+    "masked": [
+      "employee",
+      "job_title"
+    ],
+    "text_in_clear": [
+      "case_number",
+      "outcome"
+    ],
+    "free_text_in_clear": [],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairmake-overhead-absorption",
+    "masked": [],
+    "text_in_clear": [
+      "work_center"
+    ],
+    "free_text_in_clear": [],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairmake-preventive-maintenance",
+    "masked": [],
+    "text_in_clear": [
+      "asset",
+      "description",
+      "task"
+    ],
+    "free_text_in_clear": [
+      "description"
+    ],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairmake-purchase-price-variance",
+    "masked": [],
+    "text_in_clear": [
+      "item",
+      "po_number",
+      "receipt",
+      "supplier"
+    ],
+    "free_text_in_clear": [],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairmake-rebate-claims",
+    "masked": [],
+    "text_in_clear": [
+      "agreement",
+      "item",
+      "supplier"
+    ],
+    "free_text_in_clear": [],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairmake-reorder-points",
+    "masked": [],
+    "text_in_clear": [
+      "item"
+    ],
+    "free_text_in_clear": [],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairmake-retailer-deductions",
+    "masked": [],
+    "text_in_clear": [
+      "customer",
+      "deduction",
+      "invoice",
+      "reason_code",
+      "reference"
+    ],
+    "free_text_in_clear": [],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairmake-scrap-yield",
+    "masked": [],
+    "text_in_clear": [
+      "item",
+      "scrap_reason",
+      "work_center",
+      "work_order"
+    ],
+    "free_text_in_clear": [
+      "scrap_reason"
+    ],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairmake-shelf-life",
+    "masked": [],
+    "text_in_clear": [
+      "customer",
+      "item",
+      "location",
+      "lot",
+      "shipment"
+    ],
+    "free_text_in_clear": [
+      "location"
+    ],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairmake-supplier-scorecards",
+    "masked": [],
+    "text_in_clear": [
+      "supplier"
+    ],
+    "free_text_in_clear": [],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  },
+  {
+    "agent": "fairmake-wip-aging",
+    "masked": [],
+    "text_in_clear": [
+      "item",
+      "wo_status",
+      "work_order"
+    ],
+    "free_text_in_clear": [],
+    "plus": "amounts, quantities, dates, rates and finding codes in clear"
+  }
+]

@@ -8,7 +8,7 @@ Part of **Fairmake**, the back-office agents for small and mid-size manufacturer
 
 ## What it checks
 
-For each case: flags day counts that contradict the outcome and privacy cases with a name entered; reviews missing fields on recordable cases, missing day counts, counts over the cap, late entries and first-aid cases marked recordable; lists cases with days still running. Counts cases and days by outcome; rates per 200,000 hours if annual hours are set. Names are masked in results.
+For each case: flags day counts that contradict the outcome and privacy cases with a name entered; reviews missing fields on recordable cases, missing day counts, counts over the cap, late entries and first-aid cases marked recordable; lists cases with days still running. Counts cases and days by outcome; rates per 200,000 hours if annual hours are set. Names and job titles are masked in results.
 
 | Finding | Example from the fictional demo data |
 |---|---|
