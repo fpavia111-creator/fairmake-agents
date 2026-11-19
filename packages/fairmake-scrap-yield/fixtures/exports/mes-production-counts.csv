@@ -1,0 +1,3 @@
+Work Order,Part,Machine,Shift Date,Good Count,Reject Count,Top Reject Reason
+WO-4101,HSG-300,CNC-2,11/14/2026,90,10,Porosity
+WO-4102,BRK-100,PRESS-1,11/14/2026,485,15,Burr

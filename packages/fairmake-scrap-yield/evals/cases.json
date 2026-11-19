@@ -1,0 +1,346 @@
+{
+  "suite": "fairmake-scrap-yield",
+  "root": "..",
+  "data_note": "Fictional production counts in ../fixtures. No model is called.",
+  "cases": [
+    {
+      "id": "check-totals",
+      "tool": "scrap_check",
+      "args": {
+        "production": "fixtures/production.csv",
+        "standards": "fixtures/standards.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "equals": {
+          "result.work_orders": 10,
+          "result.started": 3050,
+          "result.scrap": 137,
+          "result.scrap_cost": 1826,
+          "result.excess_cost": 841,
+          "result.flag": 3,
+          "result.review": 2,
+          "result.ok": 5
+        }
+      }
+    },
+    {
+      "id": "every-planted-finding",
+      "tool": "scrap_check",
+      "args": {
+        "production": "fixtures/production.csv",
+        "standards": "fixtures/standards.csv"
+      },
+      "expect": {
+        "contains": [
+          "scrap_over_standard",
+          "no_reason",
+          "qty_mismatch",
+          "yield_over_100",
+          "Die wear",
+          "4 unaccounted for"
+        ]
+      }
+    },
+    {
+      "id": "explain-porosity-order",
+      "tool": "scrap_explain",
+      "args": {
+        "production": "fixtures/production.csv",
+        "standards": "fixtures/standards.csv",
+        "work_order": "WO-4002"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "WO-4002 scrapped 18 of 100 (18%) against a 5% standard: 13 more than standard, 585 at 45 each"
+        ]
+      }
+    },
+    {
+      "id": "strict-settings",
+      "tool": "scrap_check",
+      "args": {
+        "production": "fixtures/production.csv",
+        "standards": "fixtures/standards.csv",
+        "settings": "fixtures/settings-strict.json"
+      },
+      "expect": {
+        "equals": {
+          "result.flag": 5,
+          "result.excess_cost": 905,
+          "result.settings_used.alert_factor": 1
+        }
+      }
+    },
+    {
+      "id": "mes-production-counts",
+      "tool": "scrap_check",
+      "args": {
+        "production": "fixtures/exports/mes-production-counts.csv",
+        "standards": "fixtures/standards.csv"
+      },
+      "expect": {
+        "equals": {
+          "result.work_orders": 2,
+          "result.started": 600,
+          "result.flag": 1
+        }
+      }
+    },
+    {
+      "id": "draft-scrap-review-after-approval",
+      "tool": "scrap_draft_scrap_review",
+      "args": {
+        "production": "fixtures/production.csv",
+        "standards": "fixtures/standards.csv",
+        "from": "Morgan Plant Manager (fictional)"
+      },
+      "approve": "Pat Example",
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.amount": 841,
+          "result.open_markers": 1
+        },
+        "contains": [
+          "scrap review open drafted for 841"
+        ]
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "scrap_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "production"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "scrap_check",
+      "args": {
+        "production": "../../../outside.csv",
+        "standards": "fixtures/standards.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "scrap_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "scrap_check",
+      "mode": "review",
+      "args": {
+        "production": "fixtures/production.csv",
+        "standards": "fixtures/standards.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.work_orders": 10,
+          "result.started": 3050,
+          "result.scrap": 137,
+          "result.scrap_cost": 1826,
+          "result.excess_cost": 841,
+          "result.flag": 3,
+          "result.review": 2,
+          "result.ok": 5
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "scrap_check",
+      "args": {
+        "production": "fixtures/production.csv",
+        "standards": "fixtures/standards.csv",
+        "settings": "fixtures/settings.json",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.work_orders": 10,
+          "result.started": 3050,
+          "result.scrap": 137,
+          "result.scrap_cost": 1826,
+          "result.excess_cost": 841,
+          "result.flag": 3,
+          "result.review": 2,
+          "result.ok": 5
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "scrap_explain",
+      "args": {
+        "production": "fixtures/production.csv",
+        "standards": "fixtures/standards.csv",
+        "settings": "fixtures/settings.json",
+        "work_order": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-its-files",
+      "tool": "scrap_write_report",
+      "args": {
+        "production": "fixtures/production.csv",
+        "standards": "fixtures/standards.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "min": {
+          "result.files.length": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "draft-waits-for-a-person",
+      "tool": "scrap_draft_scrap_review",
+      "args": {
+        "production": "fixtures/production.csv",
+        "standards": "fixtures/standards.csv",
+        "from": "Morgan Plant Manager (fictional)"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-drafts-nothing",
+      "tool": "scrap_draft_scrap_review",
+      "mode": "review",
+      "args": {
+        "production": "fixtures/production.csv",
+        "standards": "fixtures/standards.csv",
+        "from": "Morgan Plant Manager (fictional)"
+      },
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "request-stays-one-click-in-auto",
+      "tool": "scrap_request_send",
+      "mode": "auto",
+      "auto_actions": [
+        "scrap_draft_scrap_review"
+      ],
+      "args": {
+        "draft": "fairmake-out/scrap/drafts/none.md",
+        "draft_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-erp-post-scrap",
+      "tool": "erp_post_scrap",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-mes-change-setpoint",
+      "tool": "mes_change_setpoint",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-check-totals",
+      "tool": "scrap_check",
+      "args": {
+        "production": "fixtures/intl/de/production.csv",
+        "standards": "fixtures/intl/de/standards.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "equals": {
+          "result.work_orders": 10,
+          "result.started": 3050,
+          "result.scrap": 137,
+          "result.scrap_cost": 1826,
+          "result.excess_cost": 841,
+          "result.flag": 3,
+          "result.review": 2,
+          "result.ok": 5
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"check-totals\"."
+    },
+    {
+      "id": "intl-ja-check-totals",
+      "tool": "scrap_check",
+      "args": {
+        "production": "fixtures/intl/ja/production.csv",
+        "standards": "fixtures/intl/ja/standards.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "equals": {
+          "result.work_orders": 10,
+          "result.started": 3050,
+          "result.scrap": 137,
+          "result.scrap_cost": 1826,
+          "result.excess_cost": 841,
+          "result.flag": 3,
+          "result.review": 2,
+          "result.ok": 5
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"check-totals\"."
+    }
+  ]
+}
