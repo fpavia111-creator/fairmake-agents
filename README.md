@@ -64,7 +64,7 @@ node scripts/new-agent.mjs fairmake-<job words> "<description>" kw1,kw2 <logic-m
 
 ## How they are tested
 
-See [REVIEW-ver1.md](REVIEW-ver1.md) for every check with its numbers. In short: {TESTS} tests (22 per agent) and {EVALS} eval cases (19 or more per agent) pass on Windows with Node 24; the hostile data and argument passes find nothing; every agent reads its demo files in eight other languages and encodings with the same result; the bench runs every agent at 10,000 rows per file.
+See [REVIEW-ver1.md](REVIEW-ver1.md) for every check with its numbers. In short: 794 tests (22 per agent) and 608 eval cases (20 or more per agent) pass on Windows with Node 24; the hostile data and argument passes find nothing; every agent reads its demo files in eight other languages and encodings with the same result; the bench runs every agent at 10,000 rows per file.
 
 ## Limits
 

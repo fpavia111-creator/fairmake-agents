@@ -39,7 +39,7 @@ npx -y fairmake-retailer-deductions demo   # 用出货记录核对零售客户�
 
 ## 测试
 
-{TESTS} 个测试和 {EVALS} 个评估用例在 Windows 和 Node 24 上通过；恶意输入测试没有发现问题。详情见 [REVIEW-ver1.md](REVIEW-ver1.md)。
+794 个测试和 608 个评估用例在 Windows 和 Node 24 上通过；恶意输入测试没有发现问题。详情见 [REVIEW-ver1.md](REVIEW-ver1.md)。
 
 ## 限制
 

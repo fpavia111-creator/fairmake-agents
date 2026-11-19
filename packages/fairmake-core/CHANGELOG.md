@@ -1,6 +1,23 @@
 # Changelog
 
-## Unreleased (MCP quality pass, 2026-11-16)
+## 0.1.0 (Fairmake ver 1, 18 Nov 2026, unreleased)
+
+fairmake-core starts from the Lodestar core (Fairhaul) as of 18 Nov 2026, with the Windows fixes, and adds:
+
+- `mfg.js`: item and party keys, dates, aging buckets, week starts, findings with levels (flag, review, watch), status and tallies.
+- `agent.js`: `defineFairmakeAgent`, the factory every Fairmake agent uses (check, explain, report, draft and one-click request, refused tools, closed policy, settings with defaults reported as `settings_used`, status filter and item limit). Fields marked `personal: true` are masked in everything returned to the model. Report files are returned as paths relative to `--root`.
+- `x12.js`: readers for 850, 810, 856 and 997/999 (the freight readers are gone) and `ediLines`.
+- Export catalogue for NetSuite, SAP Business One, Epicor, Infor, Acumatica, Fishbowl, JobBOSS, Katana, MRPeasy, QuickBooks Enterprise and generic MES, CMMS, QMS, EHS and EDI provider layouts (all written from knowledge, none checked against a live account).
+- About 40 manufacturing column concepts in eight languages; report titles, section headings and columns for the 30 Fairmake reports in nine languages.
+
+Fixed (also present in the Lodestar core):
+- A header that is a field's own name in another letter case ("Item" for `item`) was not re-keyed, so the agent read a blank column.
+- A file whose headers are already the agent's own names was returned untouched even when its dates or amounts were local (12.11.2026, 1.234,50); it is now read through the adapter.
+- From the Fairtable session: paths over 1,024 characters refused before any file call; a GBK header that is valid UTF-8 by accident read as GBK; tool prefixes may contain underscores.
+
+Removed: the freight helpers and freight sources.
+
+## (Lodestar core history) Unreleased (MCP quality pass, 2026-11-16)
 
 Added
 - Every tool argument now has a description in `tools/list` (509 were missing across the 30 agents; a model fills arguments from these). New `manifest.argDocs` (`{ "arg": "...", "tool.arg": "..." }`) plus a shared glossary for names every pack uses (`out_dir`, `as_of`, `reason`, `title`, `note`, `accept_open_issues`, `timeout_ms`, `*_column`, and a file argument with its `*_sha256` twin). Inline descriptions win; shared schema objects are copied, never mutated. A key in `argDocs` that names no argument is a manifest error. Exports `documentSchema`, `undocumentedArgs`, `argDocsProblems`.

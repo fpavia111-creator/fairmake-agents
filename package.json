@@ -20,9 +20,11 @@
     "mcp:check": "node scripts/mcp-conformance.mjs",
     "readme:check": "node scripts/readme-sections.mjs --check",
     "intl:fixtures": "node scripts/make-intl-fixtures.mjs",
-    "policy:evals": "node scripts/policy-evals.mjs",
     "samples": "node scripts/sample-reports.mjs",
-    "readme": "node scripts/readme-sections.mjs"
+    "readme": "node scripts/readme-head.mjs && node scripts/readme-sections.mjs",
+    "evals": "node scripts/run-all-evals.mjs",
+    "evals:make": "node scripts/make-evals.mjs",
+    "masking": "node scripts/masking-check.mjs"
   },
   "engines": {
     "node": ">=20"

@@ -39,7 +39,7 @@ npx -y fairmake-retailer-deductions demo   # 小売取引先の差引を出荷�
 
 ## テスト
 
-{TESTS} 件のテストと {EVALS} 件の評価ケースが Windows・Node 24 で成功し、敵対的入力のテストでは問題は見つかっていません。詳細は [REVIEW-ver1.md](REVIEW-ver1.md) を参照してください。
+794 件のテストと 608 件の評価ケースが Windows・Node 24 で成功し、敵対的入力のテストでは問題は見つかっていません。詳細は [REVIEW-ver1.md](REVIEW-ver1.md) を参照してください。
 
 ## 制限事項
 

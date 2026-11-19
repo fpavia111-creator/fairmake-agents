@@ -39,7 +39,7 @@ npx -y fairmake-retailer-deductions demo   # 소매 거래처 공제를 출하 �
 
 ## 테스트
 
-{TESTS}개의 테스트와 {EVALS}개의 평가 케이스가 Windows·Node 24에서 통과하며, 악의적 입력 테스트에서는 문제가 발견되지 않았습니다. 자세한 내용은 [REVIEW-ver1.md](REVIEW-ver1.md)를 참고하세요.
+794개의 테스트와 608개의 평가 케이스가 Windows·Node 24에서 통과하며, 악의적 입력 테스트에서는 문제가 발견되지 않았습니다. 자세한 내용은 [REVIEW-ver1.md](REVIEW-ver1.md)를 참고하세요.
 
 ## 한계
 
