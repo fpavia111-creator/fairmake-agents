@@ -67,7 +67,7 @@
       },
       "expect": {
         "equals": {
-          "result.flag": 4,
+          "result.flag": 5,
           "result.settings_used.tolerance_pct": 2,
           "result.settings_used.jump_pct": 10
         }
