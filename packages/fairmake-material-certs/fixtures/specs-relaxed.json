@@ -1,0 +1,10 @@
+{
+  "note": "Relaxed fictional specs: tensile minimum 90, no hardness limit.",
+  "items": {
+    "BAR-4140": { "cert_required": true, "properties": { "tensile_ksi": { "min": 90 } } },
+    "PLT-A36": { "cert_required": true, "properties": { "yield_ksi": { "min": 36 } } },
+    "CAS-310": { "cert_required": false },
+    "SCR-M8": { "cert_required": false },
+    "GSK-220": { "cert_required": false }
+  }
+}

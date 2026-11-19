@@ -1,0 +1,7 @@
+cert_id,lot,property,value
+MTR-1001,H-1001,tensile_ksi,105
+MTR-1001,H-1001,hardness_hrc,28
+MTR-1002,H-1002,tensile_ksi,92
+MTR-1002,H-1002,hardness_hrc,30
+MTR-2001,P-76,yield_ksi,40
+MTR-2002,P-78,tensile_ksi,65

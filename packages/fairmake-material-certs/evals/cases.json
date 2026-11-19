@@ -1,0 +1,360 @@
+{
+  "suite": "fairmake-material-certs",
+  "root": "..",
+  "data_note": "Fictional receipts, certificates and specs in ../fixtures. No model is called.",
+  "cases": [
+    {
+      "id": "check-totals",
+      "tool": "certs_check",
+      "args": {
+        "receipts": "fixtures/receipts.csv",
+        "specs": "fixtures/specs.json",
+        "certs": "fixtures/certs.csv"
+      },
+      "expect": {
+        "equals": {
+          "result.receipts": 8,
+          "result.certificates": 4,
+          "result.flag": 3,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 2
+        }
+      }
+    },
+    {
+      "id": "every-planted-finding",
+      "tool": "certs_check",
+      "args": {
+        "receipts": "fixtures/receipts.csv",
+        "specs": "fixtures/specs.json",
+        "certs": "fixtures/certs.csv"
+      },
+      "expect": {
+        "contains": [
+          "cert_missing",
+          "cert_not_found",
+          "cert_lot_mismatch",
+          "out_of_spec",
+          "property_missing",
+          "no_spec",
+          "reports tensile_ksi 92; your spec is min 95"
+        ]
+      }
+    },
+    {
+      "id": "explain-wrong-heat",
+      "tool": "certs_explain",
+      "args": {
+        "receipts": "fixtures/receipts.csv",
+        "specs": "fixtures/specs.json",
+        "certs": "fixtures/certs.csv",
+        "receipt": "rc-2004"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "Certificate MTR-2001 is for lot P-76; receipt RC-2004 is lot P-77"
+        ]
+      }
+    },
+    {
+      "id": "relaxed-specs",
+      "tool": "certs_check",
+      "args": {
+        "receipts": "fixtures/receipts.csv",
+        "specs": "fixtures/specs-relaxed.json",
+        "certs": "fixtures/certs.csv"
+      },
+      "expect": {
+        "equals": {
+          "result.flag": 2,
+          "result.review": 2,
+          "result.watch": 0,
+          "result.ok": 4
+        }
+      }
+    },
+    {
+      "id": "epicor-receipts",
+      "tool": "certs_check",
+      "args": {
+        "receipts": "fixtures/exports/epicor-receipts.csv",
+        "specs": "fixtures/specs.json",
+        "certs": "fixtures/certs.csv"
+      },
+      "expect": {
+        "equals": {
+          "result.receipts": 2,
+          "result.flag": 1,
+          "result.ok": 1
+        },
+        "contains": [
+          "PS-502/BAR-4140/H-1003"
+        ]
+      }
+    },
+    {
+      "id": "specs-must-be-valid",
+      "tool": "certs_check",
+      "args": {
+        "receipts": "fixtures/receipts.csv",
+        "specs": "fixtures/certs.csv"
+      },
+      "expect": {
+        "status": "error"
+      }
+    },
+    {
+      "id": "draft-cert-request-after-approval",
+      "tool": "certs_draft_cert_request",
+      "args": {
+        "receipts": "fixtures/receipts.csv",
+        "specs": "fixtures/specs.json",
+        "certs": "fixtures/certs.csv",
+        "supplier": "northwind metals",
+        "from": "Quinn Quality (fictional)"
+      },
+      "approve": "Pat Example",
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.open_markers": 1
+        },
+        "contains": [
+          "cert request Northwind Metals drafted"
+        ]
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "certs_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "receipts"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "certs_check",
+      "args": {
+        "receipts": "../../../outside.csv",
+        "specs": "fixtures/specs.json",
+        "certs": "fixtures/certs.csv"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "certs_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "certs_check",
+      "mode": "review",
+      "args": {
+        "receipts": "fixtures/receipts.csv",
+        "specs": "fixtures/specs.json",
+        "certs": "fixtures/certs.csv"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.receipts": 8,
+          "result.certificates": 4,
+          "result.flag": 3,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 2
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "certs_check",
+      "args": {
+        "receipts": "fixtures/receipts.csv",
+        "specs": "fixtures/specs.json",
+        "certs": "fixtures/certs.csv",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.receipts": 8,
+          "result.certificates": 4,
+          "result.flag": 3,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 2
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "certs_explain",
+      "args": {
+        "receipts": "fixtures/receipts.csv",
+        "specs": "fixtures/specs.json",
+        "certs": "fixtures/certs.csv",
+        "receipt": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-its-files",
+      "tool": "certs_write_report",
+      "args": {
+        "receipts": "fixtures/receipts.csv",
+        "specs": "fixtures/specs.json",
+        "certs": "fixtures/certs.csv"
+      },
+      "expect": {
+        "status": "executed",
+        "min": {
+          "result.files.length": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "draft-waits-for-a-person",
+      "tool": "certs_draft_cert_request",
+      "args": {
+        "receipts": "fixtures/receipts.csv",
+        "specs": "fixtures/specs.json",
+        "certs": "fixtures/certs.csv",
+        "supplier": "northwind metals",
+        "from": "Quinn Quality (fictional)"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-drafts-nothing",
+      "tool": "certs_draft_cert_request",
+      "mode": "review",
+      "args": {
+        "receipts": "fixtures/receipts.csv",
+        "specs": "fixtures/specs.json",
+        "certs": "fixtures/certs.csv",
+        "supplier": "northwind metals",
+        "from": "Quinn Quality (fictional)"
+      },
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "request-stays-one-click-in-auto",
+      "tool": "certs_request_send",
+      "mode": "auto",
+      "auto_actions": [
+        "certs_draft_cert_request"
+      ],
+      "args": {
+        "draft": "fairmake-out/certs/drafts/none.md",
+        "draft_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-qms-release-hold",
+      "tool": "qms_release_hold",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-ap-pay-invoice",
+      "tool": "ap_pay_invoice",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-check-totals",
+      "tool": "certs_check",
+      "args": {
+        "receipts": "fixtures/intl/de/receipts.csv",
+        "specs": "fixtures/specs.json",
+        "certs": "fixtures/intl/de/certs.csv"
+      },
+      "expect": {
+        "equals": {
+          "result.receipts": 8,
+          "result.certificates": 4,
+          "result.flag": 3,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 2
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"check-totals\"."
+    },
+    {
+      "id": "intl-ja-check-totals",
+      "tool": "certs_check",
+      "args": {
+        "receipts": "fixtures/intl/ja/receipts.csv",
+        "specs": "fixtures/specs.json",
+        "certs": "fixtures/intl/ja/certs.csv"
+      },
+      "expect": {
+        "equals": {
+          "result.receipts": 8,
+          "result.certificates": 4,
+          "result.flag": 3,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 2
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"check-totals\"."
+    }
+  ]
+}
