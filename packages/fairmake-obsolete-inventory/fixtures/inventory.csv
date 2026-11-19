@@ -1,0 +1,11 @@
+item,description,on_hand,unit_cost,last_used,last_sold,usage_12m,item_status
+BRK-100,Bracket,500,4.00,2026-11-20,,4800,Active
+VLV-OLD,Valve old style,120,35.00,2025-06-15,,0,Active
+GSK-220,Gasket,600,1.25,2026-04-01,,300,Active
+BAR-1018,Bar 1018,5000,2.02,2026-11-10,,1200,Active
+PLT-OLD,Plate old,10,3.00,2024-01-01,,0,Active
+KIT-9,Service kit,40,12.00,,2026-11-01,200,Discontinued
+SEAL-NEW,Seal new style,200,1.20,,,,Active
+CAS-310,Casting,0,99.00,2026-11-25,,400,Active
+HSG-300,Housing,30,111.00,,2026-10-15,240,Active
+SPR-77,Spring,80,2.50,,,0,Active

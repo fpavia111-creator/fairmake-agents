@@ -1,0 +1,1 @@
+{ "note": "Fictional reserve policy.", "slow_months": 6, "obsolete_months": 12, "excess_months": 24, "reserve_pct": { "obsolete": 100, "slow": 25, "excess": 50 }, "min_value": 50 }

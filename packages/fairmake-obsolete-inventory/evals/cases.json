@@ -1,0 +1,344 @@
+{
+  "suite": "fairmake-obsolete-inventory",
+  "root": "..",
+  "data_note": "Fictional stock on hand in ../fixtures, aged as of 2026-11-30. No model is called.",
+  "cases": [
+    {
+      "id": "check-totals",
+      "tool": "obsolete_check",
+      "args": {
+        "inventory": "fixtures/inventory.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-30"
+      },
+      "expect": {
+        "equals": {
+          "result.items_checked": 10,
+          "result.value": 21330,
+          "result.proposed_reserve": 7213.5,
+          "result.flag": 4,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 3
+        }
+      }
+    },
+    {
+      "id": "every-planted-finding",
+      "tool": "obsolete_check",
+      "args": {
+        "inventory": "fixtures/inventory.csv",
+        "as_of": "2026-11-30"
+      },
+      "expect": {
+        "contains": [
+          "obsolete",
+          "slow_moving",
+          "excess",
+          "inactive_with_stock",
+          "no_movement_data",
+          "50 months of supply",
+          "no movement on record"
+        ]
+      }
+    },
+    {
+      "id": "explain-old-valve",
+      "tool": "obsolete_explain",
+      "args": {
+        "inventory": "fixtures/inventory.csv",
+        "as_of": "2026-11-30",
+        "item": "vlv-old"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.items.0.reserve": 4200,
+          "result.items.0.bucket": "obsolete"
+        }
+      }
+    },
+    {
+      "id": "longer-horizons",
+      "tool": "obsolete_check",
+      "args": {
+        "inventory": "fixtures/inventory.csv",
+        "settings": "fixtures/settings-long.json",
+        "as_of": "2026-11-30"
+      },
+      "expect": {
+        "equals": {
+          "result.flag": 3,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.settings_used.obsolete_months": 24,
+          "result.settings_used.reserve_pct.obsolete": 100
+        }
+      }
+    },
+    {
+      "id": "quickbooks-enterprise-valuation",
+      "tool": "obsolete_check",
+      "args": {
+        "inventory": "fixtures/exports/qbe-inventory-valuation.csv",
+        "as_of": "2026-11-30"
+      },
+      "expect": {
+        "equals": {
+          "result.items_checked": 2,
+          "result.value": 6200,
+          "result.review": 2
+        }
+      }
+    },
+    {
+      "id": "draft-reserve-proposal-after-approval",
+      "tool": "obsolete_draft_reserve_proposal",
+      "args": {
+        "inventory": "fixtures/inventory.csv",
+        "as_of": "2026-11-30",
+        "from": "Casey Controller (fictional)"
+      },
+      "approve": "Pat Example",
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.amount": 7213.5,
+          "result.open_markers": 1
+        },
+        "contains": [
+          "reserve proposal open drafted for 7213.5"
+        ]
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "obsolete_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "inventory"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "obsolete_check",
+      "args": {
+        "inventory": "../../../outside.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-30"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "obsolete_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "obsolete_check",
+      "mode": "review",
+      "args": {
+        "inventory": "fixtures/inventory.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-30"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.items_checked": 10,
+          "result.value": 21330,
+          "result.proposed_reserve": 7213.5,
+          "result.flag": 4,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 3
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "obsolete_check",
+      "args": {
+        "inventory": "fixtures/inventory.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-30",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.value": 21330,
+          "result.proposed_reserve": 7213.5,
+          "result.flag": 4,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 3
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "obsolete_explain",
+      "args": {
+        "inventory": "fixtures/inventory.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-30",
+        "item": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-its-files",
+      "tool": "obsolete_write_report",
+      "args": {
+        "inventory": "fixtures/inventory.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-30"
+      },
+      "expect": {
+        "status": "executed",
+        "min": {
+          "result.files.length": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "draft-waits-for-a-person",
+      "tool": "obsolete_draft_reserve_proposal",
+      "args": {
+        "inventory": "fixtures/inventory.csv",
+        "as_of": "2026-11-30",
+        "from": "Casey Controller (fictional)"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-drafts-nothing",
+      "tool": "obsolete_draft_reserve_proposal",
+      "mode": "review",
+      "args": {
+        "inventory": "fixtures/inventory.csv",
+        "as_of": "2026-11-30",
+        "from": "Casey Controller (fictional)"
+      },
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "request-stays-one-click-in-auto",
+      "tool": "obsolete_request_approve",
+      "mode": "auto",
+      "auto_actions": [
+        "obsolete_draft_reserve_proposal"
+      ],
+      "args": {
+        "draft": "fairmake-out/obsolete/drafts/none.md",
+        "draft_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-erp-scrap-inventory",
+      "tool": "erp_scrap_inventory",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-erp-post-journal",
+      "tool": "erp_post_journal",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-check-totals",
+      "tool": "obsolete_check",
+      "args": {
+        "inventory": "fixtures/intl/de/inventory.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-30"
+      },
+      "expect": {
+        "equals": {
+          "result.items_checked": 10,
+          "result.value": 21330,
+          "result.proposed_reserve": 7213.5,
+          "result.flag": 4,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 3
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"check-totals\"."
+    },
+    {
+      "id": "intl-ja-check-totals",
+      "tool": "obsolete_check",
+      "args": {
+        "inventory": "fixtures/intl/ja/inventory.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-30"
+      },
+      "expect": {
+        "equals": {
+          "result.items_checked": 10,
+          "result.value": 21330,
+          "result.proposed_reserve": 7213.5,
+          "result.flag": 4,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 3
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"check-totals\"."
+    }
+  ]
+}

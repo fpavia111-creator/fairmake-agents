@@ -1,0 +1,5 @@
+Item,Description,On Hand,Avg Cost,Asset Value
+Inventory,,,,
+VLV-OLD,Valve old style,120,35.00,4200.00
+BRK-100,Bracket,500,4.00,2000.00
+Total Inventory,,620,,6200.00
