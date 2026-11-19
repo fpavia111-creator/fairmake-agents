@@ -1,6 +1,7 @@
 {
   "name": "fairmake-supplier-scorecards",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairmake-supplier-scorecards",
   "description": "Fairmake Supplier Scorecards: on-time delivery, rejects in ppm and price against PO per supplier, weighted and ranked, with a scorecard draft per supplier. Disqualifies nobody.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

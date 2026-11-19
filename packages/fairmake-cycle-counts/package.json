@@ -1,6 +1,7 @@
 {
   "name": "fairmake-cycle-counts",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairmake-cycle-counts",
   "description": "Fairmake Cycle Counts: counted against system quantity with tolerances by ABC class, repeat variances, lines not counted and accuracy by class, with an adjustment list for approval. Posts nothing.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

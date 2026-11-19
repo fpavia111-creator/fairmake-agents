@@ -1,0 +1,37 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.fpavia111-creator/fairmake-shelf-life",
+  "title": "Fairmake Shelf Life",
+  "description": "Fairmake Shelf Life: expired lots on hand, lots expiring soon or with no expiry, and shipments…",
+  "version": "0.1.0",
+  "repository": {
+    "url": "https://github.com/fpavia111-creator/fairmake-agents",
+    "source": "github",
+    "subfolder": "packages/fairmake-shelf-life"
+  },
+  "websiteUrl": "https://fair-agents.com/fairmake.html",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "fairmake-shelf-life",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "packageArguments": [
+        {
+          "type": "positional",
+          "value": "mcp"
+        },
+        {
+          "type": "named",
+          "name": "--root",
+          "description": "Folder holding the exports this agent may read and write (it cannot reach outside it)",
+          "isRequired": true,
+          "format": "filepath",
+          "valueHint": "exports_folder"
+        }
+      ]
+    }
+  ]
+}

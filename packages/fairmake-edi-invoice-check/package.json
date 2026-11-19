@@ -1,6 +1,7 @@
 {
   "name": "fairmake-edi-invoice-check",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairmake-edi-invoice-check",
   "description": "Fairmake EDI Invoice Check: your invoices to customers (EDI 810 or tables) against their purchase orders (850): price and quantity differences, items not ordered, unknown POs and duplicates. Transmits nothing.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

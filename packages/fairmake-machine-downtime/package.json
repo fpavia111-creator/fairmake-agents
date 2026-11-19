@@ -1,6 +1,7 @@
 {
   "name": "fairmake-machine-downtime",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairmake-machine-downtime",
   "description": "Fairmake Machine Downtime: availability, MTTR and MTBF per machine from MES downtime exports, chronic stop reasons, and stops with no reason, no end or overlapping. Changes no schedule.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

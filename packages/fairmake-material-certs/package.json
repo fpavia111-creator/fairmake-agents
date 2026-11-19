@@ -1,6 +1,7 @@
 {
   "name": "fairmake-material-certs",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairmake-material-certs",
   "description": "Fairmake Material Certs: mill test reports and certificates of conformance on receipts against your purchase specs: missing, wrong lot or heat, out of spec or incomplete. Releases no hold.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

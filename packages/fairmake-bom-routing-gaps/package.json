@@ -1,6 +1,7 @@
 {
   "name": "fairmake-bom-routing-gaps",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairmake-bom-routing-gaps",
   "description": "Fairmake BOM Routing Gaps: made items with no BOM or routing, inactive or unknown components, zero quantities, routing steps with no work center or time, and BOM loops. Edits nothing.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

@@ -1,0 +1,37 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.fpavia111-creator/fairmake-edi-invoice-check",
+  "title": "Fairmake EDI Invoice Check",
+  "description": "Fairmake EDI Invoice Check: your invoices to customers (EDI 810 or tables) against their purchase…",
+  "version": "0.1.0",
+  "repository": {
+    "url": "https://github.com/fpavia111-creator/fairmake-agents",
+    "source": "github",
+    "subfolder": "packages/fairmake-edi-invoice-check"
+  },
+  "websiteUrl": "https://fair-agents.com/fairmake.html",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "fairmake-edi-invoice-check",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "packageArguments": [
+        {
+          "type": "positional",
+          "value": "mcp"
+        },
+        {
+          "type": "named",
+          "name": "--root",
+          "description": "Folder holding the exports this agent may read and write (it cannot reach outside it)",
+          "isRequired": true,
+          "format": "filepath",
+          "valueHint": "exports_folder"
+        }
+      ]
+    }
+  ]
+}

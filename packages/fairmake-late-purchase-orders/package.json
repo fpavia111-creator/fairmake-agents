@@ -1,6 +1,7 @@
 {
   "name": "fairmake-late-purchase-orders",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairmake-late-purchase-orders",
   "description": "Fairmake Late Purchase Orders: open PO lines past due, unconfirmed, promised after the production need date or over-received, by supplier, with delivery status requests. Changes no PO.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

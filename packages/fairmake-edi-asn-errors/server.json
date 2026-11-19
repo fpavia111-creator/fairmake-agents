@@ -1,0 +1,37 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.fpavia111-creator/fairmake-edi-asn-errors",
+  "title": "Fairmake EDI ASN Errors",
+  "description": "Fairmake EDI ASN Errors: advance ship notices (856) against customer POs (850) and shipment…",
+  "version": "0.1.0",
+  "repository": {
+    "url": "https://github.com/fpavia111-creator/fairmake-agents",
+    "source": "github",
+    "subfolder": "packages/fairmake-edi-asn-errors"
+  },
+  "websiteUrl": "https://fair-agents.com/fairmake.html",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "fairmake-edi-asn-errors",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "packageArguments": [
+        {
+          "type": "positional",
+          "value": "mcp"
+        },
+        {
+          "type": "named",
+          "name": "--root",
+          "description": "Folder holding the exports this agent may read and write (it cannot reach outside it)",
+          "isRequired": true,
+          "format": "filepath",
+          "valueHint": "exports_folder"
+        }
+      ]
+    }
+  ]
+}

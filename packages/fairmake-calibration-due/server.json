@@ -1,0 +1,37 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.fpavia111-creator/fairmake-calibration-due",
+  "title": "Fairmake Calibration Due",
+  "description": "Fairmake Calibration Due: gauges overdue or due soon, never calibrated, and work orders measured…",
+  "version": "0.1.0",
+  "repository": {
+    "url": "https://github.com/fpavia111-creator/fairmake-agents",
+    "source": "github",
+    "subfolder": "packages/fairmake-calibration-due"
+  },
+  "websiteUrl": "https://fair-agents.com/fairmake.html",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "fairmake-calibration-due",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "packageArguments": [
+        {
+          "type": "positional",
+          "value": "mcp"
+        },
+        {
+          "type": "named",
+          "name": "--root",
+          "description": "Folder holding the exports this agent may read and write (it cannot reach outside it)",
+          "isRequired": true,
+          "format": "filepath",
+          "valueHint": "exports_folder"
+        }
+      ]
+    }
+  ]
+}

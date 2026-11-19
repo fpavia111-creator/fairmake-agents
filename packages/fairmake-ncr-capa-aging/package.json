@@ -1,6 +1,7 @@
 {
   "name": "fairmake-ncr-capa-aging",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairmake-ncr-capa-aging",
   "description": "Fairmake NCR CAPA Aging: open nonconformances past the limit, overdue or unverified corrective actions, missing dispositions and root causes, and repeat defects with no CAPA. Owners masked; closes nothing.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

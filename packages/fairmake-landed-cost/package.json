@@ -1,6 +1,7 @@
 {
   "name": "fairmake-landed-cost",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairmake-landed-cost",
   "description": "Fairmake Landed Cost: freight-in, duty and brokerage bills matched to receipts and to the landed cost allocated into item cost. Not a goods three-way match; posts nothing.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

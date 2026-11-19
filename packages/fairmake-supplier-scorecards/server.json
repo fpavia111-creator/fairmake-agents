@@ -1,0 +1,37 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.fpavia111-creator/fairmake-supplier-scorecards",
+  "title": "Fairmake Supplier Scorecards",
+  "description": "Fairmake Supplier Scorecards: on-time delivery, rejects in ppm and price against PO per supplier…",
+  "version": "0.1.0",
+  "repository": {
+    "url": "https://github.com/fpavia111-creator/fairmake-agents",
+    "source": "github",
+    "subfolder": "packages/fairmake-supplier-scorecards"
+  },
+  "websiteUrl": "https://fair-agents.com/fairmake.html",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "fairmake-supplier-scorecards",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "packageArguments": [
+        {
+          "type": "positional",
+          "value": "mcp"
+        },
+        {
+          "type": "named",
+          "name": "--root",
+          "description": "Folder holding the exports this agent may read and write (it cannot reach outside it)",
+          "isRequired": true,
+          "format": "filepath",
+          "valueHint": "exports_folder"
+        }
+      ]
+    }
+  ]
+}

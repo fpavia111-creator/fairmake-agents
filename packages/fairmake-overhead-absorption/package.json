@@ -1,6 +1,7 @@
 {
   "name": "fairmake-overhead-absorption",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairmake-overhead-absorption",
   "description": "Fairmake Overhead Absorption: overhead applied to jobs (hours times rate) against overhead spent, by work center, with proposed rates. Posts nothing.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

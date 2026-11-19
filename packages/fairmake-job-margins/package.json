@@ -1,6 +1,7 @@
 {
   "name": "fairmake-job-margins",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairmake-job-margins",
   "description": "Fairmake Job Margins: quoted against actual cost and invoiced amount per job, with losses, overruns, under-billing and margins by customer and estimator. Changes no price.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

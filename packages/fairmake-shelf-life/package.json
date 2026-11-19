@@ -1,6 +1,7 @@
 {
   "name": "fairmake-shelf-life",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairmake-shelf-life",
   "description": "Fairmake Shelf Life: expired lots on hand, lots expiring soon or with no expiry, and shipments that went out expired, short-dated or out of first-expired-first-out order, with an expiry calendar.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

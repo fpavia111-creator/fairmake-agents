@@ -1,6 +1,7 @@
 {
   "name": "fairmake-capacity-load",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairmake-capacity-load",
   "description": "Fairmake Capacity Load: open operation hours by work center and week against available hours, overloaded weeks, past-due load and work centers with no calendar. Reschedules nothing.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

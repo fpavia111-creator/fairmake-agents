@@ -1,6 +1,7 @@
 {
   "name": "fairmake-cost-variance",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairmake-cost-variance",
   "description": "Fairmake Cost Variance: standard against actual cost by work order (material, labor, overhead), with a variance review draft for the production manager. Posts nothing.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

@@ -1,6 +1,7 @@
 {
   "name": "fairmake-hts-codes",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairmake-hts-codes",
   "description": "Fairmake HTS Codes: tariff codes and countries of origin checked for gaps, format and consistency with your own code list and with customs entry lines. No classification advice; files nothing.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

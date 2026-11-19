@@ -1,6 +1,7 @@
 {
   "name": "fairmake-purchase-price-variance",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairmake-purchase-price-variance",
   "description": "Fairmake Purchase Price Variance: receipt prices against standard cost, price jumps and unit-of-measure slips by supplier, with a price query draft. Changes no standard.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

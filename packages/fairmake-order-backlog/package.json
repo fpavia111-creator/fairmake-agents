@@ -1,6 +1,7 @@
 {
   "name": "fairmake-order-backlog",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairmake-order-backlog",
   "description": "Fairmake Order Backlog: open customer order lines past due, due soon, never promised, promised after the requested date or on hold, by promise month and customer, with status update drafts. Changes no date.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

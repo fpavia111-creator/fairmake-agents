@@ -1,6 +1,7 @@
 {
   "name": "fairmake-osha-300-log",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairmake-osha-300-log",
   "description": "Fairmake OSHA 300 Log: completeness of the injury and illness case log: missing fields, outcomes against day counts, day caps, privacy cases with names, open cases and late entries. Names masked; decides and files nothing.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",

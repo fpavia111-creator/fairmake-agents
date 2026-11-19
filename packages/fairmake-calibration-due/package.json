@@ -1,6 +1,7 @@
 {
   "name": "fairmake-calibration-due",
   "version": "0.1.0",
+  "mcpName": "io.github.fpavia111-creator/fairmake-calibration-due",
   "description": "Fairmake Calibration Due: gauges overdue or due soon, never calibrated, and work orders measured with a gauge that was overdue or had failed calibration, with a due-date calendar. Releases no hold.",
   "type": "module",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "evals",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "test": "node scripts/run-tests.cjs",
