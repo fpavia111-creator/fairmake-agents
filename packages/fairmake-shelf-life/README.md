@@ -21,6 +21,20 @@ For each lot: flags expired stock on hand, shipments made after expiry and shipm
 
 Each item gets the most serious level of its findings: **flag** (act on it), **review** (data is missing or unclear; a person looks), **watch** (worth knowing) or **ok**. Every finding names the numbers it was worked out from.
 
+## What it needs, and what stays with a person
+
+- `lots` (required): Lots on hand under --root: lot, item, location, quantity, manufacture and expiry dates, unit cost
+- `shipments` (optional): shipments by lot under --root: shipment, customer, item, lot, ship date and quantity
+- `as_of` (optional): Date to measure from, YYYY-MM-DD (default today)
+- `settings` (optional): settings JSON under --root; anything left out uses the defaults listed in the result as settings_used
+
+It never does these, and any other tool name is blocked:
+
+- Never scraps or writes off a lot.
+- Never releases, holds or changes a shipment or lot status in the WMS.
+
+`shelf_life_draft_disposition_request` writes a draft marked DRAFT; nothing goes out from it. Approving it (`shelf_life_request_send`) takes one click by a named person, even in Auto, and only records the approval: the agent itself sends, posts, files and pays nothing. What to change, send or pay is a person's decision.
+
 ## Settings
 
 Put the ones you want to change in a JSON file and pass it as `settings`; anything left out uses the default. The result lists the settings it used under `settings_used`.
@@ -192,4 +206,4 @@ Every call is written to `.fairmake/audit.jsonl` under the root: hash-chained JS
 - Thresholds and rules are settings in your own file, with working defaults listed in the result as settings_used. They are not a costing, quality or safety standard; check them against your own policies and contracts.
 - Not legal, tax, customs, safety or accounting advice. A person decides what to change, post, send or pay.
 - Column names for the named exports were written from knowledge of those systems and not checked against a live account; `inspect` shows how a file was read and `fairmake-sources.json` names columns by hand.
-- The bundled fixtures are fictional. Version 0.1.0; nothing has been published yet.
+- The bundled fixtures are fictional. Version 0.1.0.

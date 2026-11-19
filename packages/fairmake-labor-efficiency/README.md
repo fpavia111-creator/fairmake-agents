@@ -20,6 +20,19 @@ For each work center, compare standard hours earned (quantity completed times st
 
 Each item gets the most serious level of its findings: **flag** (act on it), **review** (data is missing or unclear; a person looks), **watch** (worth knowing) or **ok**. Every finding names the numbers it was worked out from.
 
+## What it needs, and what stays with a person
+
+- `labor` (required): Labor tickets under --root: entry, employee, work center, work order, date, hours and whether the time was indirect
+- `earned` (required): Completions under --root: work order, work center, quantity completed and standard hours per unit
+- `settings` (optional): settings JSON under --root; anything left out uses the defaults listed in the result as settings_used
+
+It never does these, and any other tool name is blocked:
+
+- Never changes pay, bonuses or payroll.
+- Never edits labor tickets or time clock records.
+
+`labor_draft_standards_review` writes a draft marked DRAFT; nothing goes out from it. Approving it (`labor_request_send`) takes one click by a named person, even in Auto, and only records the approval: the agent itself sends, posts, files and pays nothing. What to change, send or pay is a person's decision.
+
 ## Settings
 
 Put the ones you want to change in a JSON file and pass it as `settings`; anything left out uses the default. The result lists the settings it used under `settings_used`.
@@ -186,4 +199,4 @@ Every call is written to `.fairmake/audit.jsonl` under the root: hash-chained JS
 - Not legal, tax, customs, safety or accounting advice. A person decides what to change, post, send or pay.
 - People's names in these files are masked in results returned to the AI model. The report and draft files written here keep the real values: keep them in a private folder.
 - Column names for the named exports were written from knowledge of those systems and not checked against a live account; `inspect` shows how a file was read and `fairmake-sources.json` names columns by hand.
-- The bundled fixtures are fictional. Version 0.1.0; nothing has been published yet.
+- The bundled fixtures are fictional. Version 0.1.0.

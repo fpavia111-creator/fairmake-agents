@@ -13,7 +13,7 @@ fairmake-core starts from the Lodestar core (Fairhaul) as of 18 Nov 2026, with t
 Fixed (also present in the Lodestar core):
 - A header that is a field's own name in another letter case ("Item" for `item`) was not re-keyed, so the agent read a blank column.
 - A file whose headers are already the agent's own names was returned untouched even when its dates or amounts were local (12.11.2026, 1.234,50); it is now read through the adapter.
-- From the Fairtable session: paths over 1,024 characters refused before any file call; a GBK header that is valid UTF-8 by accident read as GBK; tool prefixes may contain underscores.
+- Ported from the Fairtable core: paths over 1,024 characters refused before any file call; a GBK header that is valid UTF-8 by accident read as GBK; tool prefixes may contain underscores.
 
 Removed: the freight helpers and freight sources.
 

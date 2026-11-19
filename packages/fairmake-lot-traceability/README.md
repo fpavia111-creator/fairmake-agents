@@ -21,6 +21,19 @@ Link received lots to the finished lots they went into and the shipments that ca
 
 Each item gets the most serious level of its findings: **flag** (act on it), **review** (data is missing or unclear; a person looks), **watch** (worth knowing) or **ok**. Every finding names the numbers it was worked out from.
 
+## What it needs, and what stays with a person
+
+- `consumption` (required): Material issues to production under --root: record, work order, finished lot, component, component lot, quantity, date
+- `receipts` (required): Received lots under --root: lot, item, receipt date, supplier
+- `shipments` (required): Shipments under --root: shipment, customer, item, lot or serial number, ship date, quantity
+
+It never does these, and any other tool name is blocked:
+
+- Never edits lot, serial or genealogy records.
+- Never sends a recall or customer notice.
+
+`trace_draft_trace_gaps` writes a draft marked DRAFT; nothing goes out from it. Approving it (`trace_request_send`) takes one click by a named person, even in Auto, and only records the approval: the agent itself sends, posts, files and pays nothing. What to change, send or pay is a person's decision.
+
 <!-- generated:start -->
 
 ## A demo run
@@ -189,4 +202,4 @@ Every call is written to `.fairmake/audit.jsonl` under the root: hash-chained JS
 - Thresholds and rules are settings in your own file, with working defaults listed in the result as settings_used. They are not a costing, quality or safety standard; check them against your own policies and contracts.
 - Not legal, tax, customs, safety or accounting advice. A person decides what to change, post, send or pay.
 - Column names for the named exports were written from knowledge of those systems and not checked against a live account; `inspect` shows how a file was read and `fairmake-sources.json` names columns by hand.
-- The bundled fixtures are fictional. Version 0.1.0; nothing has been published yet.
+- The bundled fixtures are fictional. Version 0.1.0.

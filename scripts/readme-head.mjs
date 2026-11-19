@@ -35,12 +35,22 @@ for (const n of readdirSync(PK).filter((x) => /^fairmake-(?!core$)/.test(x) && (
     '| Finding | Example from the fictional demo data |', '|---|---|',
     ...[...examples.entries()].sort((a, b) => (a[0] < b[0] ? -1 : 1)).map(([code, e]) => `| \`${code}\` | ${esc(e.detail)} |`), '',
     'Each item gets the most serious level of its findings: **flag** (act on it), **review** (data is missing or unclear; a person looks), **watch** (worth knowing) or **ok**. Every finding names the numbers it was worked out from.', ''];
+  // What a buyer needs to know before trying it: the files it reads, what it never does, who decides.
+  const check = manifest.tools[0]; const req = new Set(check.inputSchema.required || []);
+  const inputs = Object.entries(check.inputSchema.properties || {}).filter(([k]) => !['limit', 'status'].includes(k));
+  const refused = manifest.tools.filter((t) => !t.handler);
+  const draft = manifest.tools.find((t) => /_draft_/.test(t.name)); const request = manifest.tools.find((t) => /_request_/.test(t.name));
+  L.push('## What it needs, and what stays with a person', '',
+    ...inputs.map(([k, v]) => `- \`${k}\` (${req.has(k) ? 'required' : 'optional'}): ${esc(String(v.description || '').replace(/^Optional\s+/, '').trim())}`), '',
+    'It never does these, and any other tool name is blocked:', '',
+    ...refused.map((t) => `- ${esc(t.description.replace(/^Listed so agents can see it is refused\.\s*/i, ''))}`), '',
+    ...(draft && request ? [`\`${draft.name}\` writes a draft marked DRAFT; nothing goes out from it. Approving it (\`${request.name}\`) takes one click by a named person, even in Auto, and only records the approval: the agent itself sends, posts, files and pays nothing. What to change, send or pay is a person's decision.`, ''] : []));
   if (Object.keys(props).length) {
     L.push('## Settings', '', `Put the ones you want to change in a JSON file and pass it as \`settings\`; anything left out uses the default. The result lists the settings it used under \`settings_used\`.`, '', '| Setting | Default | Meaning |', '|---|---|---|');
     for (const [k, v] of Object.entries(props).filter(([k]) => k !== 'note')) L.push(`| \`${k}\` | \`${esc(JSON.stringify(DEFAULTS ? DEFAULTS[k] : null))}\` | ${esc(v.description)} |`);
     L.push('');
   }
-  L.push('## Limits', '', `- ${FAIRMAKE_LIMITS.files}`, `- ${FAIRMAKE_LIMITS.settings}`, `- ${FAIRMAKE_LIMITS.advice}`, ...(personal ? [`- ${FAIRMAKE_LIMITS.masking}`] : []), '- Column names for the named exports were written from knowledge of those systems and not checked against a live account; `inspect` shows how a file was read and `fairmake-sources.json` names columns by hand.', '- The bundled fixtures are fictional. Version 0.1.0; nothing has been published yet.', '');
+  L.push('## Limits', '', `- ${FAIRMAKE_LIMITS.files}`, `- ${FAIRMAKE_LIMITS.settings}`, `- ${FAIRMAKE_LIMITS.advice}`, ...(personal ? [`- ${FAIRMAKE_LIMITS.masking}`] : []), '- Column names for the named exports were written from knowledge of those systems and not checked against a live account; `inspect` shows how a file was read and `fairmake-sources.json` names columns by hand.', '- The bundled fixtures are fictional. Version 0.1.0.', '');
   const f = join(PK, n, 'README.md');
   const old = existsSync(f) ? readFileSync(f, 'utf8') : '';
   const block = (/<!-- generated:start -->[\s\S]*?<!-- generated:end -->/.exec(old) || [])[0];

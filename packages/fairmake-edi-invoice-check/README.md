@@ -20,6 +20,20 @@ Match every invoice line to the customer's PO line by PO and item. Flags unit pr
 
 Each item gets the most serious level of its findings: **flag** (act on it), **review** (data is missing or unclear; a person looks), **watch** (worth knowing) or **ok**. Every finding names the numbers it was worked out from.
 
+## What it needs, and what stays with a person
+
+- `edi` (optional): X12 file under --root with the customer's 850 purchase orders and your 810 invoices (instead of orders and invoices)
+- `orders` (optional): Customer purchase order lines under --root (when there is no X12 file): PO, line, item, quantity, unit price
+- `invoices` (optional): Your invoice lines to the customer under --root (when there is no X12 file): invoice, PO, line, item, quantity, unit price, date
+- `settings` (optional): settings JSON under --root; anything left out uses the defaults listed in the result as settings_used
+
+It never does these, and any other tool name is blocked:
+
+- Never sends, resends or cancels an EDI invoice.
+- Never issues a credit memo or changes an invoice in AR.
+
+`edi_invoice_draft_invoice_correction` writes a draft marked DRAFT; nothing goes out from it. Approving it (`edi_invoice_request_send`) takes one click by a named person, even in Auto, and only records the approval: the agent itself sends, posts, files and pays nothing. What to change, send or pay is a person's decision.
+
 ## Settings
 
 Put the ones you want to change in a JSON file and pass it as `settings`; anything left out uses the default. The result lists the settings it used under `settings_used`.
@@ -186,4 +200,4 @@ Every call is written to `.fairmake/audit.jsonl` under the root: hash-chained JS
 - Thresholds and rules are settings in your own file, with working defaults listed in the result as settings_used. They are not a costing, quality or safety standard; check them against your own policies and contracts.
 - Not legal, tax, customs, safety or accounting advice. A person decides what to change, post, send or pay.
 - Column names for the named exports were written from knowledge of those systems and not checked against a live account; `inspect` shows how a file was read and `fairmake-sources.json` names columns by hand.
-- The bundled fixtures are fictional. Version 0.1.0; nothing has been published yet.
+- The bundled fixtures are fictional. Version 0.1.0.
