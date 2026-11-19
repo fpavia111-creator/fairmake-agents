@@ -1,0 +1,366 @@
+{
+  "suite": "fairmake-reorder-points",
+  "root": "..",
+  "data_note": "Fictional stock status and usage in ../fixtures, as of 2026-11-18. No model is called.",
+  "cases": [
+    {
+      "id": "check-totals",
+      "tool": "reorder_check",
+      "args": {
+        "items": "fixtures/items.csv",
+        "usage": "fixtures/usage.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "equals": {
+          "result.items_checked": 8,
+          "result.stockouts": 1,
+          "result.to_order": 3,
+          "result.flag": 2,
+          "result.review": 4,
+          "result.watch": 0,
+          "result.ok": 2
+        },
+        "length": {
+          "result.proposed": 4
+        }
+      }
+    },
+    {
+      "id": "every-planted-finding",
+      "tool": "reorder_check",
+      "args": {
+        "items": "fixtures/items.csv",
+        "usage": "fixtures/usage.csv",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "contains": [
+          "stockout",
+          "below_safety_stock",
+          "at_reorder_point",
+          "rop_stale",
+          "no_rop",
+          "20 a day over 90 days times 14 days lead time plus safety stock 100 gives 380"
+        ]
+      }
+    },
+    {
+      "id": "explain-bearing",
+      "tool": "reorder_explain",
+      "args": {
+        "items": "fixtures/items.csv",
+        "usage": "fixtures/usage.csv",
+        "as_of": "2026-11-18",
+        "item": "brg-6204"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.items.0.available": -10,
+          "result.items.0.proposed_rop": 380
+        }
+      }
+    },
+    {
+      "id": "wider-review-threshold",
+      "tool": "reorder_check",
+      "args": {
+        "items": "fixtures/items.csv",
+        "usage": "fixtures/usage.csv",
+        "settings": "fixtures/settings-wide.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "equals": {
+          "result.flag": 2,
+          "result.review": 3,
+          "result.watch": 1,
+          "result.ok": 2,
+          "result.settings_used.review_pct": 60,
+          "result.settings_used.lookback_days": 90
+        }
+      }
+    },
+    {
+      "id": "mrpeasy-stock-items",
+      "tool": "reorder_check",
+      "args": {
+        "items": "fixtures/exports/mrpeasy-stock-items.csv",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "equals": {
+          "result.items_checked": 2,
+          "result.flag": 1,
+          "result.ok": 1
+        }
+      }
+    },
+    {
+      "id": "draft-rop-change-after-approval",
+      "tool": "reorder_draft_rop_change",
+      "args": {
+        "items": "fixtures/items.csv",
+        "usage": "fixtures/usage.csv",
+        "as_of": "2026-11-18",
+        "from": "Robin Buyer (fictional)"
+      },
+      "approve": "Pat Example",
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.open_markers": 1
+        },
+        "contains": [
+          "rop change proposal drafted"
+        ]
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "reorder_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "items"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "reorder_check",
+      "args": {
+        "items": "../../../outside.csv",
+        "usage": "fixtures/usage.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "reorder_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "reorder_check",
+      "mode": "review",
+      "args": {
+        "items": "fixtures/items.csv",
+        "usage": "fixtures/usage.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.items_checked": 8,
+          "result.stockouts": 1,
+          "result.to_order": 3,
+          "result.flag": 2,
+          "result.review": 4,
+          "result.watch": 0,
+          "result.ok": 2
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "reorder_check",
+      "args": {
+        "items": "fixtures/items.csv",
+        "usage": "fixtures/usage.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.stockouts": 1,
+          "result.to_order": 3,
+          "result.flag": 2,
+          "result.review": 4,
+          "result.watch": 0,
+          "result.ok": 2
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "reorder_explain",
+      "args": {
+        "items": "fixtures/items.csv",
+        "usage": "fixtures/usage.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18",
+        "item": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-its-files",
+      "tool": "reorder_write_report",
+      "args": {
+        "items": "fixtures/items.csv",
+        "usage": "fixtures/usage.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "status": "executed",
+        "min": {
+          "result.files.length": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "draft-waits-for-a-person",
+      "tool": "reorder_draft_rop_change",
+      "args": {
+        "items": "fixtures/items.csv",
+        "usage": "fixtures/usage.csv",
+        "as_of": "2026-11-18",
+        "from": "Robin Buyer (fictional)"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-drafts-nothing",
+      "tool": "reorder_draft_rop_change",
+      "mode": "review",
+      "args": {
+        "items": "fixtures/items.csv",
+        "usage": "fixtures/usage.csv",
+        "as_of": "2026-11-18",
+        "from": "Robin Buyer (fictional)"
+      },
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "request-stays-one-click-in-auto",
+      "tool": "reorder_request_apply",
+      "mode": "auto",
+      "auto_actions": [
+        "reorder_draft_rop_change"
+      ],
+      "args": {
+        "draft": "fairmake-out/reorder/drafts/none.md",
+        "draft_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-erp-create-purchase-order",
+      "tool": "erp_create_purchase_order",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-supplier-po-send",
+      "tool": "supplier_po_send",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-check-totals",
+      "tool": "reorder_check",
+      "args": {
+        "items": "fixtures/intl/de/items.csv",
+        "usage": "fixtures/intl/de/usage.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "equals": {
+          "result.items_checked": 8,
+          "result.stockouts": 1,
+          "result.to_order": 3,
+          "result.flag": 2,
+          "result.review": 4,
+          "result.watch": 0,
+          "result.ok": 2
+        },
+        "length": {
+          "result.proposed": 4
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"check-totals\"."
+    },
+    {
+      "id": "intl-ja-check-totals",
+      "tool": "reorder_check",
+      "args": {
+        "items": "fixtures/intl/ja/items.csv",
+        "usage": "fixtures/intl/ja/usage.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "equals": {
+          "result.items_checked": 8,
+          "result.stockouts": 1,
+          "result.to_order": 3,
+          "result.flag": 2,
+          "result.review": 4,
+          "result.watch": 0,
+          "result.ok": 2
+        },
+        "length": {
+          "result.proposed": 4
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"check-totals\"."
+    }
+  ]
+}
