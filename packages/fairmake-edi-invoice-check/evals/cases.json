@@ -1,0 +1,365 @@
+{
+  "suite": "fairmake-edi-invoice-check",
+  "root": "..",
+  "data_note": "Fictional customer POs, invoices and an X12 file in ../fixtures. No model is called.",
+  "cases": [
+    {
+      "id": "check-totals",
+      "tool": "edi_invoice_check",
+      "args": {
+        "orders": "fixtures/orders.csv",
+        "invoices": "fixtures/invoices.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "equals": {
+          "result.invoices": 7,
+          "result.orders": 3,
+          "result.invoiced": 2195.5,
+          "result.at_risk": 612,
+          "result.flag": 5,
+          "result.review": 0,
+          "result.ok": 2
+        }
+      }
+    },
+    {
+      "id": "every-planted-finding",
+      "tool": "edi_invoice_check",
+      "args": {
+        "orders": "fixtures/orders.csv",
+        "invoices": "fixtures/invoices.csv"
+      },
+      "expect": {
+        "contains": [
+          "price_mismatch",
+          "qty_over_po",
+          "item_not_on_po",
+          "po_not_found",
+          "possible_duplicate",
+          "70 invoiced so far against 60 ordered",
+          "same lines as invoice INV-4002"
+        ]
+      }
+    },
+    {
+      "id": "explain-price-difference",
+      "tool": "edi_invoice_explain",
+      "args": {
+        "orders": "fixtures/orders.csv",
+        "invoices": "fixtures/invoices.csv",
+        "invoice": "inv-4002"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "bills BRK-300 at 12.6; PO PO-9002 says 12"
+        ]
+      }
+    },
+    {
+      "id": "x12-850-and-810",
+      "tool": "edi_invoice_check",
+      "args": {
+        "edi": "fixtures/orders-and-invoices.edi"
+      },
+      "expect": {
+        "equals": {
+          "result.invoices": 1,
+          "result.orders": 2,
+          "result.invoiced": 183,
+          "result.at_risk": 2.5,
+          "result.flag": 1
+        },
+        "length": {
+          "result.x12_problems": 0
+        },
+        "not_contains": [
+          "total_mismatch"
+        ]
+      }
+    },
+    {
+      "id": "looser-price-tolerance",
+      "tool": "edi_invoice_check",
+      "args": {
+        "orders": "fixtures/orders.csv",
+        "invoices": "fixtures/invoices.csv",
+        "settings": "fixtures/settings-loose.json"
+      },
+      "expect": {
+        "equals": {
+          "result.flag": 4,
+          "result.ok": 3,
+          "result.at_risk": 564,
+          "result.settings_used.price_tolerance": 1
+        }
+      }
+    },
+    {
+      "id": "quickbooks-enterprise-sales-detail",
+      "tool": "edi_invoice_check",
+      "args": {
+        "orders": "fixtures/orders.csv",
+        "invoices": "fixtures/exports/qbe-sales-detail.csv"
+      },
+      "expect": {
+        "equals": {
+          "result.invoices": 2,
+          "result.flag": 1,
+          "result.ok": 1,
+          "result.at_risk": 24
+        }
+      }
+    },
+    {
+      "id": "needs-some-input",
+      "tool": "edi_invoice_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "pass edi"
+        ]
+      }
+    },
+    {
+      "id": "draft-invoice-correction-after-approval",
+      "tool": "edi_invoice_draft_invoice_correction",
+      "args": {
+        "orders": "fixtures/orders.csv",
+        "invoices": "fixtures/invoices.csv",
+        "from": "Alex AR (fictional)"
+      },
+      "approve": "Pat Example",
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.amount": 612,
+          "result.open_markers": 1
+        },
+        "contains": [
+          "invoice correction open drafted for 612"
+        ]
+      }
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "edi_invoice_check",
+      "args": {
+        "orders": "../../../outside.csv",
+        "invoices": "fixtures/invoices.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "edi_invoice_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "edi_invoice_check",
+      "mode": "review",
+      "args": {
+        "orders": "fixtures/orders.csv",
+        "invoices": "fixtures/invoices.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.invoices": 7,
+          "result.orders": 3,
+          "result.invoiced": 2195.5,
+          "result.at_risk": 612,
+          "result.flag": 5,
+          "result.review": 0,
+          "result.ok": 2
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "edi_invoice_check",
+      "args": {
+        "orders": "fixtures/orders.csv",
+        "invoices": "fixtures/invoices.csv",
+        "settings": "fixtures/settings.json",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.invoices": 7,
+          "result.orders": 3,
+          "result.invoiced": 2195.5,
+          "result.at_risk": 612,
+          "result.flag": 5,
+          "result.review": 0,
+          "result.ok": 2
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "edi_invoice_explain",
+      "args": {
+        "orders": "fixtures/orders.csv",
+        "invoices": "fixtures/invoices.csv",
+        "settings": "fixtures/settings.json",
+        "invoice": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-its-files",
+      "tool": "edi_invoice_write_report",
+      "args": {
+        "orders": "fixtures/orders.csv",
+        "invoices": "fixtures/invoices.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "min": {
+          "result.files.length": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "draft-waits-for-a-person",
+      "tool": "edi_invoice_draft_invoice_correction",
+      "args": {
+        "orders": "fixtures/orders.csv",
+        "invoices": "fixtures/invoices.csv",
+        "from": "Alex AR (fictional)"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-drafts-nothing",
+      "tool": "edi_invoice_draft_invoice_correction",
+      "mode": "review",
+      "args": {
+        "orders": "fixtures/orders.csv",
+        "invoices": "fixtures/invoices.csv",
+        "from": "Alex AR (fictional)"
+      },
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "request-stays-one-click-in-auto",
+      "tool": "edi_invoice_request_send",
+      "mode": "auto",
+      "auto_actions": [
+        "edi_invoice_draft_invoice_correction"
+      ],
+      "args": {
+        "draft": "fairmake-out/edi_invoice/drafts/none.md",
+        "draft_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-edi-transmit",
+      "tool": "edi_transmit",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-ar-issue-credit",
+      "tool": "ar_issue_credit",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-check-totals",
+      "tool": "edi_invoice_check",
+      "args": {
+        "orders": "fixtures/intl/de/orders.csv",
+        "invoices": "fixtures/intl/de/invoices.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "equals": {
+          "result.invoices": 7,
+          "result.orders": 3,
+          "result.invoiced": 2195.5,
+          "result.at_risk": 612,
+          "result.flag": 5,
+          "result.review": 0,
+          "result.ok": 2
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"check-totals\"."
+    },
+    {
+      "id": "intl-ja-check-totals",
+      "tool": "edi_invoice_check",
+      "args": {
+        "orders": "fixtures/intl/ja/orders.csv",
+        "invoices": "fixtures/intl/ja/invoices.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "equals": {
+          "result.invoices": 7,
+          "result.orders": 3,
+          "result.invoiced": 2195.5,
+          "result.at_risk": 612,
+          "result.flag": 5,
+          "result.review": 0,
+          "result.ok": 2
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"check-totals\"."
+    }
+  ]
+}

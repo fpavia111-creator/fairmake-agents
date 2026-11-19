@@ -1,0 +1,59 @@
+{
+  "name": "fairmake-edi-invoice-check",
+  "version": "0.1.0",
+  "description": "Fairmake EDI Invoice Check: your invoices to customers (EDI 810 or tables) against their purchase orders (850): price and quantity differences, items not ordered, unknown POs and duplicates. Transmits nothing.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairmake-edi-invoice-check": "bin/fairmake-edi-invoice-check.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/fairmake-edi-invoice-check.js demo",
+    "eval": "node bin/fairmake-edi-invoice-check.js eval"
+  },
+  "dependencies": {
+    "fairmake-core": "^0.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairmake-agents.git",
+    "directory": "packages/fairmake-edi-invoice-check"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairmake-agents/tree/main/packages/fairmake-edi-invoice-check#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairmake-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "manufacturing",
+    "distribution",
+    "erp",
+    "fairmake",
+    "edi",
+    "810",
+    "850",
+    "invoice",
+    "deductions",
+    "x12"
+  ]
+}
