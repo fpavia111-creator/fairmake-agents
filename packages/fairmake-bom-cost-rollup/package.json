@@ -1,0 +1,58 @@
+{
+  "name": "fairmake-bom-cost-rollup",
+  "version": "0.1.0",
+  "description": "Fairmake BOM Cost Rollup: every assembly's cost rebuilt from its bill of materials and latest purchase prices, against its standard cost, with missing and stale prices and BOM loops. Loads nothing.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairmake-bom-cost-rollup": "bin/fairmake-bom-cost-rollup.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/fairmake-bom-cost-rollup.js demo",
+    "eval": "node bin/fairmake-bom-cost-rollup.js eval"
+  },
+  "dependencies": {
+    "fairmake-core": "^0.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairmake-agents.git",
+    "directory": "packages/fairmake-bom-cost-rollup"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairmake-agents/tree/main/packages/fairmake-bom-cost-rollup#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairmake-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "manufacturing",
+    "distribution",
+    "erp",
+    "fairmake",
+    "bom",
+    "bill-of-materials",
+    "cost-rollup",
+    "standard-cost",
+    "katana"
+  ]
+}

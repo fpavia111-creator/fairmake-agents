@@ -1,0 +1,381 @@
+{
+  "suite": "fairmake-bom-cost-rollup",
+  "root": "..",
+  "data_note": "Fictional BOM, prices and item master in ../fixtures, as of 2026-11-18. No model is called.",
+  "cases": [
+    {
+      "id": "check-totals",
+      "tool": "rollup_check",
+      "args": {
+        "bom": "fixtures/bom.csv",
+        "prices": "fixtures/prices.csv",
+        "items": "fixtures/items.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "equals": {
+          "result.assemblies": 8,
+          "result.complete": 5,
+          "result.flag": 4,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 1
+        },
+        "length": {
+          "result.proposed": 2
+        }
+      }
+    },
+    {
+      "id": "every-planted-finding",
+      "tool": "rollup_check",
+      "args": {
+        "bom": "fixtures/bom.csv",
+        "prices": "fixtures/prices.csv",
+        "items": "fixtures/items.csv",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "contains": [
+          "cost_up",
+          "missing_price",
+          "stale_price",
+          "circular_bom",
+          "no_standard",
+          "LOOP-A > LOOP-B > LOOP-A",
+          "STEM-5",
+          "PLT-A36 (2025-06-01)"
+        ]
+      }
+    },
+    {
+      "id": "explain-pump-rolls-through-subassemblies",
+      "tool": "rollup_explain",
+      "args": {
+        "bom": "fixtures/bom.csv",
+        "prices": "fixtures/prices.csv",
+        "items": "fixtures/items.csv",
+        "as_of": "2026-11-18",
+        "item": "PUMP-100"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.items.0.rolled_cost": 148.44,
+          "result.items.0.status": "ok"
+        }
+      }
+    },
+    {
+      "id": "wider-threshold-flags-less",
+      "tool": "rollup_check",
+      "args": {
+        "bom": "fixtures/bom.csv",
+        "prices": "fixtures/prices.csv",
+        "items": "fixtures/items.csv",
+        "settings": "fixtures/settings-wide.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "equals": {
+          "result.flag": 3,
+          "result.ok": 3,
+          "result.watch": 0,
+          "result.settings_used.change_pct": 20
+        }
+      }
+    },
+    {
+      "id": "katana-recipes-export",
+      "tool": "rollup_check",
+      "args": {
+        "bom": "fixtures/exports/katana-recipes.csv",
+        "prices": "fixtures/prices.csv",
+        "items": "fixtures/items.csv",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "equals": {
+          "result.assemblies": 3,
+          "result.complete": 3
+        },
+        "contains": [
+          "HSG-300",
+          "IMP-200"
+        ]
+      }
+    },
+    {
+      "id": "draft-standard-update-after-approval",
+      "tool": "rollup_draft_standard_update",
+      "args": {
+        "bom": "fixtures/bom.csv",
+        "prices": "fixtures/prices.csv",
+        "items": "fixtures/items.csv",
+        "as_of": "2026-11-18",
+        "from": "Casey Controller (fictional)"
+      },
+      "approve": "Pat Example",
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.open_markers": 1
+        },
+        "contains": [
+          "standard update proposal drafted"
+        ]
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "rollup_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "bom"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "rollup_check",
+      "args": {
+        "bom": "../../../outside.csv",
+        "prices": "fixtures/prices.csv",
+        "items": "fixtures/items.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "rollup_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "rollup_check",
+      "mode": "review",
+      "args": {
+        "bom": "fixtures/bom.csv",
+        "prices": "fixtures/prices.csv",
+        "items": "fixtures/items.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.assemblies": 8,
+          "result.complete": 5,
+          "result.flag": 4,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 1
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "rollup_check",
+      "args": {
+        "bom": "fixtures/bom.csv",
+        "prices": "fixtures/prices.csv",
+        "items": "fixtures/items.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.assemblies": 8,
+          "result.complete": 5,
+          "result.flag": 4,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 1
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "rollup_explain",
+      "args": {
+        "bom": "fixtures/bom.csv",
+        "prices": "fixtures/prices.csv",
+        "items": "fixtures/items.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18",
+        "item": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-its-files",
+      "tool": "rollup_write_report",
+      "args": {
+        "bom": "fixtures/bom.csv",
+        "prices": "fixtures/prices.csv",
+        "items": "fixtures/items.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "status": "executed",
+        "min": {
+          "result.files.length": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "draft-waits-for-a-person",
+      "tool": "rollup_draft_standard_update",
+      "args": {
+        "bom": "fixtures/bom.csv",
+        "prices": "fixtures/prices.csv",
+        "items": "fixtures/items.csv",
+        "as_of": "2026-11-18",
+        "from": "Casey Controller (fictional)"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-drafts-nothing",
+      "tool": "rollup_draft_standard_update",
+      "mode": "review",
+      "args": {
+        "bom": "fixtures/bom.csv",
+        "prices": "fixtures/prices.csv",
+        "items": "fixtures/items.csv",
+        "as_of": "2026-11-18",
+        "from": "Casey Controller (fictional)"
+      },
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "request-stays-one-click-in-auto",
+      "tool": "rollup_request_apply",
+      "mode": "auto",
+      "auto_actions": [
+        "rollup_draft_standard_update"
+      ],
+      "args": {
+        "draft": "fairmake-out/rollup/drafts/none.md",
+        "draft_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-erp-update-item-master",
+      "tool": "erp_update_item_master",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-erp-post-revaluation",
+      "tool": "erp_post_revaluation",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-check-totals",
+      "tool": "rollup_check",
+      "args": {
+        "bom": "fixtures/intl/de/bom.csv",
+        "prices": "fixtures/intl/de/prices.csv",
+        "items": "fixtures/intl/de/items.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "equals": {
+          "result.assemblies": 8,
+          "result.complete": 5,
+          "result.flag": 4,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 1
+        },
+        "length": {
+          "result.proposed": 2
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"check-totals\"."
+    },
+    {
+      "id": "intl-ja-check-totals",
+      "tool": "rollup_check",
+      "args": {
+        "bom": "fixtures/intl/ja/bom.csv",
+        "prices": "fixtures/intl/ja/prices.csv",
+        "items": "fixtures/intl/ja/items.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "equals": {
+          "result.assemblies": 8,
+          "result.complete": 5,
+          "result.flag": 4,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 1
+        },
+        "length": {
+          "result.proposed": 2
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"check-totals\"."
+    }
+  ]
+}
