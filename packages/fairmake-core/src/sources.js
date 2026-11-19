@@ -234,7 +234,10 @@ export function adaptRecords(table, def, { override = null, kind = '', arg = '',
     if (src && src !== target) { p.factor = FACTOR[`${src}>${target}`]; unitsConverted[p.f] = `${src} -> ${target}`; }
   }
   const forced = !!(ov.columns || ov.set || ov.date_order || ov.decimal || ov.profile || ov.encoding || ov.units || ov.skip_rows !== undefined && ov.skip_rows !== null);
-  const adapted = !!(profile || renamed || forced || headerRow > 0 || Object.keys(unitsConverted).length);
+  // Columns already under the agent's own names can still hold local values (12.11.2026, 1.234,56): those are read through the adapter too.
+  // Fix found by the Fairmake session, 18 Nov 2026: a German file whose headers needed no translation kept its dates as written.
+  const localValues = plan.some((p) => p.from.length && p.from.every((h) => typeof h === 'string') && records.slice(0, 5000).some((r) => { const v = String(r[p.from[0]] ?? '').trim(); if (!v) return false; if (p.fd.type === 'date' || p.fd.type === 'datetime') return !/^\d{4}-\d{2}-\d{2}/.test(v); if (p.fd.type === 'money' || p.fd.type === 'number') return !/^-?\d+(\.\d+)?$/.test(v); return false; }));
+  const adapted = !!(profile || renamed || forced || headerRow > 0 || Object.keys(unitsConverted).length || localValues);
   const base = { arg, kind, file, format: table.format, ...(table.sheet ? { sheet: table.sheet } : {}), ...(table.encoding && table.encoding.name !== 'utf-8' ? { encoding: table.encoding.name } : {}), profile: profile ? profile.id : null, system: profile ? profile.system : null, export: profile ? profile.label || null : null };
   const encWarn = encodingWarning(table);
   if (!adapted) {

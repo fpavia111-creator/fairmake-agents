@@ -63,8 +63,11 @@ test('header names compare by letters and digits; the header row is found under 
 });
 
 test('a file in the agent\'s own columns comes back untouched; a required column missing everywhere is said aloud', () => {
-  const own = adapt([['name', 'email', 'start'], ['Ana', 'ANA@Example.test', '11/03/2026']]);
-  assert.equal(own.report.adapted, false); assert.deepEqual(own.rows, [{ name: 'Ana', email: 'ANA@Example.test', start: '11/03/2026' }]); assert.deepEqual(own.report.warnings, []);
+  const own = adapt([['name', 'email', 'start'], ['Ana', 'ANA@Example.test', '2026-11-03']]);
+  assert.equal(own.report.adapted, false); assert.deepEqual(own.rows, [{ name: 'Ana', email: 'ANA@Example.test', start: '2026-11-03' }]); assert.deepEqual(own.report.warnings, []);
+  // Own column names with local values (a German export of the agent's own layout) are still read through the adapter (Fairmake fix, 18 Nov 2026).
+  const local = adapt([['name', 'start', 'pay'], ['Ana', '15.10.2026', '1.234,50'], ['Ben', '12.11.2026', '99,00']]);
+  assert.equal(local.report.adapted, true); assert.deepEqual(local.rows.map((r) => [r.start, Number(r.pay)]), [['2026-10-15', 1234.5], ['2026-11-12', 99]]);
   const lost = adapt([['who', 'when'], ['Ana', '2026-11-03']]);
   assert.equal(lost.report.adapted, false); assert.deepEqual(lost.report.missing, ['name']); assert.match(lost.report.warnings[0], /recognised as: name/);
   assert.deepEqual(adapt([['who']]).report.warnings, [], 'an empty file is not a missing column');

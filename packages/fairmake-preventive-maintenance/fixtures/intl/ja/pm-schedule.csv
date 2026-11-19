@@ -1,0 +1,11 @@
+task,設備,摘要,周期（日）,interval_hours,前回実施日,hours_since,critical
+PM-101,CNC-1,Spindle lubrication,30,,2026/11/01,,N
+PM-102,CNC-2,Way cover inspection,30,,2026/09/15,,Y
+PM-103,PRESS-1,Light curtain test,7,,2026/11/05,,Y
+PM-104,PRESS-1,Hydraulic oil change,180,"1,000",2026/08/01,"1,250",N
+PM-105,WELD-1,Ground cable check,90,,,,N
+PM-106,COMP-1,Air filter,,,2026/10/01,,N
+PM-107,CNC-1,Coolant concentration,7,,2026/11/17,,N
+PM-108,LASER-1,Optics clean,30,,2026/11/10,,N
+PM-109,COMP-1,Belt tension,90,,2026/10/01,,N
+PM-110,CNC-2,Chip conveyor,30,,2026/11/10,,N

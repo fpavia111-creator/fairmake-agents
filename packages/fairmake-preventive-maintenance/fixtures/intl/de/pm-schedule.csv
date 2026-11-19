@@ -1,0 +1,11 @@
+task;Anlage;Beschreibung;Intervall (Tage);interval_hours;Zuletzt durchgeführt;hours_since;critical
+PM-101;CNC-1;Spindle lubrication;30;;01.11.2026;;N
+PM-102;CNC-2;Way cover inspection;30;;15.09.2026;;Y
+PM-103;PRESS-1;Light curtain test;7;;05.11.2026;;Y
+PM-104;PRESS-1;Hydraulic oil change;180;1.000;01.08.2026;1.250;N
+PM-105;WELD-1;Ground cable check;90;;;;N
+PM-106;COMP-1;Air filter;;;01.10.2026;;N
+PM-107;CNC-1;Coolant concentration;7;;17.11.2026;;N
+PM-108;LASER-1;Optics clean;30;;10.11.2026;;N
+PM-109;COMP-1;Belt tension;90;;01.10.2026;;N
+PM-110;CNC-2;Chip conveyor;30;;10.11.2026;;N

@@ -1,0 +1,378 @@
+{
+  "suite": "fairmake-preventive-maintenance",
+  "root": "..",
+  "data_note": "Fictional PM tasks in ../fixtures, as of 2026-11-18. No model is called.",
+  "cases": [
+    {
+      "id": "check-totals",
+      "tool": "pm_check",
+      "args": {
+        "schedule": "fixtures/pm-schedule.csv",
+        "completions": "fixtures/completions.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "equals": {
+          "result.tasks": 10,
+          "result.assets": 6,
+          "result.overdue": 2,
+          "result.critical_overdue": 1,
+          "result.flag": 2,
+          "result.review": 2,
+          "result.watch": 3,
+          "result.ok": 3
+        }
+      }
+    },
+    {
+      "id": "every-planted-finding",
+      "tool": "pm_check",
+      "args": {
+        "schedule": "fixtures/pm-schedule.csv",
+        "completions": "fixtures/completions.csv",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "contains": [
+          "overdue",
+          "meter_overdue",
+          "due_soon",
+          "never_done",
+          "no_interval",
+          "34 days ago); marked safety critical",
+          "run 1250 hours"
+        ]
+      }
+    },
+    {
+      "id": "completion-log-moves-the-due-date",
+      "tool": "pm_explain",
+      "args": {
+        "schedule": "fixtures/pm-schedule.csv",
+        "completions": "fixtures/completions.csv",
+        "as_of": "2026-11-18",
+        "task": "PM-103"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.items.0.last_done": "2026-11-12",
+          "result.items.0.status": "watch"
+        }
+      }
+    },
+    {
+      "id": "without-the-completion-log",
+      "tool": "pm_check",
+      "args": {
+        "schedule": "fixtures/pm-schedule.csv",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "equals": {
+          "result.flag": 3,
+          "result.critical_overdue": 2
+        }
+      }
+    },
+    {
+      "id": "month-of-look-ahead",
+      "tool": "pm_check",
+      "args": {
+        "schedule": "fixtures/pm-schedule.csv",
+        "completions": "fixtures/completions.csv",
+        "settings": "fixtures/settings-month.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "equals": {
+          "result.watch": 5,
+          "result.ok": 1,
+          "result.settings_used.due_soon_days": 31
+        }
+      }
+    },
+    {
+      "id": "cmms-pm-schedule-export",
+      "tool": "pm_check",
+      "args": {
+        "schedule": "fixtures/exports/cmms-pm-schedule.csv",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "equals": {
+          "result.tasks": 2,
+          "result.flag": 1,
+          "result.watch": 1
+        },
+        "contains": [
+          "CNC-2/Way cover inspection"
+        ]
+      }
+    },
+    {
+      "id": "draft-pm-list-after-approval",
+      "tool": "pm_draft_pm_work_orders",
+      "args": {
+        "schedule": "fixtures/pm-schedule.csv",
+        "completions": "fixtures/completions.csv",
+        "as_of": "2026-11-18",
+        "from": "Morgan Plant Manager (fictional)"
+      },
+      "approve": "Pat Example",
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.open_markers": 1
+        },
+        "contains": [
+          "pm work orders open drafted"
+        ]
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "pm_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "schedule"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "pm_check",
+      "args": {
+        "schedule": "../../../outside.csv",
+        "completions": "fixtures/completions.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "pm_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "pm_check",
+      "mode": "review",
+      "args": {
+        "schedule": "fixtures/pm-schedule.csv",
+        "completions": "fixtures/completions.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.tasks": 10,
+          "result.assets": 6,
+          "result.overdue": 2,
+          "result.critical_overdue": 1,
+          "result.flag": 2,
+          "result.review": 2,
+          "result.watch": 3,
+          "result.ok": 3
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "pm_check",
+      "args": {
+        "schedule": "fixtures/pm-schedule.csv",
+        "completions": "fixtures/completions.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.tasks": 10,
+          "result.assets": 6,
+          "result.overdue": 2,
+          "result.critical_overdue": 1,
+          "result.flag": 2,
+          "result.review": 2,
+          "result.watch": 3,
+          "result.ok": 3
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "pm_explain",
+      "args": {
+        "schedule": "fixtures/pm-schedule.csv",
+        "completions": "fixtures/completions.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18",
+        "task": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-its-files",
+      "tool": "pm_write_report",
+      "args": {
+        "schedule": "fixtures/pm-schedule.csv",
+        "completions": "fixtures/completions.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "status": "executed",
+        "min": {
+          "result.files.length": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "draft-waits-for-a-person",
+      "tool": "pm_draft_pm_work_orders",
+      "args": {
+        "schedule": "fixtures/pm-schedule.csv",
+        "completions": "fixtures/completions.csv",
+        "as_of": "2026-11-18",
+        "from": "Morgan Plant Manager (fictional)"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-drafts-nothing",
+      "tool": "pm_draft_pm_work_orders",
+      "mode": "review",
+      "args": {
+        "schedule": "fixtures/pm-schedule.csv",
+        "completions": "fixtures/completions.csv",
+        "as_of": "2026-11-18",
+        "from": "Morgan Plant Manager (fictional)"
+      },
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "request-stays-one-click-in-auto",
+      "tool": "pm_request_send",
+      "mode": "auto",
+      "auto_actions": [
+        "pm_draft_pm_work_orders"
+      ],
+      "args": {
+        "draft": "fairmake-out/pm/drafts/none.md",
+        "draft_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-cmms-close-work-order",
+      "tool": "cmms_close_work_order",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-machine-release-to-production",
+      "tool": "machine_release_to_production",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-check-totals",
+      "tool": "pm_check",
+      "args": {
+        "schedule": "fixtures/intl/de/pm-schedule.csv",
+        "completions": "fixtures/intl/de/completions.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "equals": {
+          "result.tasks": 10,
+          "result.assets": 6,
+          "result.overdue": 2,
+          "result.critical_overdue": 1,
+          "result.flag": 2,
+          "result.review": 2,
+          "result.watch": 3,
+          "result.ok": 3
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"check-totals\"."
+    },
+    {
+      "id": "intl-ja-check-totals",
+      "tool": "pm_check",
+      "args": {
+        "schedule": "fixtures/intl/ja/pm-schedule.csv",
+        "completions": "fixtures/intl/ja/completions.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "equals": {
+          "result.tasks": 10,
+          "result.assets": 6,
+          "result.overdue": 2,
+          "result.critical_overdue": 1,
+          "result.flag": 2,
+          "result.review": 2,
+          "result.watch": 3,
+          "result.ok": 3
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"check-totals\"."
+    }
+  ]
+}
