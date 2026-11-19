@@ -1,0 +1,6 @@
+shipment;Kunde;Artikel;Charge;Versanddatum;Menge
+S-1;Example Mart;ADH-10;L-2602;05.11.2026;30
+S-2;Sample Hardware;ADH-10;L-2603;10.11.2026;20
+S-3;Sample Hardware;LUB-5;L-2605;03.11.2026;12
+S-4;Demo Builders;PAINT-RED;L-2608;12.11.2026;10
+S-5;Example Mart;LUB-5;L-2606;14.11.2026;24

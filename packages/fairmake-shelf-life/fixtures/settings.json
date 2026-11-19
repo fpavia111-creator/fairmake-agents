@@ -1,0 +1,1 @@
+{ "note": "Fictional shelf-life rules.", "warn_days": 60, "default_min_days": 0, "customer_min_days": { "Example Mart": 90 } }

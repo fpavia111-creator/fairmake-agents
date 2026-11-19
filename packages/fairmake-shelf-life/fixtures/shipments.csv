@@ -1,0 +1,6 @@
+shipment,customer,item,lot,ship_date,qty
+S-1,Example Mart,ADH-10,L-2602,2026-11-05,30
+S-2,Sample Hardware,ADH-10,L-2603,2026-11-10,20
+S-3,Sample Hardware,LUB-5,L-2605,2026-11-03,12
+S-4,Demo Builders,PAINT-RED,L-2608,2026-11-12,10
+S-5,Example Mart,LUB-5,L-2606,2026-11-14,24

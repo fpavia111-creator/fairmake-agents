@@ -1,0 +1,362 @@
+{
+  "suite": "fairmake-shelf-life",
+  "root": "..",
+  "data_note": "Fictional lots and shipments in ../fixtures, as of 2026-11-18. No model is called.",
+  "cases": [
+    {
+      "id": "check-totals",
+      "tool": "shelf_life_check",
+      "args": {
+        "lots": "fixtures/lots.csv",
+        "shipments": "fixtures/shipments.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "equals": {
+          "result.lots": 8,
+          "result.expired_value": 720,
+          "result.expiring_soon": 2,
+          "result.flag": 3,
+          "result.review": 3,
+          "result.watch": 1,
+          "result.ok": 1
+        }
+      }
+    },
+    {
+      "id": "every-planted-finding",
+      "tool": "shelf_life_check",
+      "args": {
+        "lots": "fixtures/lots.csv",
+        "shipments": "fixtures/shipments.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "contains": [
+          "expired_on_hand",
+          "expiring_soon",
+          "no_expiry",
+          "shipped_expired",
+          "short_dated_shipment",
+          "fefo_skipped",
+          "with 40 days left; the customer needs 90"
+        ]
+      }
+    },
+    {
+      "id": "explain-fefo-miss",
+      "tool": "shelf_life_explain",
+      "args": {
+        "lots": "fixtures/lots.csv",
+        "shipments": "fixtures/shipments.csv",
+        "as_of": "2026-11-18",
+        "lot": "l-2603"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "while L-2602 (expires 2026-12-15) was in stock"
+        ]
+      }
+    },
+    {
+      "id": "strict-rules",
+      "tool": "shelf_life_check",
+      "args": {
+        "lots": "fixtures/lots.csv",
+        "shipments": "fixtures/shipments.csv",
+        "settings": "fixtures/settings-strict.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "equals": {
+          "result.flag": 2,
+          "result.review": 3,
+          "result.watch": 1,
+          "result.ok": 2,
+          "result.settings_used.default_min_days": 30
+        }
+      }
+    },
+    {
+      "id": "fishbowl-lots-export",
+      "tool": "shelf_life_check",
+      "args": {
+        "lots": "fixtures/exports/fishbowl-lots.csv",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "equals": {
+          "result.lots": 2,
+          "result.flag": 1,
+          "result.watch": 1
+        }
+      }
+    },
+    {
+      "id": "draft-disposition-after-approval",
+      "tool": "shelf_life_draft_disposition_request",
+      "args": {
+        "lots": "fixtures/lots.csv",
+        "shipments": "fixtures/shipments.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18",
+        "from": "Quinn Quality (fictional)"
+      },
+      "approve": "Pat Example",
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.amount": 720,
+          "result.open_markers": 1
+        },
+        "contains": [
+          "disposition request open drafted for 720"
+        ]
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "shelf_life_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "lots"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "shelf_life_check",
+      "args": {
+        "lots": "../../../outside.csv",
+        "shipments": "fixtures/shipments.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "shelf_life_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "shelf_life_check",
+      "mode": "review",
+      "args": {
+        "lots": "fixtures/lots.csv",
+        "shipments": "fixtures/shipments.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.lots": 8,
+          "result.expired_value": 720,
+          "result.expiring_soon": 2,
+          "result.flag": 3,
+          "result.review": 3,
+          "result.watch": 1,
+          "result.ok": 1
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "shelf_life_check",
+      "args": {
+        "lots": "fixtures/lots.csv",
+        "shipments": "fixtures/shipments.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.lots": 8,
+          "result.expired_value": 720,
+          "result.expiring_soon": 2,
+          "result.flag": 3,
+          "result.review": 3,
+          "result.watch": 1,
+          "result.ok": 1
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "shelf_life_explain",
+      "args": {
+        "lots": "fixtures/lots.csv",
+        "shipments": "fixtures/shipments.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18",
+        "lot": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-its-files",
+      "tool": "shelf_life_write_report",
+      "args": {
+        "lots": "fixtures/lots.csv",
+        "shipments": "fixtures/shipments.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "status": "executed",
+        "min": {
+          "result.files.length": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "draft-waits-for-a-person",
+      "tool": "shelf_life_draft_disposition_request",
+      "args": {
+        "lots": "fixtures/lots.csv",
+        "shipments": "fixtures/shipments.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18",
+        "from": "Quinn Quality (fictional)"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-drafts-nothing",
+      "tool": "shelf_life_draft_disposition_request",
+      "mode": "review",
+      "args": {
+        "lots": "fixtures/lots.csv",
+        "shipments": "fixtures/shipments.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18",
+        "from": "Quinn Quality (fictional)"
+      },
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "request-stays-one-click-in-auto",
+      "tool": "shelf_life_request_send",
+      "mode": "auto",
+      "auto_actions": [
+        "shelf_life_draft_disposition_request"
+      ],
+      "args": {
+        "draft": "fairmake-out/shelf_life/drafts/none.md",
+        "draft_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-erp-scrap-inventory",
+      "tool": "erp_scrap_inventory",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-wms-release-shipment",
+      "tool": "wms_release_shipment",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-check-totals",
+      "tool": "shelf_life_check",
+      "args": {
+        "lots": "fixtures/intl/de/lots.csv",
+        "shipments": "fixtures/intl/de/shipments.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "equals": {
+          "result.lots": 8,
+          "result.expired_value": 720,
+          "result.expiring_soon": 2,
+          "result.flag": 3,
+          "result.review": 3,
+          "result.watch": 1,
+          "result.ok": 1
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"check-totals\"."
+    },
+    {
+      "id": "intl-ja-check-totals",
+      "tool": "shelf_life_check",
+      "args": {
+        "lots": "fixtures/intl/ja/lots.csv",
+        "shipments": "fixtures/intl/ja/shipments.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "equals": {
+          "result.lots": 8,
+          "result.expired_value": 720,
+          "result.expiring_soon": 2,
+          "result.flag": 3,
+          "result.review": 3,
+          "result.watch": 1,
+          "result.ok": 1
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"check-totals\"."
+    }
+  ]
+}
