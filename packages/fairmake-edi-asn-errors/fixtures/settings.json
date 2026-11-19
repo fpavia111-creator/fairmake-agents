@@ -1,0 +1,1 @@
+{ "note": "Fines from a fictional retailer compliance guide.", "asn_grace_hours": 1, "fines": { "no_asn": 250, "asn_late": 100, "asn_qty_mismatch": 50, "asn_over_po": 50, "asn_item_not_on_po": 75, "duplicate_sscc": 25 } }
