@@ -12,7 +12,7 @@ export const manifest = defineFairmakeAgent({
   sources: { cases: { label: 'Injury and illness cases', args: ['cases'], fields: CASE_FIELDS, profiles: CASE_PROFILES } },
   settings: { schema: SETTINGS_SCHEMA, defaults: DEFAULTS },
   run: ({ read, s }) => oshaLog(read('cases'), s),
-  line: (r) => `${r.cases} case(s), ${r.recordable} marked recordable, ${r.dart_cases} with days away or restriction (${r.days_away} days away, ${r.days_restricted} restricted)${r.trir !== null ? `, TRIR ${r.trir}, DART ${r.dart_rate}` : ''}: ${r.flag} to correct, ${r.review} to complete, ${r.watch} still open, ${r.ok} complete.`,
+  line: (r) => `${r.cases} case(s), ${r.recordable} marked recordable, ${r.dart_cases} with days away or restriction (${r.days_away} days away, ${r.days_restricted} restricted)${r.trir !== null ? `, TRIR ${r.trir}, DART ${r.dart_rate}` : ''}: ${r.flag} to correct, ${r.review} to complete, ${r.watch} still open, ${r.ok} complete.${r.return_dates_found ? '' : ' The file has no return-to-work dates, so open cases are not listed.'}`,
   item: { key: 'case_number', arg: 'case_number', label: 'case' },
   check: { title: 'Check the injury and illness log', description: 'For each case: flags day counts that contradict the outcome and privacy cases with a name entered; reviews missing fields on recordable cases, missing day counts, counts over the cap, late entries and first-aid cases marked recordable; lists cases with days still running. Counts cases and days by outcome; rates per 200,000 hours if annual hours are set. Names and job titles are masked in results.' },
   report: {

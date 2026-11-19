@@ -227,12 +227,12 @@ When a file does not match, put `fairmake-sources.json` in the root (checked aga
 
 ```json
 {
-  "sources": { "access": { "date_order": "dmy" } },
-  "files": { "exports/okta.csv": { "profile": "okta_users_api", "columns": { "email": "Work E-mail" }, "set": { "system": "Okta" }, "skip_rows": 2, "sheet": "Users", "decimal": ",", "delimiter": ";" } }
+  "sources": { "work_orders": { "date_order": "dmy" } },
+  "files": { "exports/epicor-jobs.csv": { "profile": "epicor_job_cost", "columns": { "work_order": "Job Num" }, "skip_rows": 2, "sheet": "Jobs", "decimal": ",", "delimiter": ";" } }
 }
 ```
 
-How far to trust the layouts: two (Procore RFIs, Ramp transactions) were compared with the vendor's documentation on 2026-11-15. The others were written from knowledge of each export and not checked. None was tested against a live account. `<pack> sources` marks which is which.
+How far to trust the layouts: one (OSHA's ITA case detail data) was run on a real published file on 2026-11-19. The others were written from knowledge of each export and not checked against vendor documentation. None was tested against a customer's live account. `<pack> sources` marks which is which.
 
 ## Files and reports from other markets
 

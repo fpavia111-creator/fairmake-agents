@@ -57,7 +57,8 @@ test('manufacturing column words exist in all eight languages and every field al
   for (const c of ['work_order', 'work_center', 'machine', 'on_hand', 'safety_stock', 'reorder_point', 'promise_date', 'component', 'qty_per', 'serial', 'gauge', 'lead_time']) {
     for (const l of COLUMN_LANGUAGES) assert.ok(COLUMN_WORDS[c][l] && COLUMN_WORDS[c][l].length, `${c} ${l}`);
   }
-  assert.ok(Object.values(EXPORTS).every((e) => e.basis === 'recalled'));
+  // Every layout is recalled except the one run on a real published file (OSHA's ITA case data).
+  assert.deepEqual(Object.values(EXPORTS).filter((e) => e.basis !== 'recalled').map((e) => `${e.id}:${e.basis}`), ['osha_ita_case_detail:tested']);
 });
 
 test('the agent factory: check, explain, report, a draft that asks, a request that waits for one click, refused tools and a closed default', async () => {

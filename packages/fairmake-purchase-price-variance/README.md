@@ -121,11 +121,11 @@ Table inputs can be CSV, TSV, semicolon- or pipe-separated text, Excel `.xlsx`, 
 
 Named exports recognised by their column names:
 
-| System | Export | Recognised by | Layout checked against vendor docs |
+| System | Export | Recognised by | Layout checked |
 |---|---|---|---|
 | SAP Business One | Goods Receipt PO document rows export | Document Number, Vendor Code, Item No., Unit Price | no |
 
-Where a layout says "checked", its column names were compared with the vendor's documentation on that date. The other layouts were written from knowledge of the export and were not checked. None was tested against a live account.
+Where a layout says "checked", its column names were compared with the vendor's documentation on that date; where it says "tested", an agent was run on a real published file in that layout. The other layouts were written from knowledge of the export and were not checked. None was tested against a customer's live account.
 
 ### Files from other countries
 

@@ -64,7 +64,7 @@ function section(n, m, demo) {
       }
       L.push('');
       if (s.exports.length) {
-        L.push('Named exports recognised by their column names:', '', '| System | Export | Recognised by | Layout checked against vendor docs |', '|---|---|---|---|');
+        L.push('Named exports recognised by their column names:', '', '| System | Export | Recognised by | Layout checked |', '|---|---|---|---|');
         for (const e of s.exports) L.push(`| ${esc(e.system)} | ${esc(e.label)} | ${esc(e.recognised_by.join(', '))} | ${e.layout_checked === 'no' ? 'no' : esc(e.layout_checked)} |`);
         L.push('', EXPORTS_BASIS_NOTE, '');
       }

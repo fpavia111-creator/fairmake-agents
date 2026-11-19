@@ -111,28 +111,30 @@ Table inputs can be CSV, TSV, semicolon- or pipe-separated text, Excel `.xlsx`, 
 
 | Column | Type | Also read as | For example, in other languages |
 |---|---|---|---|
+| `establishment` | text | Establishment ID, Establishment, Establishment Name, Site, Plant, Facility | - |
 | `case_number` (required) | text | Case Number, Case No., Case, Incident ID | - |
 | `employee` | text | Employee, Employee Name, Name | Mitarbeiter, Employé, 社員名, 员工 |
-| `job_title` | text | Job Title, Position, Job | Rolle, Rôle, ロール, 角色 |
-| `incident_date` | date | Incident Date, Date of Injury, Date of Injury or Illness, Date | - |
+| `job_title` | text | Job Title, Position, Job, Job Description | Rolle, Rôle, ロール, 角色 |
+| `incident_date` | date | Incident Date, Date of Injury, Date of Injury or Illness, Date of Incident, Date | - |
 | `entered_date` | date | Entered Date, Date Recorded, Logged On, Created | - |
-| `location` | text | Location, Where, Where the Event Occurred, Area | Lagerort, Emplacement, 保管場所, 库位 |
-| `description` | text | Description, Injury Description, What Happened | Beschreibung, Description, 摘要, 摘要 |
-| `injury_type` | text | Injury Type, Type, Illness Type, Case Type | - |
-| `outcome` | text | Outcome, Classification, Most Serious Outcome, Result | - |
-| `days_away` | number | Days Away, Days Away From Work, Lost Days | - |
-| `days_restricted` | number | Days Restricted, Days on Job Transfer or Restriction, Restricted Days | - |
+| `location` | text | Location, Where, Where the Event Occurred, Area, Incident Location, NEW_INCIDENT_LOCATION | Lagerort, Emplacement, 保管場所, 库位 |
+| `description` | text | Description, Injury Description, What Happened, Incident Description, NEW_INCIDENT_DESCRIPTION, NAR What Happened | Beschreibung, Description, 摘要, 摘要 |
+| `injury_type` | text | Injury Type, Type, Illness Type, Case Type, Type of Incident | - |
+| `outcome` | text | Outcome, Classification, Most Serious Outcome, Result, Incident Outcome | - |
+| `days_away` | number | Days Away, Days Away From Work, Lost Days, DAFW Num Away | - |
+| `days_restricted` | number | Days Restricted, Days on Job Transfer or Restriction, Restricted Days, DJTR Num TR | - |
 | `privacy_case` | text | Privacy Case, Privacy | - |
 | `recordable` | text | Recordable, OSHA Recordable, Is Recordable | - |
 | `return_date` | date | Return Date, Returned to Work, Back to Work | - |
 
 Named exports recognised by their column names:
 
-| System | Export | Recognised by | Layout checked against vendor docs |
+| System | Export | Recognised by | Layout checked |
 |---|---|---|---|
 | EHS software (generic) | Incident log export | Case Number, Date of Injury, Job Title, Days Away | no |
+| OSHA Injury Tracking Application | Case detail data (Forms 300 and 301) as OSHA publishes it | establishment_id, case_number, date_of_incident, incident_outcome, dafw_num_away, djtr_num_tr | tested on OSHA ITA Case Detail Data 2024 (published file, osha.gov/itadata), 19 Nov 2026 |
 
-Where a layout says "checked", its column names were compared with the vendor's documentation on that date. The other layouts were written from knowledge of the export and were not checked. None was tested against a live account.
+Where a layout says "checked", its column names were compared with the vendor's documentation on that date; where it says "tested", an agent was run on a real published file in that layout. The other layouts were written from knowledge of the export and were not checked. None was tested against a customer's live account.
 
 ### Files from other countries
 

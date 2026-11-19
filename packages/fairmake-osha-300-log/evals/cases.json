@@ -97,11 +97,40 @@
         "equals": {
           "result.cases": 2,
           "result.flag": 1,
-          "result.watch": 1
+          "result.watch": 0,
+          "result.return_dates_found": false
         },
         "not_contains": [
           "Ivy Sample",
-          "Jon Example"
+          "Jon Example",
+          "Welder",
+          "Painter"
+        ]
+      },
+      "note": "The generic EHS export has no return-to-work dates, so no case is listed as open; names and job titles are masked."
+    },
+    {
+      "id": "osha-ita-case-detail-export",
+      "tool": "osha_log_check",
+      "args": {
+        "cases": "fixtures/exports/osha-ita-case-detail.csv"
+      },
+      "note": "OSHA's published ITA case layout (fictional rows): outcome codes 1 to 4, dates like 16JAN2026, case numbers that restart in each establishment, and a submission timestamp that is not the date the case was logged.",
+      "expect": {
+        "equals": {
+          "result.cases": 4,
+          "result.flag": 1,
+          "result.review": 1,
+          "result.watch": 0,
+          "result.days_restricted": 14,
+          "result.items.0.case_number": "9001 #1",
+          "result.items.1.findings.0.code": "days_missing",
+          "result.items.3.findings.0.code": "outcome_days_mismatch"
+        },
+        "not_contains": [
+          "Machine operator",
+          "Press operator",
+          "late_entry"
         ]
       }
     },

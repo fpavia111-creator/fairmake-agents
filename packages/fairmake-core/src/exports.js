@@ -10,8 +10,10 @@
 //   'documented'  the column names were checked against the vendor's own
 //                 documentation (source and date given);
 //   'recalled'    the layout was written from knowledge of the export and was
-//                 not checked against documentation or a live account.
-// Neither kind was tested against a live account. When a header differs, the
+//                 not checked against documentation or a live account;
+//   'tested'      an agent was run on a real published file in this layout
+//                 (which file and when given). Only public files are used.
+// No layout was tested against a customer's live account. When a header differs, the
 // file still maps by each column's "also called" list, `inspect` shows what was
 // matched, and fairmake-sources.json names the columns by hand.
 
@@ -54,6 +56,7 @@ export const EXPORTS = Object.freeze(Object.fromEntries([
   e('calibration_register', 'Calibration software (generic)', 'Gauge register export', ['Gauge ID', 'Last Calibration', 'Calibration Interval', 'Result']),
   e('cmms_pm_schedule', 'CMMS (generic)', 'Preventive maintenance schedule export', ['Asset', 'PM Task', 'Frequency (days)', 'Last Completed']),
   e('ehs_incident_log', 'EHS software (generic)', 'Incident log export', ['Case Number', 'Date of Injury', 'Job Title', 'Days Away']),
+  e('osha_ita_case_detail', 'OSHA Injury Tracking Application', 'Case detail data (Forms 300 and 301) as OSHA publishes it', ['establishment_id', 'case_number', 'date_of_incident', 'incident_outcome', 'dafw_num_away', 'djtr_num_tr'], { basis: 'tested', tested: 'OSHA ITA Case Detail Data 2024 (published file, osha.gov/itadata), 19 Nov 2026' }),
 ].map((x) => [x.id, x])));
 
 /** A profile for an agent: a catalogue entry plus the agent's column map. */
@@ -63,7 +66,7 @@ export function exportProfile(key, map, extra = {}) {
   return { ...base, map, ...extra };
 }
 
-export const EXPORTS_BASIS_NOTE = 'Where a layout says "checked", its column names were compared with the vendor\'s documentation on that date. The other layouts were written from knowledge of the export and were not checked. None was tested against a live account.';
+export const EXPORTS_BASIS_NOTE = 'Where a layout says "checked", its column names were compared with the vendor\'s documentation on that date; where it says "tested", an agent was run on a real published file in that layout. The other layouts were written from knowledge of the export and were not checked. None was tested against a customer\'s live account.';
 
 /**
  * Row hook for grouped reports (QuickBooks style): a row with only its first

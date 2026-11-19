@@ -1,0 +1,5 @@
+id,establishment_id,establishment_name,case_number,job_description,date_of_incident,incident_outcome,dafw_num_away,djtr_num_tr,type_of_incident,NEW_INCIDENT_LOCATION,NEW_INCIDENT_DESCRIPTION,created_timestamp
+1,9001,Example Plant North,1,Machine operator,16JAN2026,4,0,0,1,CNC cell,Cut to finger from a burr,20JAN2027:09:15:00
+2,9001,Example Plant North,2,Welder,03MAR2026,2,0,0,1,Weld bay,Burn to forearm,20JAN2027:09:16:00
+3,9002,Example Plant South,1,Assembler,12APR2026,3,0,14,1,Assembly,Strain lifting a housing,21JAN2027:10:00:00
+4,9002,Example Plant South,2,Press operator,20MAY2026,4,3,0,1,Press line,Crushed finger,21JAN2027:10:01:00

@@ -432,7 +432,7 @@ export function describeSources(manifest) {
   return Object.entries(manifest.sources || {}).map(([kind, def]) => ({
     kind, label: def.label || kind, args: (def.args || [kind]).map((a) => a.split('.').pop()).filter((a, i, arr) => arr.indexOf(a) === i),
     columns: Object.entries(def.fields || {}).map(([name, fd]) => ({ name, type: (fd && fd.type) || 'text', required: !!(fd && fd.required), also_called: (fd && fd.aliases) || [] })),
-    exports: (def.profiles || []).map((p) => ({ id: p.id, system: p.system, label: p.label || '', layout_checked: p.basis === 'documented' ? `against ${p.source || 'vendor documentation'} on ${p.checked || 'an unrecorded date'}` : 'no', recognised_by: (p.signature || []).map((s) => (Array.isArray(s) ? s.join(' or ') : s)), ...(p.headerless ? { headerless: true } : {}), ...(p.howTo ? { how_to_export: p.howTo } : {}) })),
+    exports: (def.profiles || []).map((p) => ({ id: p.id, system: p.system, label: p.label || '', layout_checked: p.basis === 'tested' ? `tested on ${p.tested || 'a published file'}` : p.basis === 'documented' ? `against ${p.source || 'vendor documentation'} on ${p.checked || 'an unrecorded date'}` : 'no', recognised_by: (p.signature || []).map((s) => (Array.isArray(s) ? s.join(' or ') : s)), ...(p.headerless ? { headerless: true } : {}), ...(p.howTo ? { how_to_export: p.howTo } : {}) })),
   }));
 }
 

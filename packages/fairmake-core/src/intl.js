@@ -243,6 +243,8 @@ export function parseAnyDate(value, { order = 'mdy', compact = false } = {}) {
   };
   const r = words(s);
   if (r) return r;
+  // SAS DATE9 and DATETIME (16JAN2024, 20JAN2025:16:52:00), as in OSHA's published injury data.
+  if ((m = /^(\d{1,2})([A-Za-z]{3})(\d{4})(?::(\d{1,2}:\d{2}(?::\d{2})?))?$/.exec(s))) { const mo = monthOf(m[2]); return mo ? done(+m[3], mo, +m[1], m[4] ? ` ${m[4]}` : '') : null; }
   // A weekday in front: "Tue, 3 Nov 2026", "Montag, 14. November 2026", "lunes 14 de noviembre de 2026".
   if ((m = /^(\p{L}+)(?:-feira)?\.?,?\s+(.*)$/u.exec(s)) && WEEKDAYS.has(stripMarks(m[1].toLowerCase()))) { const r2 = words(m[2]); if (r2) return r2; }
   if (compact && (m = /^(\d{4})(\d{2})(\d{2})$/.exec(s))) return done(+m[1], +m[2], +m[3], '');

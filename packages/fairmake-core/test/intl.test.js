@@ -68,6 +68,11 @@ test('dates in German, French, Spanish, Portuguese, Italian, Japanese, Chinese a
   assert.equal(parseAnyDate('2026/11/14 午後2:05').iso, '2026-11-14T14:05:00');
   assert.equal(parseAnyDate('2026. 11. 14. 오후 2:05').iso, '2026-11-14T14:05:00');
   assert.equal(parseAnyDate('14/11/2026 à 10h30').iso, '2026-11-14T10:30:00');
+  // SAS DATE9 and DATETIME, as in OSHA's published injury and illness case data.
+  assert.equal(d('16JAN2024'), '2024-01-16');
+  assert.equal(parseAnyDate('20JAN2025:16:52:00').iso, '2025-01-20T16:52:00');
+  assert.equal(parseAnyDate('31FEB2024'), null);
+  assert.equal(parseAnyDate('16XYZ2024'), null);
   // Era dates outside their era, and garbage, are not dates.
   for (const bad of ['平成32年1月1日', '令和1年4月30日', 'Janxyz 3 2026', 'jui 3 2026', 'abc 2026', '2026年13月1日']) assert.equal(parseAnyDate(bad), null, bad);
   // English as before.

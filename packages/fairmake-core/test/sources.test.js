@@ -131,10 +131,11 @@ test('fairmake-sources.json is schema-checked when read', () => {
 
 test('the catalogue: every entry has a system, a label and a way to be recognised; only checked layouts say so', () => {
   const all = Object.values(EXPORTS); assert.ok(all.length >= 13);
-  for (const e of all) { assert.match(e.id, /^[a-z0-9_]+$/); assert.ok(e.system && e.label, e.id); assert.ok((e.signature && e.signature.length) || (e.headerless && typeof e.detect === 'function'), e.id); assert.ok(['documented', 'recalled'].includes(e.basis), e.id); }
+  for (const e of all) { assert.match(e.id, /^[a-z0-9_]+$/); assert.ok(e.system && e.label, e.id); assert.ok((e.signature && e.signature.length) || (e.headerless && typeof e.detect === 'function'), e.id); assert.ok(['documented', 'recalled', 'tested'].includes(e.basis), e.id); }
   assert.deepEqual(all.filter((e) => e.basis === 'documented').map((e) => e.id).sort(), []);
   for (const e of all.filter((x) => x.basis === 'documented')) assert.ok(e.source && /^\d{4}-\d{2}-\d{2}$/.test(e.checked), e.id);
-  assert.match(EXPORTS_BASIS_NOTE, /None was tested against a live account/);
+  for (const e of all.filter((x) => x.basis === 'tested')) assert.match(e.tested, /published file.*\d{4}/, e.id);
+  assert.match(EXPORTS_BASIS_NOTE, /None was tested against a customer's live account/);
   assert.throws(() => exportProfile('nope', {}), /unknown export "nope"/);
   const p = exportProfile('epicor_job_cost', { work_order: 'Job' }, { note: 'n' }); assert.equal(p.system, 'Epicor Kinetic'); assert.equal(p.note, 'n'); assert.deepEqual(p.map, { work_order: 'Job' });
 });
