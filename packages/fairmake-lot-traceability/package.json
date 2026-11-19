@@ -1,0 +1,59 @@
+{
+  "name": "fairmake-lot-traceability",
+  "version": "0.1.0",
+  "description": "Fairmake Lot Traceability: breaks in the chain from received lots through production to shipments: missing lots, lots never received or used before receipt, unknown shipped lots and serials shipped twice.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairmake-lot-traceability": "bin/fairmake-lot-traceability.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/fairmake-lot-traceability.js demo",
+    "eval": "node bin/fairmake-lot-traceability.js eval"
+  },
+  "dependencies": {
+    "fairmake-core": "^0.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairmake-agents.git",
+    "directory": "packages/fairmake-lot-traceability"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairmake-agents/tree/main/packages/fairmake-lot-traceability#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairmake-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "manufacturing",
+    "distribution",
+    "erp",
+    "fairmake",
+    "traceability",
+    "lot-control",
+    "serial-numbers",
+    "genealogy",
+    "recall-readiness",
+    "netsuite"
+  ]
+}

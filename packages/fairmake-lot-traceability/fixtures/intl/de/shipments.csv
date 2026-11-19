@@ -1,0 +1,8 @@
+shipment;Kunde;Artikel;Seriennummer;Versanddatum;Menge
+S1;Example Pumps Co;PMP-100;FG-1001;08.11.2026;5
+S2;Example Pumps Co;PMP-100;FG-1002;09.11.2026;5
+S3;Sample Robotics LLC;ACT-9;SN-7001;10.11.2026;1
+S4;Demo Ag Equipment;ACT-9;SN-7001;12.11.2026;1
+S5;Demo Ag Equipment;PMP-100;;12.11.2026;2
+S6;Example Pumps Co;BAR-4140;RL-501;13.11.2026;1
+S7;Example Pumps Co;PMP-100;FG-1003;14.11.2026;3

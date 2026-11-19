@@ -1,0 +1,353 @@
+{
+  "suite": "fairmake-lot-traceability",
+  "root": "..",
+  "data_note": "Fictional lots, issues and shipments in ../fixtures. No model is called.",
+  "cases": [
+    {
+      "id": "check-totals",
+      "tool": "trace_check",
+      "args": {
+        "consumption": "fixtures/consumption.csv",
+        "receipts": "fixtures/receipts.csv",
+        "shipments": "fixtures/shipments.csv"
+      },
+      "expect": {
+        "equals": {
+          "result.finished_lots": 5,
+          "result.consumption_records": 9,
+          "result.receipts": 4,
+          "result.shipments": 7,
+          "result.flag": 4,
+          "result.review": 1,
+          "result.ok": 2
+        }
+      }
+    },
+    {
+      "id": "every-planted-finding",
+      "tool": "trace_check",
+      "args": {
+        "consumption": "fixtures/consumption.csv",
+        "receipts": "fixtures/receipts.csv",
+        "shipments": "fixtures/shipments.csv"
+      },
+      "expect": {
+        "contains": [
+          "consumed_without_lot",
+          "lot_not_received",
+          "used_before_received",
+          "shipped_no_lot",
+          "shipped_unknown_lot",
+          "serial_shipped_twice",
+          "before it was received on 2026-11-06"
+        ],
+        "not_contains": [
+          "RL-501 shipped"
+        ]
+      }
+    },
+    {
+      "id": "explain-broken-lot",
+      "tool": "trace_explain",
+      "args": {
+        "consumption": "fixtures/consumption.csv",
+        "receipts": "fixtures/receipts.csv",
+        "shipments": "fixtures/shipments.csv",
+        "reference": "fg-1002"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "SEAL-10 was issued to FG-1002 with no component lot"
+        ],
+        "equals": {
+          "result.items.0.shipments": 1
+        }
+      }
+    },
+    {
+      "id": "subassembly-lot-counts-as-produced",
+      "tool": "trace_explain",
+      "args": {
+        "consumption": "fixtures/consumption.csv",
+        "receipts": "fixtures/receipts.csv",
+        "shipments": "fixtures/shipments.csv",
+        "reference": "FG-1005"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.items.0.status": "ok"
+        }
+      }
+    },
+    {
+      "id": "netsuite-assembly-components",
+      "tool": "trace_check",
+      "args": {
+        "consumption": "fixtures/exports/netsuite-assembly-components.csv",
+        "receipts": "fixtures/receipts.csv",
+        "shipments": "fixtures/shipments.csv"
+      },
+      "expect": {
+        "equals": {
+          "result.finished_lots": 2,
+          "result.flag": 4,
+          "result.ok": 1
+        }
+      }
+    },
+    {
+      "id": "draft-trace-gaps-after-approval",
+      "tool": "trace_draft_trace_gaps",
+      "args": {
+        "consumption": "fixtures/consumption.csv",
+        "receipts": "fixtures/receipts.csv",
+        "shipments": "fixtures/shipments.csv",
+        "from": "Quinn Quality (fictional)"
+      },
+      "approve": "Pat Example",
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.open_markers": 1
+        },
+        "contains": [
+          "trace gaps open drafted"
+        ]
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "trace_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "consumption"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "trace_check",
+      "args": {
+        "consumption": "../../../outside.csv",
+        "receipts": "fixtures/receipts.csv",
+        "shipments": "fixtures/shipments.csv"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "trace_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "trace_check",
+      "mode": "review",
+      "args": {
+        "consumption": "fixtures/consumption.csv",
+        "receipts": "fixtures/receipts.csv",
+        "shipments": "fixtures/shipments.csv"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.finished_lots": 5,
+          "result.consumption_records": 9,
+          "result.receipts": 4,
+          "result.shipments": 7,
+          "result.flag": 4,
+          "result.review": 1,
+          "result.ok": 2
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "trace_check",
+      "args": {
+        "consumption": "fixtures/consumption.csv",
+        "receipts": "fixtures/receipts.csv",
+        "shipments": "fixtures/shipments.csv",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.finished_lots": 5,
+          "result.consumption_records": 9,
+          "result.receipts": 4,
+          "result.shipments": 7,
+          "result.flag": 4,
+          "result.review": 1,
+          "result.ok": 2
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "trace_explain",
+      "args": {
+        "consumption": "fixtures/consumption.csv",
+        "receipts": "fixtures/receipts.csv",
+        "shipments": "fixtures/shipments.csv",
+        "reference": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-its-files",
+      "tool": "trace_write_report",
+      "args": {
+        "consumption": "fixtures/consumption.csv",
+        "receipts": "fixtures/receipts.csv",
+        "shipments": "fixtures/shipments.csv"
+      },
+      "expect": {
+        "status": "executed",
+        "min": {
+          "result.files.length": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "draft-waits-for-a-person",
+      "tool": "trace_draft_trace_gaps",
+      "args": {
+        "consumption": "fixtures/consumption.csv",
+        "receipts": "fixtures/receipts.csv",
+        "shipments": "fixtures/shipments.csv",
+        "from": "Quinn Quality (fictional)"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-drafts-nothing",
+      "tool": "trace_draft_trace_gaps",
+      "mode": "review",
+      "args": {
+        "consumption": "fixtures/consumption.csv",
+        "receipts": "fixtures/receipts.csv",
+        "shipments": "fixtures/shipments.csv",
+        "from": "Quinn Quality (fictional)"
+      },
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "request-stays-one-click-in-auto",
+      "tool": "trace_request_send",
+      "mode": "auto",
+      "auto_actions": [
+        "trace_draft_trace_gaps"
+      ],
+      "args": {
+        "draft": "fairmake-out/trace/drafts/none.md",
+        "draft_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-erp-edit-lot-history",
+      "tool": "erp_edit_lot_history",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-recall-notice-send",
+      "tool": "recall_notice_send",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-check-totals",
+      "tool": "trace_check",
+      "args": {
+        "consumption": "fixtures/intl/de/consumption.csv",
+        "receipts": "fixtures/intl/de/receipts.csv",
+        "shipments": "fixtures/intl/de/shipments.csv"
+      },
+      "expect": {
+        "equals": {
+          "result.finished_lots": 5,
+          "result.consumption_records": 9,
+          "result.receipts": 4,
+          "result.shipments": 7,
+          "result.flag": 4,
+          "result.review": 1,
+          "result.ok": 2
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"check-totals\"."
+    },
+    {
+      "id": "intl-ja-check-totals",
+      "tool": "trace_check",
+      "args": {
+        "consumption": "fixtures/intl/ja/consumption.csv",
+        "receipts": "fixtures/intl/ja/receipts.csv",
+        "shipments": "fixtures/intl/ja/shipments.csv"
+      },
+      "expect": {
+        "equals": {
+          "result.finished_lots": 5,
+          "result.consumption_records": 9,
+          "result.receipts": 4,
+          "result.shipments": 7,
+          "result.flag": 4,
+          "result.review": 1,
+          "result.ok": 2
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"check-totals\"."
+    }
+  ]
+}
