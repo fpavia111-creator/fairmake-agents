@@ -1,0 +1,59 @@
+{
+  "name": "fairmake-overhead-absorption",
+  "version": "0.1.0",
+  "description": "Fairmake Overhead Absorption: overhead applied to jobs (hours times rate) against overhead spent, by work center, with proposed rates. Posts nothing.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairmake-overhead-absorption": "bin/fairmake-overhead-absorption.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/fairmake-overhead-absorption.js demo",
+    "eval": "node bin/fairmake-overhead-absorption.js eval"
+  },
+  "dependencies": {
+    "fairmake-core": "^0.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairmake-agents.git",
+    "directory": "packages/fairmake-overhead-absorption"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairmake-agents/tree/main/packages/fairmake-overhead-absorption#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairmake-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "manufacturing",
+    "distribution",
+    "erp",
+    "fairmake",
+    "overhead",
+    "absorption",
+    "burden-rate",
+    "work-center",
+    "cost-accounting",
+    "jobboss"
+  ]
+}

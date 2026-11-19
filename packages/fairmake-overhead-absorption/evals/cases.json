@@ -1,0 +1,361 @@
+{
+  "suite": "fairmake-overhead-absorption",
+  "root": "..",
+  "data_note": "Fictional work centers in ../fixtures. No model is called.",
+  "cases": [
+    {
+      "id": "check-totals",
+      "tool": "absorption_check",
+      "args": {
+        "hours": "fixtures/hours.csv",
+        "rates": "fixtures/rates.csv",
+        "actuals": "fixtures/actuals.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "equals": {
+          "result.work_centers": 6,
+          "result.applied": 54975,
+          "result.actual": 65650,
+          "result.net_under_absorbed": 10675,
+          "result.flag": 1,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 2
+        }
+      }
+    },
+    {
+      "id": "every-planted-finding",
+      "tool": "absorption_check",
+      "args": {
+        "hours": "fixtures/hours.csv",
+        "rates": "fixtures/rates.csv",
+        "actuals": "fixtures/actuals.csv"
+      },
+      "expect": {
+        "contains": [
+          "under_absorbed",
+          "over_absorbed",
+          "low_volume",
+          "no_rate",
+          "no_actual",
+          "6750 under-absorbed (18.8%)"
+        ]
+      }
+    },
+    {
+      "id": "explain-cnc",
+      "tool": "absorption_explain",
+      "args": {
+        "hours": "fixtures/hours.csv",
+        "rates": "fixtures/rates.csv",
+        "actuals": "fixtures/actuals.csv",
+        "work_center": "cnc"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.items.0.proposed_rate": 55.3846,
+          "result.items.0.applied": 29250
+        }
+      }
+    },
+    {
+      "id": "wider-tolerance-flags-nothing",
+      "tool": "absorption_check",
+      "args": {
+        "hours": "fixtures/hours.csv",
+        "rates": "fixtures/rates.csv",
+        "actuals": "fixtures/actuals.csv",
+        "settings": "fixtures/settings-wide.json"
+      },
+      "expect": {
+        "equals": {
+          "result.flag": 0,
+          "result.review": 2,
+          "result.ok": 4,
+          "result.settings_used.tolerance_pct": 20
+        }
+      }
+    },
+    {
+      "id": "jobboss-hours-export",
+      "tool": "absorption_check",
+      "args": {
+        "hours": "fixtures/exports/jobboss-labor-by-wc.csv",
+        "rates": "fixtures/rates.csv",
+        "actuals": "fixtures/actuals.csv"
+      },
+      "expect": {
+        "equals": {
+          "result.hours": 850,
+          "result.flag": 4
+        }
+      }
+    },
+    {
+      "id": "draft-rate-change-after-approval",
+      "tool": "absorption_draft_rate_change",
+      "args": {
+        "hours": "fixtures/hours.csv",
+        "rates": "fixtures/rates.csv",
+        "actuals": "fixtures/actuals.csv",
+        "from": "Casey Controller (fictional)"
+      },
+      "approve": "Pat Example",
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.open_markers": 1
+        },
+        "contains": [
+          "rate change proposal drafted"
+        ]
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "absorption_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "hours"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "absorption_check",
+      "args": {
+        "hours": "../../../outside.csv",
+        "rates": "fixtures/rates.csv",
+        "actuals": "fixtures/actuals.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "absorption_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "absorption_check",
+      "mode": "review",
+      "args": {
+        "hours": "fixtures/hours.csv",
+        "rates": "fixtures/rates.csv",
+        "actuals": "fixtures/actuals.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.work_centers": 6,
+          "result.applied": 54975,
+          "result.actual": 65650,
+          "result.net_under_absorbed": 10675,
+          "result.flag": 1,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 2
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "absorption_check",
+      "args": {
+        "hours": "fixtures/hours.csv",
+        "rates": "fixtures/rates.csv",
+        "actuals": "fixtures/actuals.csv",
+        "settings": "fixtures/settings.json",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.work_centers": 6,
+          "result.applied": 54975,
+          "result.actual": 65650,
+          "result.net_under_absorbed": 10675,
+          "result.flag": 1,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 2
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "absorption_explain",
+      "args": {
+        "hours": "fixtures/hours.csv",
+        "rates": "fixtures/rates.csv",
+        "actuals": "fixtures/actuals.csv",
+        "settings": "fixtures/settings.json",
+        "work_center": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-its-files",
+      "tool": "absorption_write_report",
+      "args": {
+        "hours": "fixtures/hours.csv",
+        "rates": "fixtures/rates.csv",
+        "actuals": "fixtures/actuals.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "min": {
+          "result.files.length": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "draft-waits-for-a-person",
+      "tool": "absorption_draft_rate_change",
+      "args": {
+        "hours": "fixtures/hours.csv",
+        "rates": "fixtures/rates.csv",
+        "actuals": "fixtures/actuals.csv",
+        "from": "Casey Controller (fictional)"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-drafts-nothing",
+      "tool": "absorption_draft_rate_change",
+      "mode": "review",
+      "args": {
+        "hours": "fixtures/hours.csv",
+        "rates": "fixtures/rates.csv",
+        "actuals": "fixtures/actuals.csv",
+        "from": "Casey Controller (fictional)"
+      },
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "request-stays-one-click-in-auto",
+      "tool": "absorption_request_apply",
+      "mode": "auto",
+      "auto_actions": [
+        "absorption_draft_rate_change"
+      ],
+      "args": {
+        "draft": "fairmake-out/absorption/drafts/none.md",
+        "draft_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-erp-post-journal",
+      "tool": "erp_post_journal",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-erp-update-overhead-rates",
+      "tool": "erp_update_overhead_rates",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-check-totals",
+      "tool": "absorption_check",
+      "args": {
+        "hours": "fixtures/intl/de/hours.csv",
+        "rates": "fixtures/intl/de/rates.csv",
+        "actuals": "fixtures/intl/de/actuals.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "equals": {
+          "result.work_centers": 6,
+          "result.applied": 54975,
+          "result.actual": 65650,
+          "result.net_under_absorbed": 10675,
+          "result.flag": 1,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 2
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"check-totals\"."
+    },
+    {
+      "id": "intl-ja-check-totals",
+      "tool": "absorption_check",
+      "args": {
+        "hours": "fixtures/intl/ja/hours.csv",
+        "rates": "fixtures/intl/ja/rates.csv",
+        "actuals": "fixtures/intl/ja/actuals.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "equals": {
+          "result.work_centers": 6,
+          "result.applied": 54975,
+          "result.actual": 65650,
+          "result.net_under_absorbed": 10675,
+          "result.flag": 1,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 2
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"check-totals\"."
+    }
+  ]
+}
