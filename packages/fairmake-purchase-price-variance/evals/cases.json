@@ -1,0 +1,352 @@
+{
+  "suite": "fairmake-purchase-price-variance",
+  "root": "..",
+  "data_note": "Fictional receipt lines in ../fixtures. No model is called.",
+  "cases": [
+    {
+      "id": "check-totals",
+      "tool": "ppv_check",
+      "args": {
+        "receipts": "fixtures/receipts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "equals": {
+          "result.lines": 12,
+          "result.ppv_total": 282.5,
+          "result.unfavorable_flagged": 777.5,
+          "result.flag": 3,
+          "result.review": 2,
+          "result.watch": 2,
+          "result.ok": 5
+        }
+      }
+    },
+    {
+      "id": "every-planted-finding",
+      "tool": "ppv_check",
+      "args": {
+        "receipts": "fixtures/receipts.csv"
+      },
+      "expect": {
+        "contains": [
+          "ppv_unfavorable",
+          "ppv_favorable",
+          "price_jump",
+          "no_standard",
+          "uom_suspect",
+          "likely a unit-of-measure slip",
+          "PLT-A36"
+        ],
+        "length": {
+          "result.standards_to_review": 1
+        }
+      }
+    },
+    {
+      "id": "explain-one-receipt",
+      "tool": "ppv_explain",
+      "args": {
+        "receipts": "fixtures/receipts.csv",
+        "receipt": "RC-1010-1"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "CAS-310 received at 99 against standard 85 (16.5% over) on 25: 350",
+          "up 12.5% from 88"
+        ]
+      }
+    },
+    {
+      "id": "tighter-tolerances-flag-more",
+      "tool": "ppv_check",
+      "args": {
+        "receipts": "fixtures/receipts.csv",
+        "settings": "fixtures/settings-tight.json"
+      },
+      "expect": {
+        "equals": {
+          "result.flag": 4,
+          "result.settings_used.tolerance_pct": 2,
+          "result.settings_used.jump_pct": 10
+        }
+      }
+    },
+    {
+      "id": "sap-business-one-export",
+      "tool": "ppv_check",
+      "args": {
+        "receipts": "fixtures/exports/sap-b1-grpo.csv"
+      },
+      "expect": {
+        "equals": {
+          "result.lines": 3,
+          "result.flag": 1,
+          "result.unfavorable_flagged": 150
+        },
+        "contains": [
+          "4001-1"
+        ]
+      }
+    },
+    {
+      "id": "draft-price-query-after-approval",
+      "tool": "ppv_draft_price_query",
+      "args": {
+        "receipts": "fixtures/receipts.csv",
+        "supplier": "northwind metals",
+        "from": "Robin Buyer (fictional)"
+      },
+      "approve": "Pat Example",
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.amount": 427.5,
+          "result.open_markers": 1
+        },
+        "contains": [
+          "price query Northwind Metals drafted for 427.5"
+        ]
+      }
+    },
+    {
+      "id": "no-query-when-supplier-is-clean",
+      "tool": "ppv_draft_price_query",
+      "args": {
+        "receipts": "fixtures/receipts.csv",
+        "supplier": "Demo Seals Inc"
+      },
+      "approve": "Pat Example",
+      "expect": {
+        "status": "error",
+        "contains": [
+          "nothing to query"
+        ]
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "ppv_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "receipts"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "ppv_check",
+      "args": {
+        "receipts": "../../../outside.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "ppv_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "ppv_check",
+      "mode": "review",
+      "args": {
+        "receipts": "fixtures/receipts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.lines": 12,
+          "result.ppv_total": 282.5,
+          "result.unfavorable_flagged": 777.5,
+          "result.flag": 3,
+          "result.review": 2,
+          "result.watch": 2,
+          "result.ok": 5
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "ppv_check",
+      "args": {
+        "receipts": "fixtures/receipts.csv",
+        "settings": "fixtures/settings.json",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.lines": 12,
+          "result.ppv_total": 282.5,
+          "result.unfavorable_flagged": 777.5,
+          "result.flag": 3,
+          "result.review": 2,
+          "result.watch": 2,
+          "result.ok": 5
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "ppv_explain",
+      "args": {
+        "receipts": "fixtures/receipts.csv",
+        "settings": "fixtures/settings.json",
+        "receipt": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-its-files",
+      "tool": "ppv_write_report",
+      "args": {
+        "receipts": "fixtures/receipts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "min": {
+          "result.files.length": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "draft-waits-for-a-person",
+      "tool": "ppv_draft_price_query",
+      "args": {
+        "receipts": "fixtures/receipts.csv",
+        "supplier": "northwind metals",
+        "from": "Robin Buyer (fictional)"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-drafts-nothing",
+      "tool": "ppv_draft_price_query",
+      "mode": "review",
+      "args": {
+        "receipts": "fixtures/receipts.csv",
+        "supplier": "northwind metals",
+        "from": "Robin Buyer (fictional)"
+      },
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "request-stays-one-click-in-auto",
+      "tool": "ppv_request_send",
+      "mode": "auto",
+      "auto_actions": [
+        "ppv_draft_price_query"
+      ],
+      "args": {
+        "draft": "fairmake-out/ppv/drafts/none.md",
+        "draft_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-erp-update-standard-cost",
+      "tool": "erp_update_standard_cost",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-ap-pay-invoice",
+      "tool": "ap_pay_invoice",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-check-totals",
+      "tool": "ppv_check",
+      "args": {
+        "receipts": "fixtures/intl/de/receipts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "equals": {
+          "result.lines": 12,
+          "result.ppv_total": 282.5,
+          "result.unfavorable_flagged": 777.5,
+          "result.flag": 3,
+          "result.review": 2,
+          "result.watch": 2,
+          "result.ok": 5
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"check-totals\"."
+    },
+    {
+      "id": "intl-ja-check-totals",
+      "tool": "ppv_check",
+      "args": {
+        "receipts": "fixtures/intl/ja/receipts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "equals": {
+          "result.lines": 12,
+          "result.ppv_total": 282.5,
+          "result.unfavorable_flagged": 777.5,
+          "result.flag": 3,
+          "result.review": 2,
+          "result.watch": 2,
+          "result.ok": 5
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"check-totals\"."
+    }
+  ]
+}
