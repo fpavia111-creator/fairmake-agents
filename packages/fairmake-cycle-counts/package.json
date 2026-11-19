@@ -1,0 +1,58 @@
+{
+  "name": "fairmake-cycle-counts",
+  "version": "0.1.0",
+  "description": "Fairmake Cycle Counts: counted against system quantity with tolerances by ABC class, repeat variances, lines not counted and accuracy by class, with an adjustment list for approval. Posts nothing.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairmake-cycle-counts": "bin/fairmake-cycle-counts.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/fairmake-cycle-counts.js demo",
+    "eval": "node bin/fairmake-cycle-counts.js eval"
+  },
+  "dependencies": {
+    "fairmake-core": "^0.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairmake-agents.git",
+    "directory": "packages/fairmake-cycle-counts"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairmake-agents/tree/main/packages/fairmake-cycle-counts#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairmake-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "manufacturing",
+    "distribution",
+    "erp",
+    "fairmake",
+    "cycle-count",
+    "inventory",
+    "abc",
+    "inventory-accuracy",
+    "fishbowl"
+  ]
+}

@@ -1,0 +1,1 @@
+{ "note": "Fictional count tolerances.", "tolerance_pct": { "A": 2, "B": 5, "C": 10 }, "default_tolerance_pct": 5, "value_tolerance": 100, "repeat_count": 2 }

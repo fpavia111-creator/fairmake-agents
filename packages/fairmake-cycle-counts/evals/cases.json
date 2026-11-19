@@ -1,0 +1,339 @@
+{
+  "suite": "fairmake-cycle-counts",
+  "root": "..",
+  "data_note": "Fictional count lines in ../fixtures. No model is called.",
+  "cases": [
+    {
+      "id": "check-totals",
+      "tool": "counts_check",
+      "args": {
+        "counts": "fixtures/counts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "equals": {
+          "result.lines": 12,
+          "result.counted": 11,
+          "result.accuracy_pct": 72.7,
+          "result.net_variance_value": -812.6,
+          "result.out_of_tolerance_value": 931,
+          "result.flag": 3,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 6
+        }
+      }
+    },
+    {
+      "id": "every-planted-finding",
+      "tool": "counts_check",
+      "args": {
+        "counts": "fixtures/counts.csv"
+      },
+      "expect": {
+        "contains": [
+          "out_of_tolerance",
+          "not_counted",
+          "negative_system",
+          "repeat_variance",
+          "BAR-4140 has a variance on 2 counts"
+        ]
+      }
+    },
+    {
+      "id": "explain-count-line",
+      "tool": "counts_explain",
+      "args": {
+        "counts": "fixtures/counts.csv",
+        "count_id": "cc-1003"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "counted 1100 against 1200 (-100, -8.3%, -480); class B tolerance 5%"
+        ]
+      }
+    },
+    {
+      "id": "looser-a-and-value-floor",
+      "tool": "counts_check",
+      "args": {
+        "counts": "fixtures/counts.csv",
+        "settings": "fixtures/settings-loose.json"
+      },
+      "expect": {
+        "equals": {
+          "result.flag": 1,
+          "result.out_of_tolerance_value": 480,
+          "result.settings_used.tolerance_pct.A": 10,
+          "result.settings_used.tolerance_pct.B": 5
+        }
+      }
+    },
+    {
+      "id": "fishbowl-cycle-count",
+      "tool": "counts_check",
+      "args": {
+        "counts": "fixtures/exports/fishbowl-cycle-count.csv"
+      },
+      "expect": {
+        "equals": {
+          "result.lines": 2,
+          "result.flag": 1,
+          "result.out_of_tolerance_value": 340
+        },
+        "contains": [
+          "CAS-310@A-02"
+        ]
+      }
+    },
+    {
+      "id": "draft-adjustment-after-approval",
+      "tool": "counts_draft_inventory_adjustment",
+      "args": {
+        "counts": "fixtures/counts.csv",
+        "from": "Casey Controller (fictional)"
+      },
+      "approve": "Pat Example",
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.amount": 931,
+          "result.open_markers": 1
+        },
+        "contains": [
+          "inventory adjustment open drafted for 931"
+        ]
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "counts_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "counts"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "counts_check",
+      "args": {
+        "counts": "../../../outside.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "counts_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "counts_check",
+      "mode": "review",
+      "args": {
+        "counts": "fixtures/counts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.lines": 12,
+          "result.counted": 11,
+          "result.accuracy_pct": 72.7,
+          "result.net_variance_value": -812.6,
+          "result.out_of_tolerance_value": 931,
+          "result.flag": 3,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 6
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "counts_check",
+      "args": {
+        "counts": "fixtures/counts.csv",
+        "settings": "fixtures/settings.json",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.lines": 12,
+          "result.counted": 11,
+          "result.accuracy_pct": 72.7,
+          "result.net_variance_value": -812.6,
+          "result.out_of_tolerance_value": 931,
+          "result.flag": 3,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 6
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "counts_explain",
+      "args": {
+        "counts": "fixtures/counts.csv",
+        "settings": "fixtures/settings.json",
+        "count_id": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-its-files",
+      "tool": "counts_write_report",
+      "args": {
+        "counts": "fixtures/counts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "min": {
+          "result.files.length": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "draft-waits-for-a-person",
+      "tool": "counts_draft_inventory_adjustment",
+      "args": {
+        "counts": "fixtures/counts.csv",
+        "from": "Casey Controller (fictional)"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-drafts-nothing",
+      "tool": "counts_draft_inventory_adjustment",
+      "mode": "review",
+      "args": {
+        "counts": "fixtures/counts.csv",
+        "from": "Casey Controller (fictional)"
+      },
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "request-stays-one-click-in-auto",
+      "tool": "counts_request_approve",
+      "mode": "auto",
+      "auto_actions": [
+        "counts_draft_inventory_adjustment"
+      ],
+      "args": {
+        "draft": "fairmake-out/counts/drafts/none.md",
+        "draft_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-erp-post-inventory-adjustment",
+      "tool": "erp_post_inventory_adjustment",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-wms-move-stock",
+      "tool": "wms_move_stock",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-check-totals",
+      "tool": "counts_check",
+      "args": {
+        "counts": "fixtures/intl/de/counts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "equals": {
+          "result.lines": 12,
+          "result.counted": 11,
+          "result.accuracy_pct": 72.7,
+          "result.net_variance_value": -812.6,
+          "result.out_of_tolerance_value": 931,
+          "result.flag": 3,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 6
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"check-totals\"."
+    },
+    {
+      "id": "intl-ja-check-totals",
+      "tool": "counts_check",
+      "args": {
+        "counts": "fixtures/intl/ja/counts.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "equals": {
+          "result.lines": 12,
+          "result.counted": 11,
+          "result.accuracy_pct": 72.7,
+          "result.net_variance_value": -812.6,
+          "result.out_of_tolerance_value": 931,
+          "result.flag": 3,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 6
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"check-totals\"."
+    }
+  ]
+}
