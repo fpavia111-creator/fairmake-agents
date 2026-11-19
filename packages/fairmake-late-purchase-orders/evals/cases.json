@@ -1,0 +1,368 @@
+{
+  "suite": "fairmake-late-purchase-orders",
+  "root": "..",
+  "data_note": "Fictional open PO lines in ../fixtures, as of 2026-11-18. No model is called.",
+  "cases": [
+    {
+      "id": "check-totals",
+      "tool": "open_po_check",
+      "args": {
+        "po_lines": "fixtures/po-lines.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "equals": {
+          "result.lines": 10,
+          "result.open_lines": 8,
+          "result.open_value": 18270,
+          "result.past_due_value": 6760,
+          "result.flag": 4,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 3
+        }
+      }
+    },
+    {
+      "id": "every-planted-finding",
+      "tool": "open_po_check",
+      "args": {
+        "po_lines": "fixtures/po-lines.csv",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "contains": [
+          "past_due",
+          "no_promise",
+          "promise_after_need",
+          "promise_after_due",
+          "over_received",
+          "1000 still open 19 days after the promise date 2026-10-30 (4800)"
+        ]
+      }
+    },
+    {
+      "id": "explain-at-risk-line",
+      "tool": "open_po_explain",
+      "args": {
+        "po_lines": "fixtures/po-lines.csv",
+        "as_of": "2026-11-18",
+        "po_line": "po-601-2"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "promised 2026-11-28, production needs it 2026-11-20 (8 days late)"
+        ]
+      }
+    },
+    {
+      "id": "grace-and-longer-confirmation",
+      "tool": "open_po_check",
+      "args": {
+        "po_lines": "fixtures/po-lines.csv",
+        "settings": "fixtures/settings-grace.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "equals": {
+          "result.flag": 3,
+          "result.review": 1,
+          "result.watch": 1,
+          "result.ok": 5,
+          "result.past_due_value": 5200,
+          "result.settings_used.grace_days": 7
+        }
+      }
+    },
+    {
+      "id": "sap-business-one-open-po",
+      "tool": "open_po_check",
+      "args": {
+        "po_lines": "fixtures/exports/sap-b1-open-po.csv",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "equals": {
+          "result.lines": 2,
+          "result.flag": 2,
+          "result.past_due_value": 5200
+        }
+      }
+    },
+    {
+      "id": "draft-expedite-request-after-approval",
+      "tool": "open_po_draft_expedite_request",
+      "args": {
+        "po_lines": "fixtures/po-lines.csv",
+        "as_of": "2026-11-18",
+        "supplier": "northwind metals",
+        "from": "Robin Buyer (fictional)"
+      },
+      "approve": "Pat Example",
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.amount": 9650,
+          "result.open_markers": 1
+        },
+        "contains": [
+          "expedite request Northwind Metals drafted for 9650"
+        ]
+      }
+    },
+    {
+      "id": "nothing-to-chase",
+      "tool": "open_po_draft_expedite_request",
+      "args": {
+        "po_lines": "fixtures/po-lines.csv",
+        "as_of": "2026-11-18",
+        "supplier": "Demo Seals Inc"
+      },
+      "approve": "Pat Example",
+      "expect": {
+        "status": "error",
+        "contains": [
+          "nothing to chase"
+        ]
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "open_po_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "po_lines"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "open_po_check",
+      "args": {
+        "po_lines": "../../../outside.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "open_po_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "open_po_check",
+      "mode": "review",
+      "args": {
+        "po_lines": "fixtures/po-lines.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.lines": 10,
+          "result.open_lines": 8,
+          "result.open_value": 18270,
+          "result.past_due_value": 6760,
+          "result.flag": 4,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 3
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "open_po_check",
+      "args": {
+        "po_lines": "fixtures/po-lines.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.lines": 10,
+          "result.open_lines": 8,
+          "result.open_value": 18270,
+          "result.past_due_value": 6760,
+          "result.flag": 4,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 3
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "open_po_explain",
+      "args": {
+        "po_lines": "fixtures/po-lines.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18",
+        "po_line": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-its-files",
+      "tool": "open_po_write_report",
+      "args": {
+        "po_lines": "fixtures/po-lines.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "status": "executed",
+        "min": {
+          "result.files.length": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "draft-waits-for-a-person",
+      "tool": "open_po_draft_expedite_request",
+      "args": {
+        "po_lines": "fixtures/po-lines.csv",
+        "as_of": "2026-11-18",
+        "supplier": "northwind metals",
+        "from": "Robin Buyer (fictional)"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-drafts-nothing",
+      "tool": "open_po_draft_expedite_request",
+      "mode": "review",
+      "args": {
+        "po_lines": "fixtures/po-lines.csv",
+        "as_of": "2026-11-18",
+        "supplier": "northwind metals",
+        "from": "Robin Buyer (fictional)"
+      },
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "request-stays-one-click-in-auto",
+      "tool": "open_po_request_send",
+      "mode": "auto",
+      "auto_actions": [
+        "open_po_draft_expedite_request"
+      ],
+      "args": {
+        "draft": "fairmake-out/open_po/drafts/none.md",
+        "draft_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-supplier-portal-update",
+      "tool": "supplier_portal_update",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-erp-cancel-po",
+      "tool": "erp_cancel_po",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-check-totals",
+      "tool": "open_po_check",
+      "args": {
+        "po_lines": "fixtures/intl/de/po-lines.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "equals": {
+          "result.lines": 10,
+          "result.open_lines": 8,
+          "result.open_value": 18270,
+          "result.past_due_value": 6760,
+          "result.flag": 4,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 3
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"check-totals\"."
+    },
+    {
+      "id": "intl-ja-check-totals",
+      "tool": "open_po_check",
+      "args": {
+        "po_lines": "fixtures/intl/ja/po-lines.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "equals": {
+          "result.lines": 10,
+          "result.open_lines": 8,
+          "result.open_value": 18270,
+          "result.past_due_value": 6760,
+          "result.flag": 4,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 3
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"check-totals\"."
+    }
+  ]
+}

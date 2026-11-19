@@ -1,0 +1,3 @@
+Document Number,Row Number,Vendor Name,Item No.,Posting Date,Delivery Date,Quantity,Open Qty,Price
+601,0,Northwind Metals,BAR-4140,10/01/2026,10/25/2026,1000,1000,4.80
+603,0,Fastener Example Co,SCR-M8,10/20/2026,11/10/2026,20000,8000,0.05
