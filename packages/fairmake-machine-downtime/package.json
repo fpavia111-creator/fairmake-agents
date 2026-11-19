@@ -1,0 +1,59 @@
+{
+  "name": "fairmake-machine-downtime",
+  "version": "0.1.0",
+  "description": "Fairmake Machine Downtime: availability, MTTR and MTBF per machine from MES downtime exports, chronic stop reasons, and stops with no reason, no end or overlapping. Changes no schedule.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairmake-machine-downtime": "bin/fairmake-machine-downtime.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/fairmake-machine-downtime.js demo",
+    "eval": "node bin/fairmake-machine-downtime.js eval"
+  },
+  "dependencies": {
+    "fairmake-core": "^0.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairmake-agents.git",
+    "directory": "packages/fairmake-machine-downtime"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairmake-agents/tree/main/packages/fairmake-machine-downtime#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairmake-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "manufacturing",
+    "distribution",
+    "erp",
+    "fairmake",
+    "downtime",
+    "mes",
+    "availability",
+    "mttr",
+    "mtbf",
+    "maintenance"
+  ]
+}

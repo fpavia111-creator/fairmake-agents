@@ -1,0 +1,353 @@
+{
+  "suite": "fairmake-machine-downtime",
+  "root": "..",
+  "data_note": "Fictional downtime events in ../fixtures. No model is called.",
+  "cases": [
+    {
+      "id": "check-totals",
+      "tool": "downtime_check",
+      "args": {
+        "events": "fixtures/events.csv",
+        "schedule": "fixtures/schedule.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "equals": {
+          "result.machines": 5,
+          "result.stops": 11,
+          "result.scheduled_hours": 340,
+          "result.unplanned_hours": 19.5,
+          "result.availability_pct": 94.4,
+          "result.flag": 1,
+          "result.review": 3,
+          "result.ok": 1
+        }
+      }
+    },
+    {
+      "id": "every-planted-finding",
+      "tool": "downtime_check",
+      "args": {
+        "events": "fixtures/events.csv",
+        "schedule": "fixtures/schedule.csv"
+      },
+      "expect": {
+        "contains": [
+          "low_availability",
+          "chronic_reason",
+          "no_reason",
+          "open_event",
+          "overlapping_events",
+          "no_schedule",
+          "Spindle fault",
+          "(12 hours)",
+          "E8/E9"
+        ]
+      }
+    },
+    {
+      "id": "explain-cnc-2",
+      "tool": "downtime_explain",
+      "args": {
+        "events": "fixtures/events.csv",
+        "schedule": "fixtures/schedule.csv",
+        "machine": "cnc-2"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.items.0.mttr_hours": 3.5,
+          "result.items.0.mtbf_hours": 16.5,
+          "result.items.0.availability_pct": 82.5
+        }
+      }
+    },
+    {
+      "id": "lower-target",
+      "tool": "downtime_check",
+      "args": {
+        "events": "fixtures/events.csv",
+        "schedule": "fixtures/schedule.csv",
+        "settings": "fixtures/settings-low.json"
+      },
+      "expect": {
+        "equals": {
+          "result.flag": 0,
+          "result.review": 4,
+          "result.watch": 0,
+          "result.ok": 1,
+          "result.settings_used.chronic_count": 4
+        }
+      }
+    },
+    {
+      "id": "mes-downtime-export",
+      "tool": "downtime_check",
+      "args": {
+        "events": "fixtures/exports/mes-downtime.csv",
+        "schedule": "fixtures/schedule.csv"
+      },
+      "expect": {
+        "equals": {
+          "result.machines": 4,
+          "result.stops": 3,
+          "result.unplanned_hours": 7.5,
+          "result.ok": 4
+        }
+      }
+    },
+    {
+      "id": "draft-maintenance-request-after-approval",
+      "tool": "downtime_draft_maintenance_request",
+      "args": {
+        "events": "fixtures/events.csv",
+        "schedule": "fixtures/schedule.csv",
+        "from": "Morgan Plant Manager (fictional)"
+      },
+      "approve": "Pat Example",
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.open_markers": 1
+        },
+        "contains": [
+          "maintenance request open drafted"
+        ]
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "downtime_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "events"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "downtime_check",
+      "args": {
+        "events": "../../../outside.csv",
+        "schedule": "fixtures/schedule.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "downtime_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "downtime_check",
+      "mode": "review",
+      "args": {
+        "events": "fixtures/events.csv",
+        "schedule": "fixtures/schedule.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.machines": 5,
+          "result.stops": 11,
+          "result.scheduled_hours": 340,
+          "result.unplanned_hours": 19.5,
+          "result.availability_pct": 94.4,
+          "result.flag": 1,
+          "result.review": 3,
+          "result.ok": 1
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "downtime_check",
+      "args": {
+        "events": "fixtures/events.csv",
+        "schedule": "fixtures/schedule.csv",
+        "settings": "fixtures/settings.json",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.machines": 5,
+          "result.stops": 11,
+          "result.scheduled_hours": 340,
+          "result.unplanned_hours": 19.5,
+          "result.availability_pct": 94.4,
+          "result.flag": 1,
+          "result.review": 3,
+          "result.ok": 1
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "downtime_explain",
+      "args": {
+        "events": "fixtures/events.csv",
+        "schedule": "fixtures/schedule.csv",
+        "settings": "fixtures/settings.json",
+        "machine": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-its-files",
+      "tool": "downtime_write_report",
+      "args": {
+        "events": "fixtures/events.csv",
+        "schedule": "fixtures/schedule.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "min": {
+          "result.files.length": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "draft-waits-for-a-person",
+      "tool": "downtime_draft_maintenance_request",
+      "args": {
+        "events": "fixtures/events.csv",
+        "schedule": "fixtures/schedule.csv",
+        "from": "Morgan Plant Manager (fictional)"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-drafts-nothing",
+      "tool": "downtime_draft_maintenance_request",
+      "mode": "review",
+      "args": {
+        "events": "fixtures/events.csv",
+        "schedule": "fixtures/schedule.csv",
+        "from": "Morgan Plant Manager (fictional)"
+      },
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "request-stays-one-click-in-auto",
+      "tool": "downtime_request_send",
+      "mode": "auto",
+      "auto_actions": [
+        "downtime_draft_maintenance_request"
+      ],
+      "args": {
+        "draft": "fairmake-out/downtime/drafts/none.md",
+        "draft_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-mes-change-schedule",
+      "tool": "mes_change_schedule",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-cmms-create-work-order",
+      "tool": "cmms_create_work_order",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-check-totals",
+      "tool": "downtime_check",
+      "args": {
+        "events": "fixtures/intl/de/events.csv",
+        "schedule": "fixtures/intl/de/schedule.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "equals": {
+          "result.machines": 5,
+          "result.stops": 11,
+          "result.scheduled_hours": 340,
+          "result.unplanned_hours": 19.5,
+          "result.availability_pct": 94.4,
+          "result.flag": 1,
+          "result.review": 3,
+          "result.ok": 1
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"check-totals\"."
+    },
+    {
+      "id": "intl-ja-check-totals",
+      "tool": "downtime_check",
+      "args": {
+        "events": "fixtures/intl/ja/events.csv",
+        "schedule": "fixtures/intl/ja/schedule.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "equals": {
+          "result.machines": 5,
+          "result.stops": 11,
+          "result.scheduled_hours": 340,
+          "result.unplanned_hours": 19.5,
+          "result.availability_pct": 94.4,
+          "result.flag": 1,
+          "result.review": 3,
+          "result.ok": 1
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"check-totals\"."
+    }
+  ]
+}

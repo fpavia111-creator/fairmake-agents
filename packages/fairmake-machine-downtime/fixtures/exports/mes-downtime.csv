@@ -1,0 +1,4 @@
+Machine,Start Time,End Time,Downtime Reason,Planned,Operator Note
+CNC-2,2026-11-09 07:00,2026-11-09 12:00,Spindle fault,N,
+CNC-2,2026-11-10 07:00,2026-11-10 09:00,Spindle fault,N,
+CNC-1,2026-11-10 08:00,2026-11-10 08:30,Tool change,N,
