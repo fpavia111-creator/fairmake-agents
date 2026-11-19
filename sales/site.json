@@ -18,7 +18,7 @@
   "support": "Support after setup: $200 a month for one pack, $450 a month for the whole plant, $300 a month per plant for multi-plant, $1,200 a month for a partner rollout. Includes export changes, setting updates, new versions and a monthly check-in.",
   "notes": [
     "Reads the files you export; it does not log in to your ERP, MES, EDI network, bank or customer portals.",
-    "Export layouts were written from knowledge of each system and are confirmed on your files during setup; none was tested against a live account.",
+    "Export layouts were written from knowledge of each system and are confirmed on your files during setup; one (OSHA's published injury case data) was tested on a public file, none on a customer's own export.",
     "Tolerances, retailer fines and dispute windows, material specs, tariff code lists and injury-log day caps are your settings; the agents do not know any customer's, agency's or standard's rules.",
     "Not legal, tax, customs, safety or accounting advice: the agents do not classify goods or decide whether an injury is recordable.",
     "Report pages can be in nine languages; the translations are Claude's and have not been reviewed by native speakers."

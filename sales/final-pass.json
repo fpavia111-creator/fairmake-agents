@@ -1,0 +1,90 @@
+{
+  "product": "Fairmake",
+  "repo": "https://github.com/fpavia111-creator/fairmake-agents",
+  "try_it": [
+    "git clone https://github.com/fpavia111-creator/fairmake-agents",
+    "cd fairmake-agents",
+    "npm install",
+    "node packages/fairmake-cost-variance/bin/fairmake-cost-variance.js demo"
+  ],
+  "accuracy": {
+    "agents": 30,
+    "planted_found": 230,
+    "planted_total": 230,
+    "clean_rows": 440,
+    "clean_false_positives": 0,
+    "mutation_cases": 84,
+    "mutation_caught": 84,
+    "note": "On fictional test data, 19 Nov 2026. The clean set covers 29 of the 30 agents: every retailer deduction is a decision for a person, so a deduction file with nothing to look at does not exist. These numbers show the rules do what they are written to do on data built to test them, not how they will do on a plant's own exports. This pass also ran two public government files through the agents and fixed three things the injury data showed."
+  },
+  "real_data": [
+    [
+      "U.S. Department of Labor, OSHA Injury Tracking Application, Case Detail Data 2024 (Forms 300 and 301)",
+      "https://www.osha.gov/Establishment-Specific-Injury-and-Illness-Data",
+      "2026-11-19",
+      "U.S. government work (public domain)",
+      "fairmake-osha-300-log on 5,431 cases from 667 Ohio manufacturing establishments, read in OSHA's own layout: 114 cases with findings (79 day counts over the 180-day cap, 18 missing fields, 13 missing day counts, 5 outcomes that contradict the day counts) and 0 disagreements with an independent re-count of every case. It showed three problems, now fixed: two case numbers that differ only in letter case were merged into one, restriction days on an 'other recordable' case were not caught, and days past 180 were called an error although OSHA lets counting stop there (now listed to watch)."
+    ],
+    [
+      "U.S. International Trade Commission, Harmonized Tariff Schedule of the United States (current edition, JSON export)",
+      "https://hts.usitc.gov/",
+      "2026-11-19",
+      "U.S. government work (public domain)",
+      "fairmake-hts-codes on all 19,949 10-digit statistical lines as items, 17,723 entry lines at the published general duty and a code list of 26,807 numbers: 0 findings, so no false positives from its code format, code list or duty rate checks. It does not test classification, which the agent never does."
+    ]
+  ],
+  "formats": [
+    ["OSHA Injury Tracking Application", "Case detail data (Forms 300 and 301), CSV as OSHA publishes it", "tested on a public sample"],
+    ["Epicor Kinetic", "Job cost summary (BAQ export)", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["Epicor Kinetic", "Receipt entry lines", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["NetSuite", "Work order saved search", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["NetSuite", "Assembly build components with inventory detail", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["NetSuite", "Purchase lines (transaction saved search)", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["NetSuite", "Open sales order lines", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["SAP Business One", "Goods Receipt PO rows", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["SAP Business One", "Open Items List, purchase orders", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["Acumatica", "Purchase receipt lines (PO302000)", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["Acumatica", "Stock items (IN202500)", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["Infor CloudSuite Industrial (SyteLine)", "Job operations list", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["Fishbowl", "Cycle count export", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["Fishbowl", "Inventory by tracking (lot and expiration)", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["JobBOSS", "Job cost summary report", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["JobBOSS", "Labor detail report", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["JobBOSS", "Labor hours by work center", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["Katana", "Recipes (bill of materials) export", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["MRPeasy", "Bills of materials export", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["MRPeasy", "Stock items export", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["QuickBooks Enterprise", "Inventory Valuation Detail report", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["QuickBooks Enterprise", "Sales by Customer Detail report", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["X12 EDI (any provider)", "850 purchase orders, 856 ship notices, 810 invoices, 997 acknowledgments (004010 structure)", "written from knowledge of the public X12 structure; not yet tested on a real file"],
+    ["EDI provider (generic)", "ASN transaction report", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["Retailer supplier portal (generic)", "Remittance detail with deductions", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["MES (generic)", "Production counts by work order", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["MES (generic)", "Downtime events", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["CMMS (generic)", "Preventive maintenance schedule", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["QMS (generic)", "Nonconformance log", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["Calibration software (generic)", "Gauge register", "written from knowledge of the export; not yet checked against documentation or a real export"],
+    ["EHS software (generic)", "Incident log", "written from knowledge of the export; not yet checked against documentation or a real export"]
+  ],
+  "human_review": [
+    ["Cost and margin pack", "Whether a variance, price jump or margin loss is real, and every standard, journal, reserve or landed cost posting: the controller decides and posts."],
+    ["Production pack", "Which BOM, routing, schedule or maintenance change to make, and whether scrap and downtime reasons were recorded right on the floor."],
+    ["Inventory and traceability pack", "Recounts, stock adjustments, reorder point changes, obsolescence reserves and any hold or recall decision."],
+    ["Purchasing and supplier pack", "Every message to a supplier (expedite, price query, rebate claim, certificate request) and whether to accept the material."],
+    ["Retail and EDI compliance pack", "Which deductions to dispute or accept and every corrected ASN or invoice; the trading partner's rules are entered from its guide by a person."],
+    ["Quality, safety and trade pack", "Gauge holds, NCR dispositions and CAPA closure, whether an injury is recordable, and tariff classification with your customs broker."],
+    ["Whole plant", "All of the above: nothing is posted, paid, shipped, filed or sent until a named person on your team clicks."]
+  ],
+  "common_problems": [
+    "A work order closed with cost charged to it and no finished output.",
+    "A receipt priced at 6.00 against a 0.05 standard: a unit-of-measure slip that would inflate inventory value.",
+    "Two assemblies whose bills of materials contain each other, so neither can be costed.",
+    "A micrometer that failed calibration and was then used on two more work orders.",
+    "A safety-critical machine inspection overdue, and a hydraulic oil change past its run hours.",
+    "A supplier rebate earned and partly unclaimed after the claim-by date (1,400 of 2,400).",
+    "A retailer fine for a late ASN that was sent 2.5 hours after shipping, inside the 24-hour window.",
+    "A finished lot built from a bolt lot that was issued before it was received."
+  ],
+  "reaches_the_model": "The checks are plain arithmetic on your computer; no AI model runs inside them. When your assistant calls a tool, its model receives the result: amounts, quantities, dates, rates, finding codes, item and order numbers, supplier and customer names, and free-text fields such as descriptions, scrap and stop reasons as they were typed. Employee, estimator and NCR or CAPA owner names, and job titles in the injury log, are replaced with tokens such as A.R.#3f9a2c (26 planted names, 0 leaks in this pass). Results go to whatever model your assistant uses; for injury records or prices you treat as confidential, use a model covered by your own agreements or a local model. No compliance claim is made.",
+  "rules_maintained": "Every threshold is a dated setting in your own JSON file, with its default printed in each result as settings_used: cost and price tolerances, aging buckets, scrap standards, reorder review, retailer dispute windows, ASN grace and fines, material specs, tariff codes and duty rates, and the injury log's 180-day cap and 7-day entry window (from OSHA's recordkeeping rule, 29 CFR 1904, as of 19 Nov 2026). You change a setting by editing that file; nothing else needs to change. Rules fixed in code (OSHA's ITA outcome codes, X12 element positions, the named export layouts and column names in nine languages) are maintained by Mythos Machines and change only in a new version; until then a column map in fairmake-sources.json covers a changed export."
+}

@@ -68,7 +68,7 @@ See [REVIEW-ver1.md](REVIEW-ver1.md) for every check with its numbers. In short:
 
 ## Limits
 
-- The column layouts of named exports were written from knowledge of those systems and not checked against a live account. `inspect` shows how a file was read; `fairmake-sources.json` names columns by hand.
+- The column layouts of named exports were written from knowledge of those systems and not checked against vendor documentation or a customer's live account; one, OSHA's published injury case data, was tested on the public 2024 file. `inspect` shows how a file was read; `fairmake-sources.json` names columns by hand. Accuracy on the fictional fixtures and the public-data results: [docs/accuracy-2026-11-19.md](docs/accuracy-2026-11-19.md), [docs/realdata-2026-11-19.md](docs/realdata-2026-11-19.md).
 - X12 850, 810 and 856 element positions follow the public 004010 structure as recalled; trading partners differ.
 - Tolerances, retailer fines and dispute windows, material specs, tariff codes and injury-log day caps are settings you supply. The agents compare your records; they do not know any customer's, agency's or standard's current rules.
 - Not legal, tax, customs, safety or accounting advice. A person decides what to change, post, send or pay.
