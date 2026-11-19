@@ -1,0 +1,382 @@
+{
+  "suite": "fairmake-edi-asn-errors",
+  "root": "..",
+  "data_note": "Fictional customer POs, ASNs, shipments and an X12 file in ../fixtures. No model is called.",
+  "cases": [
+    {
+      "id": "check-totals",
+      "tool": "asn_check",
+      "args": {
+        "orders": "fixtures/orders.csv",
+        "asns": "fixtures/asns.csv",
+        "shipments": "fixtures/shipments.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "equals": {
+          "result.pos": 6,
+          "result.asns": 5,
+          "result.fines_at_risk": 675,
+          "result.flag": 4,
+          "result.review": 2,
+          "result.ok": 0
+        }
+      }
+    },
+    {
+      "id": "every-planted-finding",
+      "tool": "asn_check",
+      "args": {
+        "orders": "fixtures/orders.csv",
+        "asns": "fixtures/asns.csv",
+        "shipments": "fixtures/shipments.csv"
+      },
+      "expect": {
+        "contains": [
+          "no_asn",
+          "asn_late",
+          "asn_qty_mismatch",
+          "asn_over_po",
+          "asn_item_not_on_po",
+          "duplicate_sscc",
+          "missing_sscc",
+          "po_not_found",
+          "50 hours after shipping"
+        ]
+      }
+    },
+    {
+      "id": "explain-late-over-asn",
+      "tool": "asn_explain",
+      "args": {
+        "orders": "fixtures/orders.csv",
+        "asns": "fixtures/asns.csv",
+        "shipments": "fixtures/shipments.csv",
+        "settings": "fixtures/settings.json",
+        "po_number": "po-8002"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.items.0.fines_at_risk": 200,
+          "result.items.0.asn_qty": 12
+        }
+      }
+    },
+    {
+      "id": "x12-850-and-856",
+      "tool": "asn_check",
+      "args": {
+        "edi": "fixtures/orders-and-asns.edi",
+        "shipments": "fixtures/shipments-edi.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "equals": {
+          "result.pos": 2,
+          "result.asns": 1,
+          "result.flag": 2,
+          "result.fines_at_risk": 300
+        },
+        "length": {
+          "result.x12_problems": 0
+        }
+      }
+    },
+    {
+      "id": "grace-and-no-fines",
+      "tool": "asn_check",
+      "args": {
+        "orders": "fixtures/orders.csv",
+        "asns": "fixtures/asns.csv",
+        "shipments": "fixtures/shipments.csv",
+        "settings": "fixtures/settings-grace.json"
+      },
+      "expect": {
+        "equals": {
+          "result.fines_at_risk": 0,
+          "result.flag": 4,
+          "result.settings_used.asn_grace_hours": 72
+        },
+        "not_contains": [
+          "asn_late"
+        ]
+      }
+    },
+    {
+      "id": "edi-provider-asn-report",
+      "tool": "asn_check",
+      "args": {
+        "orders": "fixtures/orders.csv",
+        "asns": "fixtures/exports/edi-asn-report.csv",
+        "shipments": "fixtures/shipments.csv"
+      },
+      "expect": {
+        "equals": {
+          "result.pos": 5,
+          "result.asns": 1,
+          "result.flag": 4,
+          "result.ok": 1
+        }
+      }
+    },
+    {
+      "id": "needs-some-input",
+      "tool": "asn_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "pass edi"
+        ]
+      }
+    },
+    {
+      "id": "draft-asn-correction-after-approval",
+      "tool": "asn_draft_asn_correction",
+      "args": {
+        "orders": "fixtures/orders.csv",
+        "asns": "fixtures/asns.csv",
+        "shipments": "fixtures/shipments.csv",
+        "settings": "fixtures/settings.json",
+        "from": "Jordan EDI (fictional)"
+      },
+      "approve": "Pat Example",
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.amount": 675,
+          "result.open_markers": 1
+        },
+        "contains": [
+          "asn correction open drafted for 675"
+        ]
+      }
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "asn_check",
+      "args": {
+        "orders": "../../../outside.csv",
+        "asns": "fixtures/asns.csv",
+        "shipments": "fixtures/shipments.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "asn_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "asn_check",
+      "mode": "review",
+      "args": {
+        "orders": "fixtures/orders.csv",
+        "asns": "fixtures/asns.csv",
+        "shipments": "fixtures/shipments.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.pos": 6,
+          "result.asns": 5,
+          "result.fines_at_risk": 675,
+          "result.flag": 4,
+          "result.review": 2,
+          "result.ok": 0
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "asn_check",
+      "args": {
+        "orders": "fixtures/orders.csv",
+        "asns": "fixtures/asns.csv",
+        "shipments": "fixtures/shipments.csv",
+        "settings": "fixtures/settings.json",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.pos": 6,
+          "result.asns": 5,
+          "result.fines_at_risk": 675,
+          "result.flag": 4,
+          "result.review": 2,
+          "result.ok": 0
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "asn_explain",
+      "args": {
+        "orders": "fixtures/orders.csv",
+        "asns": "fixtures/asns.csv",
+        "shipments": "fixtures/shipments.csv",
+        "settings": "fixtures/settings.json",
+        "po_number": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-its-files",
+      "tool": "asn_write_report",
+      "args": {
+        "orders": "fixtures/orders.csv",
+        "asns": "fixtures/asns.csv",
+        "shipments": "fixtures/shipments.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "min": {
+          "result.files.length": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "draft-waits-for-a-person",
+      "tool": "asn_draft_asn_correction",
+      "args": {
+        "orders": "fixtures/orders.csv",
+        "asns": "fixtures/asns.csv",
+        "shipments": "fixtures/shipments.csv",
+        "settings": "fixtures/settings.json",
+        "from": "Jordan EDI (fictional)"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-drafts-nothing",
+      "tool": "asn_draft_asn_correction",
+      "mode": "review",
+      "args": {
+        "orders": "fixtures/orders.csv",
+        "asns": "fixtures/asns.csv",
+        "shipments": "fixtures/shipments.csv",
+        "settings": "fixtures/settings.json",
+        "from": "Jordan EDI (fictional)"
+      },
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "request-stays-one-click-in-auto",
+      "tool": "asn_request_send",
+      "mode": "auto",
+      "auto_actions": [
+        "asn_draft_asn_correction"
+      ],
+      "args": {
+        "draft": "fairmake-out/asn/drafts/none.md",
+        "draft_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-edi-transmit",
+      "tool": "edi_transmit",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-erp-ship-confirm",
+      "tool": "erp_ship_confirm",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-check-totals",
+      "tool": "asn_check",
+      "args": {
+        "orders": "fixtures/intl/de/orders.csv",
+        "asns": "fixtures/intl/de/asns.csv",
+        "shipments": "fixtures/intl/de/shipments.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "equals": {
+          "result.pos": 6,
+          "result.asns": 5,
+          "result.fines_at_risk": 675,
+          "result.flag": 4,
+          "result.review": 2,
+          "result.ok": 0
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"check-totals\"."
+    },
+    {
+      "id": "intl-ja-check-totals",
+      "tool": "asn_check",
+      "args": {
+        "orders": "fixtures/intl/ja/orders.csv",
+        "asns": "fixtures/intl/ja/asns.csv",
+        "shipments": "fixtures/intl/ja/shipments.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "equals": {
+          "result.pos": 6,
+          "result.asns": 5,
+          "result.fines_at_risk": 675,
+          "result.flag": 4,
+          "result.review": 2,
+          "result.ok": 0
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"check-totals\"."
+    }
+  ]
+}
