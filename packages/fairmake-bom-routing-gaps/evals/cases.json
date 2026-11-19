@@ -1,0 +1,358 @@
+{
+  "suite": "fairmake-bom-routing-gaps",
+  "root": "..",
+  "data_note": "Fictional item master, BOMs and routings in ../fixtures. No model is called.",
+  "cases": [
+    {
+      "id": "check-totals",
+      "tool": "bom_gaps_check",
+      "args": {
+        "items": "fixtures/items.csv",
+        "bom": "fixtures/bom.csv",
+        "routings": "fixtures/routings.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "equals": {
+          "result.items_checked": 9,
+          "result.items_in_master": 13,
+          "result.flag": 5,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 1
+        }
+      }
+    },
+    {
+      "id": "every-planted-finding",
+      "tool": "bom_gaps_check",
+      "args": {
+        "items": "fixtures/items.csv",
+        "bom": "fixtures/bom.csv",
+        "routings": "fixtures/routings.csv"
+      },
+      "expect": {
+        "contains": [
+          "no_bom",
+          "no_routing",
+          "component_inactive",
+          "component_unknown",
+          "zero_qty",
+          "routing_no_work_center",
+          "routing_no_time",
+          "buy_with_bom",
+          "circular_bom",
+          "parent_unknown"
+        ],
+        "not_contains": [
+          "OLDASM-70"
+        ]
+      }
+    },
+    {
+      "id": "explain-frame",
+      "tool": "bom_gaps_explain",
+      "args": {
+        "items": "fixtures/items.csv",
+        "bom": "fixtures/bom.csv",
+        "routings": "fixtures/routings.csv",
+        "item": "frame-20"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "Component OLD-BRKT of FRAME-20 is obsolete",
+          "Operation 20 of FRAME-20 has no work center"
+        ]
+      }
+    },
+    {
+      "id": "shop-specific-type-words",
+      "tool": "bom_gaps_check",
+      "args": {
+        "items": "fixtures/items.csv",
+        "bom": "fixtures/bom.csv",
+        "routings": "fixtures/routings.csv",
+        "settings": "fixtures/settings-words.json"
+      },
+      "expect": {
+        "equals": {
+          "result.items_checked": 8,
+          "result.flag": 3,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 2
+        }
+      }
+    },
+    {
+      "id": "mrpeasy-bom-export",
+      "tool": "bom_gaps_check",
+      "args": {
+        "items": "fixtures/items.csv",
+        "bom": "fixtures/exports/mrpeasy-boms.csv",
+        "routings": "fixtures/routings.csv"
+      },
+      "expect": {
+        "equals": {
+          "result.items_checked": 7,
+          "result.flag": 6,
+          "result.ok": 1
+        }
+      }
+    },
+    {
+      "id": "draft-fix-list-after-approval",
+      "tool": "bom_gaps_draft_master_data_fix",
+      "args": {
+        "items": "fixtures/items.csv",
+        "bom": "fixtures/bom.csv",
+        "routings": "fixtures/routings.csv",
+        "from": "Jamie Engineer (fictional)"
+      },
+      "approve": "Pat Example",
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.open_markers": 1
+        },
+        "contains": [
+          "master data fix open drafted"
+        ]
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "bom_gaps_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "items"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "bom_gaps_check",
+      "args": {
+        "items": "../../../outside.csv",
+        "bom": "fixtures/bom.csv",
+        "routings": "fixtures/routings.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "bom_gaps_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "bom_gaps_check",
+      "mode": "review",
+      "args": {
+        "items": "fixtures/items.csv",
+        "bom": "fixtures/bom.csv",
+        "routings": "fixtures/routings.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.items_checked": 9,
+          "result.items_in_master": 13,
+          "result.flag": 5,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 1
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "bom_gaps_check",
+      "args": {
+        "items": "fixtures/items.csv",
+        "bom": "fixtures/bom.csv",
+        "routings": "fixtures/routings.csv",
+        "settings": "fixtures/settings.json",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.flag": 5,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 1
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "bom_gaps_explain",
+      "args": {
+        "items": "fixtures/items.csv",
+        "bom": "fixtures/bom.csv",
+        "routings": "fixtures/routings.csv",
+        "settings": "fixtures/settings.json",
+        "item": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-its-files",
+      "tool": "bom_gaps_write_report",
+      "args": {
+        "items": "fixtures/items.csv",
+        "bom": "fixtures/bom.csv",
+        "routings": "fixtures/routings.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "min": {
+          "result.files.length": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "draft-waits-for-a-person",
+      "tool": "bom_gaps_draft_master_data_fix",
+      "args": {
+        "items": "fixtures/items.csv",
+        "bom": "fixtures/bom.csv",
+        "routings": "fixtures/routings.csv",
+        "from": "Jamie Engineer (fictional)"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-drafts-nothing",
+      "tool": "bom_gaps_draft_master_data_fix",
+      "mode": "review",
+      "args": {
+        "items": "fixtures/items.csv",
+        "bom": "fixtures/bom.csv",
+        "routings": "fixtures/routings.csv",
+        "from": "Jamie Engineer (fictional)"
+      },
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "request-stays-one-click-in-auto",
+      "tool": "bom_gaps_request_apply",
+      "mode": "auto",
+      "auto_actions": [
+        "bom_gaps_draft_master_data_fix"
+      ],
+      "args": {
+        "draft": "fairmake-out/bom_gaps/drafts/none.md",
+        "draft_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-erp-write-bom",
+      "tool": "erp_write_bom",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-erp-release-work-order",
+      "tool": "erp_release_work_order",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-check-totals",
+      "tool": "bom_gaps_check",
+      "args": {
+        "items": "fixtures/intl/de/items.csv",
+        "bom": "fixtures/intl/de/bom.csv",
+        "routings": "fixtures/intl/de/routings.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "equals": {
+          "result.items_checked": 9,
+          "result.items_in_master": 13,
+          "result.flag": 5,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 1
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"check-totals\"."
+    },
+    {
+      "id": "intl-ja-check-totals",
+      "tool": "bom_gaps_check",
+      "args": {
+        "items": "fixtures/intl/ja/items.csv",
+        "bom": "fixtures/intl/ja/bom.csv",
+        "routings": "fixtures/intl/ja/routings.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "equals": {
+          "result.items_checked": 9,
+          "result.items_in_master": 13,
+          "result.flag": 5,
+          "result.review": 2,
+          "result.watch": 1,
+          "result.ok": 1
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"check-totals\"."
+    }
+  ]
+}

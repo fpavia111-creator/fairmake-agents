@@ -1,0 +1,14 @@
+item,item_type,item_status
+PUMP-100,Make,Active
+FRAME-20,Make,Active
+GUARD-30,Make,Active
+PANEL-40,Make,Active
+CART-50,Make,Active
+BOLT-M8,Buy,Active
+SEAL-10,Buy,Active
+SEAL-RAW,Buy,Active
+OLD-BRKT,Buy,Obsolete
+LOOP-A,Make,Active
+LOOP-B,Make,Active
+OLDASM-70,Make,Obsolete
+PLATE-5,Buy,Active

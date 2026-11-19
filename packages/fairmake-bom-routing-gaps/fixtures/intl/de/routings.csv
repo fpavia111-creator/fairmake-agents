@@ -1,0 +1,8 @@
+Artikel;Arbeitsgang;Arbeitsplatz;setup_hours;run_hours
+PUMP-100;10;ASSY;0,5;0,25
+FRAME-20;10;WELD;1;0,5
+FRAME-20;20;;0,2;0,1
+GUARD-30;10;BRAKE;0,3;0,05
+CART-50;10;ASSY;0;0
+LOOP-A;10;ASSY;0,1;0,1
+LOOP-B;10;ASSY;0,1;0,1
