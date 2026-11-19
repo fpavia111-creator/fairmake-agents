@@ -39,7 +39,7 @@ Jeder Agent hat eine `demo` mit fiktiven Dateien, ein `eval` mit eigenen Testfä
 
 ## Prüfung
 
-794 Tests und 608 Eval-Fälle bestehen unter Windows mit Node 24; die Durchläufe mit feindlichen Eingaben finden nichts. Einzelheiten in [REVIEW-ver1.md](REVIEW-ver1.md).
+795 Tests und 609 Eval-Fälle bestehen unter Windows mit Node 24; die Durchläufe mit feindlichen Eingaben finden nichts. Einzelheiten in [REVIEW-ver1.md](REVIEW-ver1.md).
 
 ## Grenzen
 

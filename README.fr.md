@@ -39,7 +39,7 @@ Chaque agent a une `demo` sur des fichiers fictifs, un `eval` avec ses propres c
 
 ## Tests
 
-794 tests et 608 cas d'évaluation passent sous Windows avec Node 24 ; les passes d'entrées hostiles ne trouvent rien. Détails dans [REVIEW-ver1.md](REVIEW-ver1.md).
+795 tests et 609 cas d'évaluation passent sous Windows avec Node 24 ; les passes d'entrées hostiles ne trouvent rien. Détails dans [REVIEW-ver1.md](REVIEW-ver1.md).
 
 ## Limites
 

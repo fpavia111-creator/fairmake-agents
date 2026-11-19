@@ -39,7 +39,7 @@ Ogni agente ha una `demo` su file fittizi, un `eval` con i propri casi di test e
 
 ## Test
 
-794 test e 608 casi di valutazione passano su Windows con Node 24; i passaggi con input ostili non trovano nulla. Dettagli in [REVIEW-ver1.md](REVIEW-ver1.md).
+795 test e 609 casi di valutazione passano su Windows con Node 24; i passaggi con input ostili non trovano nulla. Dettagli in [REVIEW-ver1.md](REVIEW-ver1.md).
 
 ## Limiti
 
