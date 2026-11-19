@@ -1,0 +1,58 @@
+{
+  "name": "fairmake-calibration-due",
+  "version": "0.1.0",
+  "description": "Fairmake Calibration Due: gauges overdue or due soon, never calibrated, and work orders measured with a gauge that was overdue or had failed calibration, with a due-date calendar. Releases no hold.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kurt Francisco",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "fairmake-calibration-due": "bin/fairmake-calibration-due.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "fixtures",
+    "evals",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.cjs",
+    "demo": "node bin/fairmake-calibration-due.js demo",
+    "eval": "node bin/fairmake-calibration-due.js eval"
+  },
+  "dependencies": {
+    "fairmake-core": "^0.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpavia111-creator/fairmake-agents.git",
+    "directory": "packages/fairmake-calibration-due"
+  },
+  "homepage": "https://github.com/fpavia111-creator/fairmake-agents/tree/main/packages/fairmake-calibration-due#readme",
+  "bugs": {
+    "url": "https://github.com/fpavia111-creator/fairmake-agents/issues"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "manufacturing",
+    "distribution",
+    "erp",
+    "fairmake",
+    "calibration",
+    "gauges",
+    "quality",
+    "iso-9001",
+    "instruments"
+  ]
+}

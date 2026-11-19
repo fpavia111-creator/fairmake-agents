@@ -1,0 +1,10 @@
+Prüfmittel;Beschreibung;Lagerort;Zuletzt durchgeführt;Intervall (Tage);cal_result;gauge_status
+MIC-001;0-1 in micrometer;QC Lab;01.06.2026;365;Pass;Active
+MIC-002;Outside micrometer;Cell 2;20.10.2026;180;Fail;Active
+CAL-003;Caliper 6 in;Cell 1;01.11.2025;365;Pass;Active
+HG-004;Height gauge;QC Lab;10.01.2026;330;Pass;Active
+PG-005;Pin gauge set;Cell 3;;365;;Active
+TW-006;Torque wrench;Assembly;01.08.2026;;Pass;Active
+CMM-007;Coordinate measuring machine;QC Lab;01.09.2025;365;Pass;Out of service
+MIC-008;Micrometer 1-2 in;Cell 1;01.09.2026;180;Pass;Active
+THR-009;Thread ring gauge;Cell 2;25.05.2026;180;Pass;Active

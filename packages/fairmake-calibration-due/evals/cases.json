@@ -1,0 +1,360 @@
+{
+  "suite": "fairmake-calibration-due",
+  "root": "..",
+  "data_note": "Fictional gauges and gauge use in ../fixtures, as of 2026-11-18. No model is called.",
+  "cases": [
+    {
+      "id": "check-totals",
+      "tool": "calibration_check",
+      "args": {
+        "gauges": "fixtures/gauges.csv",
+        "usage": "fixtures/usage.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "equals": {
+          "result.gauges": 9,
+          "result.overdue": 1,
+          "result.suspect_work_orders": 3,
+          "result.flag": 2,
+          "result.review": 2,
+          "result.watch": 2,
+          "result.ok": 3
+        }
+      }
+    },
+    {
+      "id": "every-planted-finding",
+      "tool": "calibration_check",
+      "args": {
+        "gauges": "fixtures/gauges.csv",
+        "usage": "fixtures/usage.csv",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "contains": [
+          "overdue",
+          "due_soon",
+          "failed_then_used",
+          "used_while_overdue",
+          "never_calibrated",
+          "no_interval",
+          "WO-301 (2026-11-02), WO-305 (2026-11-05)"
+        ],
+        "not_contains": [
+          "WO-290",
+          "WO-299"
+        ]
+      }
+    },
+    {
+      "id": "explain-failed-gauge",
+      "tool": "calibration_explain",
+      "args": {
+        "gauges": "fixtures/gauges.csv",
+        "usage": "fixtures/usage.csv",
+        "as_of": "2026-11-18",
+        "gauge": "mic-002"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "failed its calibration on 2026-10-20 and was used afterwards"
+        ]
+      }
+    },
+    {
+      "id": "one-week-look-ahead",
+      "tool": "calibration_check",
+      "args": {
+        "gauges": "fixtures/gauges.csv",
+        "usage": "fixtures/usage.csv",
+        "settings": "fixtures/settings-week.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "equals": {
+          "result.watch": 1,
+          "result.ok": 4,
+          "result.settings_used.due_soon_days": 7
+        }
+      }
+    },
+    {
+      "id": "calibration-register-export",
+      "tool": "calibration_check",
+      "args": {
+        "gauges": "fixtures/exports/calibration-register.csv",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "equals": {
+          "result.gauges": 2,
+          "result.flag": 1,
+          "result.watch": 1,
+          "result.suspect_work_orders": 0
+        }
+      }
+    },
+    {
+      "id": "draft-suspect-product-notice-after-approval",
+      "tool": "calibration_draft_suspect_product_notice",
+      "args": {
+        "gauges": "fixtures/gauges.csv",
+        "usage": "fixtures/usage.csv",
+        "as_of": "2026-11-18",
+        "from": "Quinn Quality (fictional)"
+      },
+      "approve": "Pat Example",
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.open_markers": 1
+        },
+        "contains": [
+          "suspect product notice open drafted"
+        ]
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "calibration_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "gauges"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "calibration_check",
+      "args": {
+        "gauges": "../../../outside.csv",
+        "usage": "fixtures/usage.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "calibration_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "calibration_check",
+      "mode": "review",
+      "args": {
+        "gauges": "fixtures/gauges.csv",
+        "usage": "fixtures/usage.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.gauges": 9,
+          "result.overdue": 1,
+          "result.suspect_work_orders": 3,
+          "result.flag": 2,
+          "result.review": 2,
+          "result.watch": 2,
+          "result.ok": 3
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "calibration_check",
+      "args": {
+        "gauges": "fixtures/gauges.csv",
+        "usage": "fixtures/usage.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.gauges": 9,
+          "result.overdue": 1,
+          "result.suspect_work_orders": 3,
+          "result.flag": 2,
+          "result.review": 2,
+          "result.watch": 2,
+          "result.ok": 3
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "calibration_explain",
+      "args": {
+        "gauges": "fixtures/gauges.csv",
+        "usage": "fixtures/usage.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18",
+        "gauge": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-its-files",
+      "tool": "calibration_write_report",
+      "args": {
+        "gauges": "fixtures/gauges.csv",
+        "usage": "fixtures/usage.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "status": "executed",
+        "min": {
+          "result.files.length": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "draft-waits-for-a-person",
+      "tool": "calibration_draft_suspect_product_notice",
+      "args": {
+        "gauges": "fixtures/gauges.csv",
+        "usage": "fixtures/usage.csv",
+        "as_of": "2026-11-18",
+        "from": "Quinn Quality (fictional)"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-drafts-nothing",
+      "tool": "calibration_draft_suspect_product_notice",
+      "mode": "review",
+      "args": {
+        "gauges": "fixtures/gauges.csv",
+        "usage": "fixtures/usage.csv",
+        "as_of": "2026-11-18",
+        "from": "Quinn Quality (fictional)"
+      },
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "request-stays-one-click-in-auto",
+      "tool": "calibration_request_send",
+      "mode": "auto",
+      "auto_actions": [
+        "calibration_draft_suspect_product_notice"
+      ],
+      "args": {
+        "draft": "fairmake-out/calibration/drafts/none.md",
+        "draft_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-qms-release-hold",
+      "tool": "qms_release_hold",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-customer-notice-send",
+      "tool": "customer_notice_send",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-check-totals",
+      "tool": "calibration_check",
+      "args": {
+        "gauges": "fixtures/intl/de/gauges.csv",
+        "usage": "fixtures/intl/de/usage.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "equals": {
+          "result.gauges": 9,
+          "result.overdue": 1,
+          "result.suspect_work_orders": 3,
+          "result.flag": 2,
+          "result.review": 2,
+          "result.watch": 2,
+          "result.ok": 3
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"check-totals\"."
+    },
+    {
+      "id": "intl-ja-check-totals",
+      "tool": "calibration_check",
+      "args": {
+        "gauges": "fixtures/intl/ja/gauges.csv",
+        "usage": "fixtures/intl/ja/usage.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-18"
+      },
+      "expect": {
+        "equals": {
+          "result.gauges": 9,
+          "result.overdue": 1,
+          "result.suspect_work_orders": 3,
+          "result.flag": 2,
+          "result.review": 2,
+          "result.watch": 2,
+          "result.ok": 3
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"check-totals\"."
+    }
+  ]
+}
