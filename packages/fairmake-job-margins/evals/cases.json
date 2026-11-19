@@ -1,0 +1,347 @@
+{
+  "suite": "fairmake-job-margins",
+  "root": "..",
+  "data_note": "Fictional jobs in ../fixtures. No model is called.",
+  "cases": [
+    {
+      "id": "check-totals",
+      "tool": "job_margin_check",
+      "args": {
+        "jobs": "fixtures/jobs.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "equals": {
+          "result.jobs": 10,
+          "result.revenue": 84700,
+          "result.actual_cost": 68850,
+          "result.losses": 900,
+          "result.overruns": 5400,
+          "result.under_billed": 800,
+          "result.flag": 4,
+          "result.review": 1,
+          "result.watch": 1,
+          "result.ok": 4
+        }
+      }
+    },
+    {
+      "id": "every-planted-finding",
+      "tool": "job_margin_check",
+      "args": {
+        "jobs": "fixtures/jobs.csv"
+      },
+      "expect": {
+        "contains": [
+          "loss",
+          "cost_overrun",
+          "under_billed",
+          "below_target",
+          "no_quote",
+          "J-5002 lost 600"
+        ],
+        "not_contains": [
+          "Riley Example",
+          "Avery Sample"
+        ]
+      }
+    },
+    {
+      "id": "explain-overrun-job",
+      "tool": "job_margin_explain",
+      "args": {
+        "jobs": "fixtures/jobs.csv",
+        "job": "j-5003"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "J-5003 cost 12500 against 11000 quoted (13.6% over)",
+          "made 16.7% against a 20% target"
+        ]
+      }
+    },
+    {
+      "id": "stricter-targets",
+      "tool": "job_margin_check",
+      "args": {
+        "jobs": "fixtures/jobs.csv",
+        "settings": "fixtures/settings-strict.json"
+      },
+      "expect": {
+        "equals": {
+          "result.flag": 5,
+          "result.watch": 1,
+          "result.settings_used.overrun_pct": 5,
+          "result.settings_used.min_amount": 100
+        }
+      }
+    },
+    {
+      "id": "jobboss-job-summary-export",
+      "tool": "job_margin_check",
+      "args": {
+        "jobs": "fixtures/exports/jobboss-job-summary.csv"
+      },
+      "expect": {
+        "equals": {
+          "result.jobs": 2,
+          "result.flag": 2,
+          "result.losses": 100
+        }
+      }
+    },
+    {
+      "id": "draft-requote-note-after-approval",
+      "tool": "job_margin_draft_requote_note",
+      "args": {
+        "jobs": "fixtures/jobs.csv",
+        "from": "Morgan Owner (fictional)"
+      },
+      "approve": "Pat Example",
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.amount": 1700,
+          "result.open_markers": 1
+        },
+        "contains": [
+          "requote note open drafted for 1700"
+        ]
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "job_margin_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "jobs"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "job_margin_check",
+      "args": {
+        "jobs": "../../../outside.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "job_margin_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "job_margin_check",
+      "mode": "review",
+      "args": {
+        "jobs": "fixtures/jobs.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.jobs": 10,
+          "result.revenue": 84700,
+          "result.actual_cost": 68850,
+          "result.losses": 900,
+          "result.overruns": 5400,
+          "result.under_billed": 800,
+          "result.flag": 4,
+          "result.review": 1,
+          "result.watch": 1,
+          "result.ok": 4
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "job_margin_check",
+      "args": {
+        "jobs": "fixtures/jobs.csv",
+        "settings": "fixtures/settings.json",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.jobs": 10,
+          "result.revenue": 84700,
+          "result.actual_cost": 68850,
+          "result.losses": 900,
+          "result.overruns": 5400,
+          "result.under_billed": 800,
+          "result.flag": 4,
+          "result.review": 1,
+          "result.watch": 1,
+          "result.ok": 4
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "job_margin_explain",
+      "args": {
+        "jobs": "fixtures/jobs.csv",
+        "settings": "fixtures/settings.json",
+        "job": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-its-files",
+      "tool": "job_margin_write_report",
+      "args": {
+        "jobs": "fixtures/jobs.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "min": {
+          "result.files.length": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "draft-waits-for-a-person",
+      "tool": "job_margin_draft_requote_note",
+      "args": {
+        "jobs": "fixtures/jobs.csv",
+        "from": "Morgan Owner (fictional)"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-drafts-nothing",
+      "tool": "job_margin_draft_requote_note",
+      "mode": "review",
+      "args": {
+        "jobs": "fixtures/jobs.csv",
+        "from": "Morgan Owner (fictional)"
+      },
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "request-stays-one-click-in-auto",
+      "tool": "job_margin_request_send",
+      "mode": "auto",
+      "auto_actions": [
+        "job_margin_draft_requote_note"
+      ],
+      "args": {
+        "draft": "fairmake-out/job_margin/drafts/none.md",
+        "draft_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-erp-update-price-list",
+      "tool": "erp_update_price_list",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-customer-invoice-send",
+      "tool": "customer_invoice_send",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-check-totals",
+      "tool": "job_margin_check",
+      "args": {
+        "jobs": "fixtures/intl/de/jobs.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "equals": {
+          "result.jobs": 10,
+          "result.revenue": 84700,
+          "result.actual_cost": 68850,
+          "result.losses": 900,
+          "result.overruns": 5400,
+          "result.under_billed": 800,
+          "result.flag": 4,
+          "result.review": 1,
+          "result.watch": 1,
+          "result.ok": 4
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"check-totals\"."
+    },
+    {
+      "id": "intl-ja-check-totals",
+      "tool": "job_margin_check",
+      "args": {
+        "jobs": "fixtures/intl/ja/jobs.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "equals": {
+          "result.jobs": 10,
+          "result.revenue": 84700,
+          "result.actual_cost": 68850,
+          "result.losses": 900,
+          "result.overruns": 5400,
+          "result.under_billed": 800,
+          "result.flag": 4,
+          "result.review": 1,
+          "result.watch": 1,
+          "result.ok": 4
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"check-totals\"."
+    }
+  ]
+}

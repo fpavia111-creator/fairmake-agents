@@ -1,0 +1,11 @@
+job,customer,estimator,quoted_price,quoted_cost,actual_cost,invoiced,job_status,closed_date
+J-5001,Example Pumps Co,Riley Example,10000,7500,7600,10000,Closed,2026-10-10
+J-5002,Example Pumps Co,Riley Example,8000,6000,8600,8000,Closed,2026-10-15
+J-5003,Sample Robotics LLC,Avery Sample,15000,11000,12500,15000,Closed,2026-10-20
+J-5004,Sample Robotics LLC,Avery Sample,6000,4200,4300,5200,Closed,2026-10-28
+J-5005,Demo Ag Equipment,Riley Example,4000,2800,2900,,Open,
+J-5006,Demo Ag Equipment,Avery Sample,,,1800,2500,Closed,2026-11-02
+J-5007,Example Pumps Co,Riley Example,12000,9000,9800,12000,Closed,2026-11-05
+J-5008,Sample Robotics LLC,Riley Example,20000,14000,14500,20000,Closed,2026-11-08
+J-5009,Demo Ag Equipment,Avery Sample,3000,2000,3300,3000,Closed,2026-11-10
+J-5010,Example Pumps Co,Avery Sample,5000,3500,3550,5000,Shipped,2026-11-12

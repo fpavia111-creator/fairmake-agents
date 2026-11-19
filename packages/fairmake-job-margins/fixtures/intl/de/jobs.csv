@@ -1,0 +1,11 @@
+Auftrag;Kunde;estimator;Angebotspreis;Kalkulierte Kosten;Istkosten;invoiced;job_status;closed_date
+J-5001;Example Pumps Co;Riley Example;10.000,00;7.500,00;7.600,00;10.000,00;Closed;10.10.2026
+J-5002;Example Pumps Co;Riley Example;8.000,00;6.000,00;8.600,00;8.000,00;Closed;15.10.2026
+J-5003;Sample Robotics LLC;Avery Sample;15.000,00;11.000,00;12.500,00;15.000,00;Closed;20.10.2026
+J-5004;Sample Robotics LLC;Avery Sample;6.000,00;4.200,00;4.300,00;5.200,00;Closed;28.10.2026
+J-5005;Demo Ag Equipment;Riley Example;4.000,00;2.800,00;2.900,00;;Open;
+J-5006;Demo Ag Equipment;Avery Sample;;;1.800,00;2.500,00;Closed;02.11.2026
+J-5007;Example Pumps Co;Riley Example;12.000,00;9.000,00;9.800,00;12.000,00;Closed;05.11.2026
+J-5008;Sample Robotics LLC;Riley Example;20.000,00;14.000,00;14.500,00;20.000,00;Closed;08.11.2026
+J-5009;Demo Ag Equipment;Avery Sample;3.000,00;2.000,00;3.300,00;3.000,00;Closed;10.11.2026
+J-5010;Example Pumps Co;Avery Sample;5.000,00;3.500,00;3.550,00;5.000,00;Shipped;12.11.2026
