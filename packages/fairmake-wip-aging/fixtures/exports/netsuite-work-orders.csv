@@ -1,0 +1,4 @@
+Internal ID,Document Number,Assembly,Status,Date,End Date,Last Modified,WIP Value,Quantity,Built
+101,WO-3001,BRK-100,Released,10/01/2026,10/20/2026,10/05/2026,4200.00,50,0
+102,WO-3002,BRK-200,Closed,09/01/2026,09/20/2026,09/22/2026,310.00,40,40
+103,WO-3003,GER-600,Released,11/25/2026,12/20/2026,11/28/2026,800.00,30,0

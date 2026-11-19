@@ -1,0 +1,352 @@
+{
+  "suite": "fairmake-wip-aging",
+  "root": "..",
+  "data_note": "Fictional work orders in ../fixtures, aged as of 2026-11-30. No model is called.",
+  "cases": [
+    {
+      "id": "check-totals",
+      "tool": "wip_check",
+      "args": {
+        "work_orders": "fixtures/work-orders.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-30"
+      },
+      "expect": {
+        "equals": {
+          "result.work_orders": 10,
+          "result.open": 8,
+          "result.wip_total": 22650,
+          "result.stale_wip": 9500,
+          "result.closed_wip": 2150,
+          "result.flag": 4,
+          "result.review": 1,
+          "result.watch": 2,
+          "result.ok": 3
+        }
+      }
+    },
+    {
+      "id": "every-planted-finding",
+      "tool": "wip_check",
+      "args": {
+        "work_orders": "fixtures/work-orders.csv",
+        "as_of": "2026-11-30"
+      },
+      "expect": {
+        "contains": [
+          "closed_with_wip",
+          "negative_wip",
+          "stale",
+          "past_due",
+          "over_completed",
+          "no activity for 71 days"
+        ]
+      }
+    },
+    {
+      "id": "explain-closed-with-wip",
+      "tool": "wip_explain",
+      "args": {
+        "work_orders": "fixtures/work-orders.csv",
+        "as_of": "2026-11-30",
+        "work_order": "WO-2004"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "still holds 2150 of WIP"
+        ]
+      }
+    },
+    {
+      "id": "slower-stale-limit",
+      "tool": "wip_check",
+      "args": {
+        "work_orders": "fixtures/work-orders.csv",
+        "settings": "fixtures/settings-slow.json",
+        "as_of": "2026-11-30"
+      },
+      "expect": {
+        "equals": {
+          "result.flag": 3,
+          "result.stale_wip": 8800,
+          "result.settings_used.stale_days": 60
+        }
+      }
+    },
+    {
+      "id": "netsuite-work-order-export",
+      "tool": "wip_check",
+      "args": {
+        "work_orders": "fixtures/exports/netsuite-work-orders.csv",
+        "as_of": "2026-11-30"
+      },
+      "expect": {
+        "equals": {
+          "result.work_orders": 3,
+          "result.flag": 2,
+          "result.stale_wip": 4200,
+          "result.closed_wip": 310
+        }
+      }
+    },
+    {
+      "id": "draft-wip-review-after-approval",
+      "tool": "wip_draft_wip_review",
+      "args": {
+        "work_orders": "fixtures/work-orders.csv",
+        "as_of": "2026-11-30",
+        "from": "Casey Controller (fictional)"
+      },
+      "approve": "Pat Example",
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.amount": 11650,
+          "result.open_markers": 1
+        },
+        "contains": [
+          "wip review open drafted for 11650"
+        ]
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "wip_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "work_orders"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "wip_check",
+      "args": {
+        "work_orders": "../../../outside.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-30"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "wip_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "wip_check",
+      "mode": "review",
+      "args": {
+        "work_orders": "fixtures/work-orders.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-30"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.work_orders": 10,
+          "result.open": 8,
+          "result.wip_total": 22650,
+          "result.stale_wip": 9500,
+          "result.closed_wip": 2150,
+          "result.flag": 4,
+          "result.review": 1,
+          "result.watch": 2,
+          "result.ok": 3
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "wip_check",
+      "args": {
+        "work_orders": "fixtures/work-orders.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-30",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.work_orders": 10,
+          "result.open": 8,
+          "result.wip_total": 22650,
+          "result.stale_wip": 9500,
+          "result.closed_wip": 2150,
+          "result.flag": 4,
+          "result.review": 1,
+          "result.watch": 2,
+          "result.ok": 3
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "wip_explain",
+      "args": {
+        "work_orders": "fixtures/work-orders.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-30",
+        "work_order": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-its-files",
+      "tool": "wip_write_report",
+      "args": {
+        "work_orders": "fixtures/work-orders.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-30"
+      },
+      "expect": {
+        "status": "executed",
+        "min": {
+          "result.files.length": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "draft-waits-for-a-person",
+      "tool": "wip_draft_wip_review",
+      "args": {
+        "work_orders": "fixtures/work-orders.csv",
+        "as_of": "2026-11-30",
+        "from": "Casey Controller (fictional)"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-drafts-nothing",
+      "tool": "wip_draft_wip_review",
+      "mode": "review",
+      "args": {
+        "work_orders": "fixtures/work-orders.csv",
+        "as_of": "2026-11-30",
+        "from": "Casey Controller (fictional)"
+      },
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "request-stays-one-click-in-auto",
+      "tool": "wip_request_send",
+      "mode": "auto",
+      "auto_actions": [
+        "wip_draft_wip_review"
+      ],
+      "args": {
+        "draft": "fairmake-out/wip/drafts/none.md",
+        "draft_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-erp-close-work-order",
+      "tool": "erp_close_work_order",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-erp-post-journal",
+      "tool": "erp_post_journal",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-check-totals",
+      "tool": "wip_check",
+      "args": {
+        "work_orders": "fixtures/intl/de/work-orders.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-30"
+      },
+      "expect": {
+        "equals": {
+          "result.work_orders": 10,
+          "result.open": 8,
+          "result.wip_total": 22650,
+          "result.stale_wip": 9500,
+          "result.closed_wip": 2150,
+          "result.flag": 4,
+          "result.review": 1,
+          "result.watch": 2,
+          "result.ok": 3
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"check-totals\"."
+    },
+    {
+      "id": "intl-ja-check-totals",
+      "tool": "wip_check",
+      "args": {
+        "work_orders": "fixtures/intl/ja/work-orders.csv",
+        "settings": "fixtures/settings.json",
+        "as_of": "2026-11-30"
+      },
+      "expect": {
+        "equals": {
+          "result.work_orders": 10,
+          "result.open": 8,
+          "result.wip_total": 22650,
+          "result.stale_wip": 9500,
+          "result.closed_wip": 2150,
+          "result.flag": 4,
+          "result.review": 1,
+          "result.watch": 2,
+          "result.ok": 3
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"check-totals\"."
+    }
+  ]
+}
