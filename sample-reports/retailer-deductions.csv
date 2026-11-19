@@ -1,0 +1,10 @@
+deduction,customer,deduction_date,amount,reason_code,category,reference,dispute_by,status,findings,reasons,decision
+D-9001,Example Mart,2026-11-01,250,ASN,asn_late,INV-3001,2026-12-16,flag,disputable,"Example Mart charged 250 for a late ASN, but the ASN for invoice INV-3001 went at 2026-10-20T16:30:00, 2.5 hours after shipping (2026-10-20T14:00:00).",
+D-9002,Example Mart,2026-11-01,180,SHT,shortage,INV-3002,2026-12-16,flag,disputable,"Example Mart deducted 180 for a shortage on invoice INV-3002, but 120 shipped against 120 invoiced with a clean proof of delivery.",
+D-9003,Example Mart,2026-11-05,75,LBL,label,INV-3003,2026-12-20,review,needs_evidence,"label deduction of 75: gather the routing guide, label and ASN records before deciding.",
+D-9004,Sample Hardware Co,2026-09-20,400,ASN,asn_late,INV-3004,2026-10-20,watch,disputable window_closed,"Sample Hardware Co charged 400 for a late ASN, but the ASN for invoice INV-3004 went at 2026-09-01T10:00:00, 1 hours after shipping (2026-09-01T09:00:00). The dispute window (30 days) closed on 2026-10-20.",
+D-9005,Sample Hardware Co,2026-11-10,30,PRC,pricing,INV-3005,2026-12-10,review,needs_evidence small_amount,pricing deduction of 30: gather the price agreement and the PO before deciding. 30 is under 50: a write-off candidate if a person agrees.,
+D-9006,Sample Hardware Co,2026-11-12,520,ASN,asn_late,INV-3006,2026-12-12,review,needs_evidence,"asn late deduction of 520: gather the routing guide, label and ASN records before deciding.",
+D-9007,Demo Builders Supply,2026-11-08,95,ZZ9,unknown,,2026-11-28,review,unknown_reason no_reference,"Reason code ""ZZ9"" is not in the reason map; classify it before deciding. Deduction D-9007 names no invoice.",
+D-9008,Demo Builders Supply,2026-11-09,210,SHT,shortage,INV-3008,2026-11-29,review,needs_evidence,shortage deduction of 210: gather the proof of delivery and pick records before deciding.,
+D-9009,Example Mart,2026-11-14,60,PRM,promotion,INV-3999,2026-12-29,review,no_reference needs_evidence,Invoice INV-3999 is not in the shipment file. promotion deduction of 60: gather the promotion agreement before deciding.,

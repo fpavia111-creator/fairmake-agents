@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Customer invoices against customer orders</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#6b6760;--line:#e4e0d8;--ok:#1f7a4d;--bad:#b42318;--warn:#a15c07;--card:#fff}
+@media (prefers-color-scheme:dark){:root{--bg:#161514;--fg:#ecebe8;--mut:#a29d94;--line:#34312d;--ok:#4ade80;--bad:#f87171;--warn:#fbbf24;--card:#1f1e1c}}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,Segoe UI,"Hiragino Sans","Yu Gothic UI","Microsoft YaHei","PingFang SC","Malgun Gothic","Apple SD Gothic Neo","Noto Sans CJK",sans-serif}
+main{max-width:1040px;margin:0 auto;padding:24px 16px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:28px 0 8px}
+.mut{color:var(--mut)}.ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}
+table{border-collapse:collapse;width:100%;background:var(--card);font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{font-weight:600}td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.tiles{display:flex;gap:12px;flex-wrap:wrap}.tile{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 14px;min-width:120px}
+.tile b{display:block;font-size:22px}code{font-size:13px;overflow-wrap:anywhere}pre{overflow-x:auto}
+.wrap{overflow-x:auto;max-width:100%}svg,img{max-width:100%;height:auto}figure{margin:16px 0}p,li,h1,h2,h3{overflow-wrap:break-word}
+</style></head><body><main>
+<h1>Customer invoices against customer orders</h1>
+<p class="mut">7 invoice(s) against 3 customer PO(s), 2195.5 invoiced: 5 differ from the PO (612 at risk), 0 to check, 2 match.</p>
+<h2>By finding</h2><div class="wrap"><table><thead><tr><th scope="col">code</th><th scope="col">count</th><th scope="col">amount</th></tr></thead><tbody>
+<tr><td>item_not_on_po</td><td>1</td><td>15</td></tr>
+<tr><td>po_not_found</td><td>1</td><td>0</td></tr>
+<tr><td>possible_duplicate</td><td>1</td><td>0</td></tr>
+<tr><td>price_mismatch</td><td>2</td><td>48</td></tr>
+<tr><td>qty_over_po</td><td>2</td><td>549</td></tr>
+</tbody></table></div>
+<h2>All rows (7)</h2>
+<div class="wrap"><table><thead><tr><th scope="col">invoice</th><th scope="col">po number</th><th scope="col">invoice date</th><th scope="col">value</th><th scope="col">at risk</th><th scope="col">status</th><th scope="col">reasons</th></tr></thead><tbody>
+<tr><td>INV-4001</td><td>PO-9001</td><td>2026-11-03</td><td>812.5</td><td>0</td><td>ok</td><td></td></tr>
+<tr><td>INV-4002</td><td>PO-9002</td><td>2026-11-04</td><td>504</td><td>24</td><td>flag</td><td>Invoice INV-4002 bills BRK-300 at 12.6; PO PO-9002 says 12. A retailer usually deducts the difference (24).</td></tr>
+<tr><td>INV-4003</td><td>PO-9003</td><td>2026-11-05</td><td>180</td><td>0</td><td>ok</td><td></td></tr>
+<tr><td>INV-4004</td><td>PO-9003</td><td>2026-11-08</td><td>135</td><td>45</td><td>flag</td><td>BRK-100 on PO PO-9003: 70 invoiced so far against 60 ordered.</td></tr>
+<tr><td>INV-4005</td><td>PO-9003</td><td>2026-11-09</td><td>15</td><td>15</td><td>flag</td><td>Invoice INV-4005 bills 5 of BRK-999, which is not on PO PO-9003.</td></tr>
+<tr><td>INV-4006</td><td>PO-9999</td><td>2026-11-10</td><td>45</td><td>0</td><td>flag</td><td>Invoice INV-4006 names PO PO-9999, which is not among the customer orders.</td></tr>
+<tr><td>INV-4007</td><td>PO-9002</td><td>2026-11-12</td><td>504</td><td>528</td><td>flag</td><td>Invoice INV-4007 bills BRK-300 at 12.6; PO PO-9002 says 12. A retailer usually deducts the difference (24). BRK-300 on PO PO-9002: 80 invoiced so far against 40 ordered. Invoice INV-4007 has the same lines as invoice INV-4002.</td></tr>
+</tbody></table></div>
+<h2>Limits</h2><ul><li>Lines are matched by PO and item; partial shipments across several invoices are added up in invoice date order.</li><li>X12 element positions follow the public 004010 structure as recalled; check the first file read with your EDI provider.</li><li>Reads only the files you give it. It does not log in to an ERP, MES, CMMS, QMS, EDI network, bank, supplier or customer portal, and changes nothing in them.</li><li>Not legal, tax, customs, safety or accounting advice. A person decides what to change, post, send or pay.</li></ul>
+<p class="mut" style="margin-top:32px">Written by a Fairmake agent from your files. Nothing was sent or paid.</p>
+</main></body></html>

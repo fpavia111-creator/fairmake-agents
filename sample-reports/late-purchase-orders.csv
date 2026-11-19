@@ -1,0 +1,11 @@
+po_line,po_number,supplier,item,due_date,promise_date,need_date,qty_open,open_value,days,status,findings,reasons,decision
+PO-601-1,PO-601,Northwind Metals,BAR-4140,2026-10-25,2026-10-30,2026-11-05,1000,4800,19,flag,past_due promise_after_due,"PO-601 BAR-4140: 1000 still open 19 days after the promise date 2026-10-30 (4800). PO-601 BAR-4140: promised 2026-10-30, after the requested 2026-10-25.",
+PO-601-2,PO-601,Northwind Metals,BAR-1018,2026-11-25,2026-11-28,2026-11-20,500,1010,0,flag,promise_after_need,"PO-601 BAR-1018: promised 2026-11-28, production needs it 2026-11-20 (8 days late).",
+PO-602-1,PO-602,Northwind Metals,BAR-4140,2026-12-05,,,800,3840,0,review,no_promise,PO-602 BAR-4140: no promise date 8 days after ordering.,
+PO-603-1,PO-603,Fastener Example Co,SCR-M8,2026-11-10,2026-11-10,,8000,400,8,flag,past_due,PO-603 SCR-M8: 8000 still open 8 days after the promise date 2026-11-10 (400).,
+PO-603-2,PO-603,Fastener Example Co,BRG-6204,2026-11-25,2026-12-02,,500,1500,0,watch,promise_after_due,"PO-603 BRG-6204: promised 2026-12-02, after the requested 2026-11-25.",
+PO-604-1,PO-604,Demo Castings LLC,CAS-310,2026-11-30,2026-11-30,2026-12-10,40,3960,0,ok,,,
+PO-604-2,PO-604,Demo Castings LLC,HSG-300,2026-10-15,2026-10-15,,0,0,0,review,over_received,PO-604 HSG-300: 22 received against 20 ordered.,
+PO-605-1,PO-605,Demo Seals Inc,SEAL-10,2026-12-01,,,1000,1200,0,ok,,,
+PO-605-2,PO-605,Demo Seals Inc,GSK-220,2026-10-20,2026-10-20,,0,0,0,ok,,,
+PO-606-1,PO-606,Sample Steel Supply,PLT-A36,2026-11-17,2026-11-17,,30,1560,1,flag,past_due,PO-606 PLT-A36: 30 still open 1 days after the promise date 2026-11-17 (1560).,

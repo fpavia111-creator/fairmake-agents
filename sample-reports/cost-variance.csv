@@ -1,0 +1,11 @@
+work_order,item,status,standard,actual,variance,variance_pct,findings,reasons,decision
+WO-1001,BRK-100,ok,1800,1830,30,1.7,,,
+WO-1002,BRK-200,flag,3100,3730,630,20.3,material_over,Material 2600 against standard 2000: 600 over (30%).,
+WO-1003,HSG-300,flag,2700,3620,920,34.1,labor_over overhead_over,Labor 1400 against standard 800: 600 over (75%). Overhead 700 against standard 400: 300 over (75%).,
+WO-1004,SHF-400,review,4000,3050,-950,-23.7,large_favorable,"Total cost 3050 is 950 (23.8%) under standard 4000. Check the standard, and whether every material issue and labor ticket was charged to the work order.",
+WO-1005,PLT-500,review,0,450,450,,no_standard,WO-1005 has 450 actual cost and no standard cost on file. Set a standard before judging the variance.,
+WO-1006,BRK-100,flag,1800,1800,0,0,cost_no_output,"WO-1006 is closed with 1800 charged and nothing completed. Find where the output went, or move the cost.",
+WO-1007,BRK-200,ok,2800,2900,100,3.6,,,
+WO-1008,GER-600,ok,800,1000,200,25,,,
+WO-1009,GER-600,ok,11400,11800,400,3.5,,,
+WO-1010,HSG-300,flag,1100,1450,350,31.8,labor_over,Labor 650 against standard 300: 350 over (116.7%).,

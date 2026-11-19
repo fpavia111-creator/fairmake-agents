@@ -1,0 +1,8 @@
+invoice,po_number,invoice_date,lines,value,at_risk,status,findings,reasons,decision
+INV-4001,PO-9001,2026-11-03,2,812.5,0,ok,,,
+INV-4002,PO-9002,2026-11-04,1,504,24,flag,price_mismatch,Invoice INV-4002 bills BRK-300 at 12.6; PO PO-9002 says 12. A retailer usually deducts the difference (24).,
+INV-4003,PO-9003,2026-11-05,1,180,0,ok,,,
+INV-4004,PO-9003,2026-11-08,1,135,45,flag,qty_over_po,BRK-100 on PO PO-9003: 70 invoiced so far against 60 ordered.,
+INV-4005,PO-9003,2026-11-09,1,15,15,flag,item_not_on_po,"Invoice INV-4005 bills 5 of BRK-999, which is not on PO PO-9003.",
+INV-4006,PO-9999,2026-11-10,1,45,0,flag,po_not_found,"Invoice INV-4006 names PO PO-9999, which is not among the customer orders.",
+INV-4007,PO-9002,2026-11-12,1,504,528,flag,price_mismatch qty_over_po possible_duplicate,Invoice INV-4007 bills BRK-300 at 12.6; PO PO-9002 says 12. A retailer usually deducts the difference (24). BRK-300 on PO PO-9002: 80 invoiced so far against 40 ordered. Invoice INV-4007 has the same lines as invoice INV-4002.,

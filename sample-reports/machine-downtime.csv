@@ -1,0 +1,6 @@
+machine,scheduled_hours,stops,unplanned_hours,availability_pct,mttr_hours,mtbf_hours,status,findings,reasons,decision
+CNC-1,80,2,2,97.5,2,78,ok,,,
+CNC-2,80,4,14,82.5,3.5,16.5,flag,low_availability chronic_reason no_reason,"CNC-2 lost 14 of 80 scheduled hours to unplanned stops: 82.5% available (target 85%). CNC-2 stopped 3 times for ""Spindle fault"" (12 hours). 1 stop(s) on CNC-2 have no reason code (E6).",
+LASER-1,,1,0.5,,0.5,,review,no_schedule,"LASER-1 has stops but no scheduled hours, so availability cannot be measured.",
+PRESS-1,120,3,3,97.5,1.5,58.5,review,overlapping_events,Stops overlap on PRESS-1 (E8/E9): the same downtime may be counted twice.,
+WELD-1,60,1,0,100,,,review,open_event,"1 stop(s) on WELD-1 have no end time (E10): still down, or the restart was not recorded.",

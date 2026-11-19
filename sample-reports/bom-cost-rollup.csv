@@ -1,0 +1,9 @@
+item,components,std_cost,rolled_cost,change_pct,status,findings,reasons,decision
+BRKT-7,1,16,16,0,watch,stale_price,Price older than 365 days used for PLT-A36 (2025-06-01).,
+HSG-300,1,95,111,16.8,flag,cost_up,"HSG-300 rolls up to 111 on today's prices against a standard of 95 (16.8% up, 16 a unit).",
+IMP-200,1,7,9.06,29.4,flag,cost_up,"IMP-200 rolls up to 9.06 on today's prices against a standard of 7 (29.4% up, 2.06 a unit).",
+KIT-9,2,,6,,review,no_standard,KIT-9 has no standard cost; the roll-up gives 6.,
+LOOP-A,1,10,0,,flag,circular_bom,The bill of materials loops: LOOP-A > LOOP-B > LOOP-A. Fix the structure before trusting any roll-up that uses it.,
+LOOP-B,1,10,0,,flag,circular_bom,The bill of materials loops: LOOP-A > LOOP-B > LOOP-A. Fix the structure before trusting any roll-up that uses it.,
+PUMP-100,4,150,148.44,-1,ok,,,
+VALVE-50,3,40,35.2,,review,missing_price,No purchase price and no bill of materials for STEM-5; the roll-up leaves them at zero.,

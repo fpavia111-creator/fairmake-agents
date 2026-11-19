@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Customer deductions and chargebacks</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#6b6760;--line:#e4e0d8;--ok:#1f7a4d;--bad:#b42318;--warn:#a15c07;--card:#fff}
+@media (prefers-color-scheme:dark){:root{--bg:#161514;--fg:#ecebe8;--mut:#a29d94;--line:#34312d;--ok:#4ade80;--bad:#f87171;--warn:#fbbf24;--card:#1f1e1c}}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,Segoe UI,"Hiragino Sans","Yu Gothic UI","Microsoft YaHei","PingFang SC","Malgun Gothic","Apple SD Gothic Neo","Noto Sans CJK",sans-serif}
+main{max-width:1040px;margin:0 auto;padding:24px 16px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:28px 0 8px}
+.mut{color:var(--mut)}.ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}
+table{border-collapse:collapse;width:100%;background:var(--card);font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{font-weight:600}td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.tiles{display:flex;gap:12px;flex-wrap:wrap}.tile{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 14px;min-width:120px}
+.tile b{display:block;font-size:22px}code{font-size:13px;overflow-wrap:anywhere}pre{overflow-x:auto}
+.wrap{overflow-x:auto;max-width:100%}svg,img{max-width:100%;height:auto}figure{margin:16px 0}p,li,h1,h2,h3{overflow-wrap:break-word}
+</style></head><body><main>
+<h1>Customer deductions and chargebacks</h1>
+<p class="mut">9 deduction(s), 1820 in total as of 2026-11-18: 430 disputable inside the window, 400 disputable but past it. 2 to dispute, 6 to look into, 1 closed or small, 0 accepted.</p>
+<h2>By customer</h2><div class="wrap"><table><thead><tr><th scope="col">customer</th><th scope="col">deductions</th><th scope="col">amount</th><th scope="col">disputable</th></tr></thead><tbody>
+<tr><td>Sample Hardware Co</td><td>3</td><td>950</td><td>400</td></tr>
+<tr><td>Example Mart</td><td>4</td><td>565</td><td>430</td></tr>
+<tr><td>Demo Builders Supply</td><td>2</td><td>305</td><td>0</td></tr>
+</tbody></table></div>
+<h2>By reason</h2><div class="wrap"><table><thead><tr><th scope="col">reason</th><th scope="col">deductions</th><th scope="col">amount</th><th scope="col">disputable</th></tr></thead><tbody>
+<tr><td>asn_late</td><td>3</td><td>1170</td><td>650</td></tr>
+<tr><td>shortage</td><td>2</td><td>390</td><td>180</td></tr>
+<tr><td>unknown</td><td>1</td><td>95</td><td>0</td></tr>
+<tr><td>label</td><td>1</td><td>75</td><td>0</td></tr>
+<tr><td>promotion</td><td>1</td><td>60</td><td>0</td></tr>
+<tr><td>pricing</td><td>1</td><td>30</td><td>0</td></tr>
+</tbody></table></div>
+<h2>By finding</h2><div class="wrap"><table><thead><tr><th scope="col">code</th><th scope="col">count</th><th scope="col">amount</th></tr></thead><tbody>
+<tr><td>disputable</td><td>3</td><td>830</td></tr>
+<tr><td>needs_evidence</td><td>5</td><td>0</td></tr>
+<tr><td>no_reference</td><td>2</td><td>0</td></tr>
+<tr><td>small_amount</td><td>1</td><td>0</td></tr>
+<tr><td>unknown_reason</td><td>1</td><td>0</td></tr>
+<tr><td>window_closed</td><td>1</td><td>0</td></tr>
+</tbody></table></div>
+<h2>All rows (9)</h2>
+<div class="wrap"><table><thead><tr><th scope="col">deduction</th><th scope="col">customer</th><th scope="col">amount</th><th scope="col">category</th><th scope="col">reference</th><th scope="col">dispute by</th><th scope="col">status</th><th scope="col">reasons</th></tr></thead><tbody>
+<tr><td>D-9001</td><td>Example Mart</td><td>250</td><td>asn_late</td><td>INV-3001</td><td>2026-12-16</td><td>flag</td><td>Example Mart charged 250 for a late ASN, but the ASN for invoice INV-3001 went at 2026-10-20T16:30:00, 2.5 hours after shipping (2026-10-20T14:00:00).</td></tr>
+<tr><td>D-9002</td><td>Example Mart</td><td>180</td><td>shortage</td><td>INV-3002</td><td>2026-12-16</td><td>flag</td><td>Example Mart deducted 180 for a shortage on invoice INV-3002, but 120 shipped against 120 invoiced with a clean proof of delivery.</td></tr>
+<tr><td>D-9003</td><td>Example Mart</td><td>75</td><td>label</td><td>INV-3003</td><td>2026-12-20</td><td>review</td><td>label deduction of 75: gather the routing guide, label and ASN records before deciding.</td></tr>
+<tr><td>D-9004</td><td>Sample Hardware Co</td><td>400</td><td>asn_late</td><td>INV-3004</td><td>2026-10-20</td><td>watch</td><td>Sample Hardware Co charged 400 for a late ASN, but the ASN for invoice INV-3004 went at 2026-09-01T10:00:00, 1 hours after shipping (2026-09-01T09:00:00). The dispute window (30 days) closed on 2026-10-20.</td></tr>
+<tr><td>D-9005</td><td>Sample Hardware Co</td><td>30</td><td>pricing</td><td>INV-3005</td><td>2026-12-10</td><td>review</td><td>pricing deduction of 30: gather the price agreement and the PO before deciding. 30 is under 50: a write-off candidate if a person agrees.</td></tr>
+<tr><td>D-9006</td><td>Sample Hardware Co</td><td>520</td><td>asn_late</td><td>INV-3006</td><td>2026-12-12</td><td>review</td><td>asn late deduction of 520: gather the routing guide, label and ASN records before deciding.</td></tr>
+<tr><td>D-9007</td><td>Demo Builders Supply</td><td>95</td><td>unknown</td><td></td><td>2026-11-28</td><td>review</td><td>Reason code &quot;ZZ9&quot; is not in the reason map; classify it before deciding. Deduction D-9007 names no invoice.</td></tr>
+<tr><td>D-9008</td><td>Demo Builders Supply</td><td>210</td><td>shortage</td><td>INV-3008</td><td>2026-11-29</td><td>review</td><td>shortage deduction of 210: gather the proof of delivery and pick records before deciding.</td></tr>
+<tr><td>D-9009</td><td>Example Mart</td><td>60</td><td>promotion</td><td>INV-3999</td><td>2026-12-29</td><td>review</td><td>Invoice INV-3999 is not in the shipment file. promotion deduction of 60: gather the promotion agreement before deciding.</td></tr>
+</tbody></table></div>
+<h2>Limits</h2><ul><li>Dispute windows and reason codes come from your settings, written from your trading partner terms; the agent does not know any retailer&#39;s current rules.</li><li>Reads only the files you give it. It does not log in to an ERP, MES, CMMS, QMS, EDI network, bank, supplier or customer portal, and changes nothing in them.</li><li>Not legal, tax, customs, safety or accounting advice. A person decides what to change, post, send or pay.</li></ul>
+<p class="mut" style="margin-top:32px">Written by a Fairmake agent from your files. Nothing was sent or paid.</p>
+</main></body></html>

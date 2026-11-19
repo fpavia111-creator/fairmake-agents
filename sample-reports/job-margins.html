@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quoted against actual job margin</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#6b6760;--line:#e4e0d8;--ok:#1f7a4d;--bad:#b42318;--warn:#a15c07;--card:#fff}
+@media (prefers-color-scheme:dark){:root{--bg:#161514;--fg:#ecebe8;--mut:#a29d94;--line:#34312d;--ok:#4ade80;--bad:#f87171;--warn:#fbbf24;--card:#1f1e1c}}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,Segoe UI,"Hiragino Sans","Yu Gothic UI","Microsoft YaHei","PingFang SC","Malgun Gothic","Apple SD Gothic Neo","Noto Sans CJK",sans-serif}
+main{max-width:1040px;margin:0 auto;padding:24px 16px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:28px 0 8px}
+.mut{color:var(--mut)}.ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}
+table{border-collapse:collapse;width:100%;background:var(--card);font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{font-weight:600}td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.tiles{display:flex;gap:12px;flex-wrap:wrap}.tile{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 14px;min-width:120px}
+.tile b{display:block;font-size:22px}code{font-size:13px;overflow-wrap:anywhere}pre{overflow-x:auto}
+.wrap{overflow-x:auto;max-width:100%}svg,img{max-width:100%;height:auto}figure{margin:16px 0}p,li,h1,h2,h3{overflow-wrap:break-word}
+</style></head><body><main>
+<h1>Quoted against actual job margin</h1>
+<p class="mut">10 job(s), 84700 revenue against 68850 cost: losses 900, overruns 5400, not billed 800. 4 to act on, 1 without a quote, 1 under target, 4 on target.</p>
+<h2>By customer</h2><div class="wrap"><table><thead><tr><th scope="col">customer</th><th scope="col">jobs</th><th scope="col">revenue</th><th scope="col">cost</th><th scope="col">margin</th><th scope="col">margin pct</th></tr></thead><tbody>
+<tr><td>Demo Ag Equipment</td><td>3</td><td>9500</td><td>8000</td><td>1500</td><td>15.8</td></tr>
+<tr><td>Example Pumps Co</td><td>4</td><td>35000</td><td>29550</td><td>5450</td><td>15.6</td></tr>
+<tr><td>Sample Robotics LLC</td><td>3</td><td>40200</td><td>31300</td><td>8900</td><td>22.1</td></tr>
+</tbody></table></div>
+<h2>By estimator</h2><div class="wrap"><table><thead><tr><th scope="col">estimator</th><th scope="col">jobs</th><th scope="col">overruns</th><th scope="col">margin pct</th></tr></thead><tbody>
+<tr><td>Avery Sample</td><td>5</td><td>2</td><td>17.1</td></tr>
+<tr><td>Riley Example</td><td>5</td><td>1</td><td>19.6</td></tr>
+</tbody></table></div>
+<h2>By finding</h2><div class="wrap"><table><thead><tr><th scope="col">code</th><th scope="col">count</th><th scope="col">amount</th></tr></thead><tbody>
+<tr><td>below_target</td><td>3</td><td>0</td></tr>
+<tr><td>cost_overrun</td><td>3</td><td>5400</td></tr>
+<tr><td>loss</td><td>2</td><td>900</td></tr>
+<tr><td>no_quote</td><td>1</td><td>0</td></tr>
+<tr><td>under_billed</td><td>1</td><td>800</td></tr>
+</tbody></table></div>
+<h2>All rows (10)</h2>
+<div class="wrap"><table><thead><tr><th scope="col">job</th><th scope="col">customer</th><th scope="col">quoted price</th><th scope="col">quoted cost</th><th scope="col">actual cost</th><th scope="col">invoiced</th><th scope="col">margin pct</th><th scope="col">status</th><th scope="col">reasons</th></tr></thead><tbody>
+<tr><td>J-5001</td><td>Example Pumps Co</td><td>10000</td><td>7500</td><td>7600</td><td>10000</td><td>24</td><td>ok</td><td></td></tr>
+<tr><td>J-5002</td><td>Example Pumps Co</td><td>8000</td><td>6000</td><td>8600</td><td>8000</td><td>-7.5</td><td>flag</td><td>J-5002 lost 600: 8000 invoiced against 8600 actual cost. J-5002 cost 8600 against 6000 quoted (43.3% over).</td></tr>
+<tr><td>J-5003</td><td>Sample Robotics LLC</td><td>15000</td><td>11000</td><td>12500</td><td>15000</td><td>16.7</td><td>flag</td><td>J-5003 cost 12500 against 11000 quoted (13.6% over). J-5003 made 16.7% against a 20% target.</td></tr>
+<tr><td>J-5004</td><td>Sample Robotics LLC</td><td>6000</td><td>4200</td><td>4300</td><td>5200</td><td>17.3</td><td>flag</td><td>J-5004 is closed with 5200 invoiced against 6000 quoted: 800 not billed. J-5004 made 17.3% against a 20% target.</td></tr>
+<tr><td>J-5005</td><td>Demo Ag Equipment</td><td>4000</td><td>2800</td><td>2900</td><td></td><td>27.5</td><td>ok</td><td></td></tr>
+<tr><td>J-5006</td><td>Demo Ag Equipment</td><td></td><td></td><td>1800</td><td>2500</td><td>28</td><td>review</td><td>J-5006 has no quoted price, so it cannot be compared with its quote.</td></tr>
+<tr><td>J-5007</td><td>Example Pumps Co</td><td>12000</td><td>9000</td><td>9800</td><td>12000</td><td>18.3</td><td>watch</td><td>J-5007 made 18.3% against a 20% target.</td></tr>
+<tr><td>J-5008</td><td>Sample Robotics LLC</td><td>20000</td><td>14000</td><td>14500</td><td>20000</td><td>27.5</td><td>ok</td><td></td></tr>
+<tr><td>J-5009</td><td>Demo Ag Equipment</td><td>3000</td><td>2000</td><td>3300</td><td>3000</td><td>-10</td><td>flag</td><td>J-5009 lost 300: 3000 invoiced against 3300 actual cost. J-5009 cost 3300 against 2000 quoted (65% over).</td></tr>
+<tr><td>J-5010</td><td>Example Pumps Co</td><td>5000</td><td>3500</td><td>3550</td><td>5000</td><td>29</td><td>ok</td><td></td></tr>
+</tbody></table></div>
+<h2>Limits</h2><ul><li>Margin is revenue (invoiced, or the quoted price until invoiced) minus actual cost as your export states them; overhead allocation follows your ERP.</li><li>Reads only the files you give it. It does not log in to an ERP, MES, CMMS, QMS, EDI network, bank, supplier or customer portal, and changes nothing in them.</li><li>Not legal, tax, customs, safety or accounting advice. A person decides what to change, post, send or pay.</li><li>People&#39;s names in these files are masked in results returned to the AI model. The report and draft files written here keep the real values: keep them in a private folder.</li></ul>
+<p class="mut" style="margin-top:32px">Written by a Fairmake agent from your files. Nothing was sent or paid.</p>
+</main></body></html>

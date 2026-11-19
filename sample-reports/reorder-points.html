@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Safety stock and reorder points</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#6b6760;--line:#e4e0d8;--ok:#1f7a4d;--bad:#b42318;--warn:#a15c07;--card:#fff}
+@media (prefers-color-scheme:dark){:root{--bg:#161514;--fg:#ecebe8;--mut:#a29d94;--line:#34312d;--ok:#4ade80;--bad:#f87171;--warn:#fbbf24;--card:#1f1e1c}}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,Segoe UI,"Hiragino Sans","Yu Gothic UI","Microsoft YaHei","PingFang SC","Malgun Gothic","Apple SD Gothic Neo","Noto Sans CJK",sans-serif}
+main{max-width:1040px;margin:0 auto;padding:24px 16px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:28px 0 8px}
+.mut{color:var(--mut)}.ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}
+table{border-collapse:collapse;width:100%;background:var(--card);font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{font-weight:600}td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.tiles{display:flex;gap:12px;flex-wrap:wrap}.tile{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 14px;min-width:120px}
+.tile b{display:block;font-size:22px}code{font-size:13px;overflow-wrap:anywhere}pre{overflow-x:auto}
+.wrap{overflow-x:auto;max-width:100%}svg,img{max-width:100%;height:auto}figure{margin:16px 0}p,li,h1,h2,h3{overflow-wrap:break-word}
+</style></head><body><main>
+<h1>Safety stock and reorder points</h1>
+<p class="mut">8 item(s) as of 2026-11-18: 1 stocked out, 3 to order, 2 short, 4 with reorder points to review, 0 at the reorder point, 2 fine.</p>
+<h2>Proposed reorder points</h2><div class="wrap"><table><thead><tr><th scope="col">item</th><th scope="col">reorder point</th><th scope="col">proposed rop</th><th scope="col">daily usage</th><th scope="col">lead time days</th></tr></thead><tbody>
+<tr><td>BAR-4140</td><td>1500</td><td>1900</td><td>50</td><td>28</td></tr>
+<tr><td>BRG-6204</td><td>300</td><td>380</td><td>20</td><td>14</td></tr>
+<tr><td>CAS-310</td><td>30</td><td>60</td><td>1</td><td>45</td></tr>
+<tr><td>GSK-220</td><td>500</td><td>160</td><td>2</td><td>30</td></tr>
+</tbody></table></div>
+<h2>By finding</h2><div class="wrap"><table><thead><tr><th scope="col">code</th><th scope="col">count</th></tr></thead><tbody>
+<tr><td>at_reorder_point</td><td>2</td></tr>
+<tr><td>below_safety_stock</td><td>1</td></tr>
+<tr><td>no_rop</td><td>1</td></tr>
+<tr><td>rop_stale</td><td>4</td></tr>
+<tr><td>stockout</td><td>1</td></tr>
+</tbody></table></div>
+<h2>All rows (8)</h2>
+<div class="wrap"><table><thead><tr><th scope="col">item</th><th scope="col">on hand</th><th scope="col">on order</th><th scope="col">available</th><th scope="col">safety stock</th><th scope="col">reorder point</th><th scope="col">proposed rop</th><th scope="col">status</th><th scope="col">reasons</th></tr></thead><tbody>
+<tr><td>BAR-4140</td><td>900</td><td>1000</td><td>1500</td><td>500</td><td>1500</td><td>1900</td><td>review</td><td>BAR-4140: 1500 available (on hand plus on order less allocated) is at or under the reorder point 1500. Order now. BAR-4140: reorder point 1500, but 50 a day over 90 days times 28 days lead time plus safety stock 500 gives 1900.</td></tr>
+<tr><td>BOLT-M8</td><td>8000</td><td>0</td><td>7000</td><td>2000</td><td>5000</td><td>5000</td><td>ok</td><td></td></tr>
+<tr><td>BRG-6204</td><td>50</td><td>0</td><td>-10</td><td>100</td><td>300</td><td>380</td><td>flag</td><td>BRG-6204: 50 on hand, 60 allocated, 0 on order: nothing available (-10). BRG-6204: reorder point 300, but 20 a day over 90 days times 14 days lead time plus safety stock 100 gives 380.</td></tr>
+<tr><td>CAS-310</td><td>40</td><td>20</td><td>50</td><td>15</td><td>30</td><td>60</td><td>review</td><td>CAS-310: reorder point 30, but 1 a day over 90 days times 45 days lead time plus safety stock 15 gives 60.</td></tr>
+<tr><td>GSK-220</td><td>600</td><td>0</td><td>600</td><td>100</td><td>500</td><td>160</td><td>review</td><td>GSK-220: reorder point 500, but 2 a day over 90 days times 30 days lead time plus safety stock 100 gives 160.</td></tr>
+<tr><td>HSG-300</td><td>25</td><td>0</td><td>25</td><td>5</td><td>10</td><td>11</td><td>ok</td><td></td></tr>
+<tr><td>PLT-A36</td><td>30</td><td>0</td><td>30</td><td>10</td><td></td><td>10</td><td>review</td><td>PLT-A36 has no reorder point.</td></tr>
+<tr><td>SEAL-10</td><td>150</td><td>200</td><td>350</td><td>200</td><td>400</td><td>410</td><td>flag</td><td>SEAL-10: 150 free stock against safety stock 200 (200 on order). SEAL-10: 350 available (on hand plus on order less allocated) is at or under the reorder point 400. Order now.</td></tr>
+</tbody></table></div>
+<h2>Limits</h2><ul><li>Proposed reorder points use average daily usage over the look-back and the lead time on file; they do not model seasonality, demand spikes or supplier variability.</li><li>Reads only the files you give it. It does not log in to an ERP, MES, CMMS, QMS, EDI network, bank, supplier or customer portal, and changes nothing in them.</li><li>Not legal, tax, customs, safety or accounting advice. A person decides what to change, post, send or pay.</li></ul>
+<p class="mut" style="margin-top:32px">Written by a Fairmake agent from your files. Nothing was sent or paid.</p>
+</main></body></html>

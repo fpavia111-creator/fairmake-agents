@@ -1,0 +1,13 @@
+count_id,item,location,abc_class,system_qty,counted_qty,variance_qty,variance_value,variance_pct,status,findings,reasons,decision
+CC-1001,BRG-6204,A-01,A,500,498,-2,-6,-0.4,ok,,,
+CC-1002,CAS-310,A-02,A,40,36,-4,-340,-10,flag,out_of_tolerance,"CAS-310 at A-02: counted 36 against 40 (-4, -10%, -340); class A tolerance 2%.",
+CC-1003,BAR-4140,B-10,B,1200,1100,-100,-480,-8.3,flag,out_of_tolerance repeat_variance,"BAR-4140 at B-10: counted 1100 against 1200 (-100, -8.3%, -480); class B tolerance 5%. BAR-4140 has a variance on 2 counts: look for a process cause (unit of measure, backflush, receiving).",
+CC-1004,SCR-M8,C-05,C,20000,19000,-1000,-50,-5,ok,,,
+CC-1005,GSK-220,C-07,C,300,260,-40,-50,-13.3,ok,,,
+CC-1006,PLT-A36,B-03,B,25,,,,,review,not_counted,CC-1006 (PLT-A36 at B-03) has no counted quantity.,
+CC-1007,SEAL-10,C-02,C,-12,30,42,50.4,-350,review,negative_system,SEAL-10 at C-02 shows -12 on hand in the system.,
+CC-1008,HSG-300,A-03,A,15,16,1,111,6.7,flag,out_of_tolerance,"HSG-300 at A-03: counted 16 against 15 (+1, 6.7%, 111); class A tolerance 2%.",
+CC-1009,BAR-4140,B-11,B,800,790,-10,-48,-1.2,watch,repeat_variance,"BAR-4140 has a variance on 2 counts: look for a process cause (unit of measure, backflush, receiving).",
+CC-1010,BOLT-M8,C-01,C,10000,10000,0,0,0,ok,,,
+CC-1011,IMP-200,B-04,B,60,60,0,0,0,ok,,,
+CC-1012,PMP-100,A-04,A,8,8,0,0,0,ok,,,

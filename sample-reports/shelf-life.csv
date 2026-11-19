@@ -1,0 +1,9 @@
+lot,item,location,on_hand,expiry_date,days,value,status,findings,reasons,decision
+L-2601,ADH-10,WH1,40,2026-10-31,-18,720,flag,expired_on_hand,Lot L-2601 (ADH-10) expired 2026-10-31 with 40 still on hand (720).,
+L-2602,ADH-10,WH1,120,2026-12-15,27,2160,flag,expiring_soon short_dated_shipment,Lot L-2602 (ADH-10) expires 2026-12-15 (in 27 days) with 120 on hand. Shipment S-1 to Example Mart on 2026-11-05 carried lot L-2602 with 40 days left; the customer needs 90.,
+L-2603,ADH-10,WH2,200,2027-05-01,164,3600,review,fefo_skipped,Shipment S-2 on 2026-11-10 took lot L-2603 (expires 2027-05-01) while L-2602 (expires 2026-12-15) was in stock and is still on hand.,
+L-2604,SEAL-K,WH1,60,,,540,review,no_expiry,Lot L-2604 (SEAL-K) holds 60 and has no expiry date.,
+L-2605,LUB-5,WH1,0,2026-11-01,-17,0,flag,shipped_expired,"Shipment S-3 to Sample Hardware on 2026-11-03 carried lot L-2605, expired 2026-11-01.",
+L-2606,LUB-5,WH1,300,2027-08-01,256,1500,ok,,,
+L-2607,PAINT-RED,WH2,25,2027-01-10,53,550,watch,expiring_soon,Lot L-2607 (PAINT-RED) expires 2027-01-10 (in 53 days) with 25 on hand.,
+L-2608,PAINT-RED,WH2,80,2027-10-01,317,1760,review,fefo_skipped,Shipment S-4 on 2026-11-12 took lot L-2608 (expires 2027-10-01) while L-2607 (expires 2027-01-10) was in stock and is still on hand.,

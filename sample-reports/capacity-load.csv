@@ -1,0 +1,6 @@
+work_center,available_per_week,open_hours,past_due_hours,beyond_horizon_hours,peak_load_pct,status,findings,reasons,decision
+ASSY,40,40,0,10,75,ok,,,
+CNC,68,167,0,0,110.3,flag,overloaded_week near_capacity,CNC is loaded past 100% in 1 week(s): 2026-11-16 75/68 h (110.3%). CNC is near capacity in 2026-11-30 (91.2%).,
+PAINT,40,20,0,0,50,ok,,,
+SAW,,6,0,0,,review,no_calendar,"SAW has 6 open hours and no working calendar, so its load cannot be compared.",
+WELD,36,32,12,0,88.9,review,past_due_load,1 operation(s) on WELD were due before this week (12 h); they are loaded into the week of 2026-11-16.,

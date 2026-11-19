@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cycle count variance</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#6b6760;--line:#e4e0d8;--ok:#1f7a4d;--bad:#b42318;--warn:#a15c07;--card:#fff}
+@media (prefers-color-scheme:dark){:root{--bg:#161514;--fg:#ecebe8;--mut:#a29d94;--line:#34312d;--ok:#4ade80;--bad:#f87171;--warn:#fbbf24;--card:#1f1e1c}}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,Segoe UI,"Hiragino Sans","Yu Gothic UI","Microsoft YaHei","PingFang SC","Malgun Gothic","Apple SD Gothic Neo","Noto Sans CJK",sans-serif}
+main{max-width:1040px;margin:0 auto;padding:24px 16px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:28px 0 8px}
+.mut{color:var(--mut)}.ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}
+table{border-collapse:collapse;width:100%;background:var(--card);font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{font-weight:600}td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.tiles{display:flex;gap:12px;flex-wrap:wrap}.tile{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 14px;min-width:120px}
+.tile b{display:block;font-size:22px}code{font-size:13px;overflow-wrap:anywhere}pre{overflow-x:auto}
+.wrap{overflow-x:auto;max-width:100%}svg,img{max-width:100%;height:auto}figure{margin:16px 0}p,li,h1,h2,h3{overflow-wrap:break-word}
+</style></head><body><main>
+<h1>Cycle count variance</h1>
+<p class="mut">12 count line(s), 11 counted: accuracy 72.7%, net variance -812.6, 931 out of tolerance on 3 line(s), 2 to review, 1 repeat variances.</p>
+<h2>By class</h2><div class="wrap"><table><thead><tr><th scope="col">class</th><th scope="col">lines</th><th scope="col">accuracy pct</th><th scope="col">net value</th><th scope="col">abs value</th></tr></thead><tbody>
+<tr><td>A</td><td>4</td><td>50</td><td>-235</td><td>457</td></tr>
+<tr><td>B</td><td>3</td><td>66.7</td><td>-528</td><td>528</td></tr>
+<tr><td>C</td><td>4</td><td>100</td><td>-49.6</td><td>150.4</td></tr>
+</tbody></table></div>
+<h2>By finding</h2><div class="wrap"><table><thead><tr><th scope="col">code</th><th scope="col">count</th><th scope="col">amount</th></tr></thead><tbody>
+<tr><td>negative_system</td><td>1</td><td>0</td></tr>
+<tr><td>not_counted</td><td>1</td><td>0</td></tr>
+<tr><td>out_of_tolerance</td><td>3</td><td>931</td></tr>
+<tr><td>repeat_variance</td><td>2</td><td>0</td></tr>
+</tbody></table></div>
+<h2>All rows (12)</h2>
+<div class="wrap"><table><thead><tr><th scope="col">count id</th><th scope="col">item</th><th scope="col">location</th><th scope="col">abc class</th><th scope="col">system qty</th><th scope="col">counted qty</th><th scope="col">variance value</th><th scope="col">status</th><th scope="col">reasons</th></tr></thead><tbody>
+<tr><td>CC-1001</td><td>BRG-6204</td><td>A-01</td><td>A</td><td>500</td><td>498</td><td>-6</td><td>ok</td><td></td></tr>
+<tr><td>CC-1002</td><td>CAS-310</td><td>A-02</td><td>A</td><td>40</td><td>36</td><td>-340</td><td>flag</td><td>CAS-310 at A-02: counted 36 against 40 (-4, -10%, -340); class A tolerance 2%.</td></tr>
+<tr><td>CC-1003</td><td>BAR-4140</td><td>B-10</td><td>B</td><td>1200</td><td>1100</td><td>-480</td><td>flag</td><td>BAR-4140 at B-10: counted 1100 against 1200 (-100, -8.3%, -480); class B tolerance 5%. BAR-4140 has a variance on 2 counts: look for a process cause (unit of measure, backflush, receiving).</td></tr>
+<tr><td>CC-1004</td><td>SCR-M8</td><td>C-05</td><td>C</td><td>20000</td><td>19000</td><td>-50</td><td>ok</td><td></td></tr>
+<tr><td>CC-1005</td><td>GSK-220</td><td>C-07</td><td>C</td><td>300</td><td>260</td><td>-50</td><td>ok</td><td></td></tr>
+<tr><td>CC-1006</td><td>PLT-A36</td><td>B-03</td><td>B</td><td>25</td><td></td><td></td><td>review</td><td>CC-1006 (PLT-A36 at B-03) has no counted quantity.</td></tr>
+<tr><td>CC-1007</td><td>SEAL-10</td><td>C-02</td><td>C</td><td>-12</td><td>30</td><td>50.4</td><td>review</td><td>SEAL-10 at C-02 shows -12 on hand in the system.</td></tr>
+<tr><td>CC-1008</td><td>HSG-300</td><td>A-03</td><td>A</td><td>15</td><td>16</td><td>111</td><td>flag</td><td>HSG-300 at A-03: counted 16 against 15 (+1, 6.7%, 111); class A tolerance 2%.</td></tr>
+<tr><td>CC-1009</td><td>BAR-4140</td><td>B-11</td><td>B</td><td>800</td><td>790</td><td>-48</td><td>watch</td><td>BAR-4140 has a variance on 2 counts: look for a process cause (unit of measure, backflush, receiving).</td></tr>
+<tr><td>CC-1010</td><td>BOLT-M8</td><td>C-01</td><td>C</td><td>10000</td><td>10000</td><td>0</td><td>ok</td><td></td></tr>
+<tr><td>CC-1011</td><td>IMP-200</td><td>B-04</td><td>B</td><td>60</td><td>60</td><td>0</td><td>ok</td><td></td></tr>
+<tr><td>CC-1012</td><td>PMP-100</td><td>A-04</td><td>A</td><td>8</td><td>8</td><td>0</td><td>ok</td><td></td></tr>
+</tbody></table></div>
+<h2>Limits</h2><ul><li>Variance value is variance quantity times the unit cost in your file. Transactions between the snapshot and the count are not reconciled.</li><li>Reads only the files you give it. It does not log in to an ERP, MES, CMMS, QMS, EDI network, bank, supplier or customer portal, and changes nothing in them.</li><li>Not legal, tax, customs, safety or accounting advice. A person decides what to change, post, send or pay.</li></ul>
+<p class="mut" style="margin-top:32px">Written by a Fairmake agent from your files. Nothing was sent or paid.</p>
+</main></body></html>

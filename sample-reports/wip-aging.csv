@@ -1,0 +1,11 @@
+work_order,item,wo_status,release_date,due_date,last_activity,days_open,age_bucket,wip_value,status,findings,reasons,decision
+WO-2001,BRK-100,Released,2026-11-20,2026-12-05,2026-11-28,10,0-30,1200,ok,,,
+WO-2002,BRK-200,Released,2026-10-15,2026-11-10,2026-11-25,46,31-60,3400,watch,past_due,WO-2002 was due 2026-11-10 (20 days ago) and is still open.,
+WO-2003,HSG-300,Released,2026-09-01,2026-09-30,2026-09-20,90,61-90,8800,flag,stale past_due,WO-2003 holds 8800 with no activity for 71 days (since 2026-09-20). WO-2003 was due 2026-09-30 (61 days ago) and is still open.,
+WO-2004,SHF-400,Closed,2026-08-01,2026-08-30,2026-09-05,121,closed,2150,flag,closed_with_wip,WO-2004 is closed but still holds 2150 of WIP. Close it out or find the missing completion.,
+WO-2005,PLT-500,Complete,2026-10-01,2026-10-20,2026-10-19,60,closed,0,ok,,,
+WO-2006,GER-600,Released,2026-11-25,2026-12-20,2026-11-27,5,0-30,-150,flag,negative_wip,WO-2006 has negative WIP (-150): more was relieved than charged. Check completions and backflush.,
+WO-2007,BRK-100,Released,2026-11-02,2026-12-01,2026-11-29,28,0-30,950,review,over_completed,WO-2007 completed 60 against 50 ordered.,
+WO-2008,HSG-300,Released,2026-06-15,2026-07-30,2026-11-26,168,90+,5600,watch,past_due,WO-2008 was due 2026-07-30 (123 days ago) and is still open.,
+WO-2009,BRK-200,Firmed,,2027-01-15,,,unknown,0,ok,,,
+WO-2010,GER-600,Released,2026-10-20,2026-12-15,2026-10-20,41,31-60,700,flag,stale,WO-2010 holds 700 with no activity for 41 days (since 2026-10-20).,

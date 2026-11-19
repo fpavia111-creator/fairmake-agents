@@ -1,0 +1,5 @@
+agreement,supplier,item,period,spend,tier_pct,earned,claimed,to_claim,overpaid,status,findings,reasons,decision
+DSI-2026,Demo Seals Inc,,2026-07-01 to 2026-12-31,18500,2,370,0,370,0,watch,rebate_accruing near_next_tier,DSI-2026: 18500 spent so far reaches the 2% tier (370 earned to date); the period runs to 2026-12-31. DSI-2026: 1500 more spend by 2026-12-31 reaches the 4% tier.,
+FEC-2026,Fastener Example Co,SCR-M8,2026-01-01 to 2026-12-31,2700,3,81,0,81,200,flag,rebate_accruing over_contract_price,FEC-2026: 2700 spent so far reaches the 3% tier (81 earned to date); the period runs to 2026-12-31. FEC-2026: 1 purchase line(s) of SCR-M8 above the agreed 0.05 (P6 at 0.06): 200 overpaid.,
+NWM-2026,Northwind Metals,,2026-01-01 to 2026-09-30,120000,2,2400,1000,1400,0,flag,rebate_unclaimed claim_window_passed,"NWM-2026: 120000 spent from 2026-01-01 to 2026-09-30 reaches the 2% tier: 2400 earned, 1000 claimed, 1400 still to claim. NWM-2026: the claim-by date 2026-10-31 has passed; ask the supplier whether a late claim is accepted.",
+SSS-2025,Sample Steel Supply,,2025-01-01 to 2025-12-31,6000,1,60,60,0,0,ok,,,

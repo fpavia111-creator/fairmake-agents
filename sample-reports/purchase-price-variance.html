@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Purchase price variance</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#6b6760;--line:#e4e0d8;--ok:#1f7a4d;--bad:#b42318;--warn:#a15c07;--card:#fff}
+@media (prefers-color-scheme:dark){:root{--bg:#161514;--fg:#ecebe8;--mut:#a29d94;--line:#34312d;--ok:#4ade80;--bad:#f87171;--warn:#fbbf24;--card:#1f1e1c}}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,Segoe UI,"Hiragino Sans","Yu Gothic UI","Microsoft YaHei","PingFang SC","Malgun Gothic","Apple SD Gothic Neo","Noto Sans CJK",sans-serif}
+main{max-width:1040px;margin:0 auto;padding:24px 16px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:28px 0 8px}
+.mut{color:var(--mut)}.ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}
+table{border-collapse:collapse;width:100%;background:var(--card);font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{font-weight:600}td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.tiles{display:flex;gap:12px;flex-wrap:wrap}.tile{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 14px;min-width:120px}
+.tile b{display:block;font-size:22px}code{font-size:13px;overflow-wrap:anywhere}pre{overflow-x:auto}
+.wrap{overflow-x:auto;max-width:100%}svg,img{max-width:100%;height:auto}figure{margin:16px 0}p,li,h1,h2,h3{overflow-wrap:break-word}
+</style></head><body><main>
+<h1>Purchase price variance</h1>
+<p class="mut">12 receipt line(s), 37677.5 received: purchase price variance 282.5. 3 over tolerance (777.5), 2 to review, 2 to watch, 5 clean; 1 standard(s) to review.</p>
+<h2>By supplier</h2><div class="wrap"><table><thead><tr><th scope="col">supplier</th><th scope="col">lines</th><th scope="col">received</th><th scope="col">ppv</th></tr></thead><tbody>
+<tr><td>Northwind Metals</td><td>4</td><td>4457.5</td><td>457.5</td></tr>
+<tr><td>Demo Castings LLC</td><td>2</td><td>4235</td><td>410</td></tr>
+<tr><td>Fastener Example Co</td><td>3</td><td>24610</td><td>60</td></tr>
+<tr><td>Demo Seals Inc</td><td>1</td><td>750</td><td>0</td></tr>
+<tr><td>Sample Steel Supply</td><td>2</td><td>3625</td><td>-645</td></tr>
+</tbody></table></div>
+<h2>Standards to review</h2><div class="wrap"><table><thead><tr><th scope="col">item</th><th scope="col">receipts</th><th scope="col">std cost</th><th scope="col">avg price</th><th scope="col">change pct</th></tr></thead><tbody>
+<tr><td>PLT-A36</td><td>2</td><td>61</td><td>51.7857</td><td>-15.1</td></tr>
+</tbody></table></div>
+<h2>By finding</h2><div class="wrap"><table><thead><tr><th scope="col">code</th><th scope="col">count</th><th scope="col">amount</th></tr></thead><tbody>
+<tr><td>no_standard</td><td>1</td><td>0</td></tr>
+<tr><td>ppv_favorable</td><td>2</td><td>0</td></tr>
+<tr><td>ppv_unfavorable</td><td>3</td><td>777.5</td></tr>
+<tr><td>price_jump</td><td>2</td><td>437.5</td></tr>
+<tr><td>uom_suspect</td><td>1</td><td>0</td></tr>
+</tbody></table></div>
+<h2>All rows (12)</h2>
+<div class="wrap"><table><thead><tr><th scope="col">receipt</th><th scope="col">item</th><th scope="col">supplier</th><th scope="col">qty</th><th scope="col">unit price</th><th scope="col">std cost</th><th scope="col">ppv</th><th scope="col">status</th><th scope="col">reasons</th></tr></thead><tbody>
+<tr><td>RC-1001-1</td><td>BAR-4140</td><td>Northwind Metals</td><td>200</td><td>4.1</td><td>4</td><td>20</td><td>ok</td><td></td></tr>
+<tr><td>RC-1002-1</td><td>BAR-4140</td><td>Northwind Metals</td><td>250</td><td>4.75</td><td>4</td><td>187.5</td><td>flag</td><td>BAR-4140 received at 4.75 against standard 4 (18.8% over) on 250: 187.5. Northwind Metals charged 4.75 for BAR-4140, up 15.9% from 4.1 on receipt RC-1001-1.</td></tr>
+<tr><td>RC-1003-1</td><td>BAR-4140</td><td>Northwind Metals</td><td>300</td><td>4.8</td><td>4</td><td>240</td><td>flag</td><td>BAR-4140 received at 4.8 against standard 4 (20% over) on 300: 240.</td></tr>
+<tr><td>RC-1004-1</td><td>SCR-M8</td><td>Fastener Example Co</td><td>5000</td><td>0.06</td><td>0.05</td><td>50</td><td>ok</td><td></td></tr>
+<tr><td>RC-1005-1</td><td>SCR-M8</td><td>Fastener Example Co</td><td>4000</td><td>6</td><td>0.05</td><td></td><td>review</td><td>Price 6 is 120 times the standard 0.05: likely a unit-of-measure slip (each against box or pound against foot). Fix the unit before reading a variance.</td></tr>
+<tr><td>RC-1006-1</td><td>PLT-A36</td><td>Sample Steel Supply</td><td>40</td><td>52</td><td>61</td><td>-360</td><td>watch</td><td>PLT-A36 received at 52, 14.8% under standard 61 (360 on 40). Check the standard is still right.</td></tr>
+<tr><td>RC-1007-1</td><td>PLT-A36</td><td>Sample Steel Supply</td><td>30</td><td>51.5</td><td>61</td><td>-285</td><td>watch</td><td>PLT-A36 received at 51.5, 15.6% under standard 61 (285 on 30). Check the standard is still right.</td></tr>
+<tr><td>RC-1008-1</td><td>GSK-220</td><td>Demo Seals Inc</td><td>600</td><td>1.25</td><td></td><td></td><td>review</td><td>GSK-220 has no standard cost, so receipt RC-1008-1 at 1.25 cannot be measured.</td></tr>
+<tr><td>RC-1009-1</td><td>CAS-310</td><td>Demo Castings LLC</td><td>20</td><td>88</td><td>85</td><td>60</td><td>ok</td><td></td></tr>
+<tr><td>RC-1010-1</td><td>CAS-310</td><td>Demo Castings LLC</td><td>25</td><td>99</td><td>85</td><td>350</td><td>flag</td><td>CAS-310 received at 99 against standard 85 (16.5% over) on 25: 350. Demo Castings LLC charged 99 for CAS-310, up 12.5% from 88 on receipt RC-1009-1.</td></tr>
+<tr><td>RC-1011-1</td><td>BRG-6204</td><td>Fastener Example Co</td><td>100</td><td>3.1</td><td>3</td><td>10</td><td>ok</td><td></td></tr>
+<tr><td>RC-1012-1</td><td>BAR-1018</td><td>Northwind Metals</td><td>500</td><td>2.02</td><td>2</td><td>10</td><td>ok</td><td></td></tr>
+</tbody></table></div>
+<h2>Limits</h2><ul><li>Variance is (receipt price minus standard) times quantity, from the prices in your export. Landed cost, freight and currency are not added.</li><li>Reads only the files you give it. It does not log in to an ERP, MES, CMMS, QMS, EDI network, bank, supplier or customer portal, and changes nothing in them.</li><li>Not legal, tax, customs, safety or accounting advice. A person decides what to change, post, send or pay.</li></ul>
+<p class="mut" style="margin-top:32px">Written by a Fairmake agent from your files. Nothing was sent or paid.</p>
+</main></body></html>

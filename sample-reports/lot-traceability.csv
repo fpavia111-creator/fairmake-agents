@@ -1,0 +1,8 @@
+reference,kind,work_order,components,shipments,status,findings,reasons,decision
+FG-1001,finished_lot,WO-1,2,1,ok,,,
+FG-1002,finished_lot,WO-2,3,1,flag,used_before_received consumed_without_lot,"Lot RL-503 was issued to FG-1002 on 2026-11-02, before it was received on 2026-11-06. SEAL-10 was issued to FG-1002 with no component lot (record C5).",
+FG-1003,finished_lot,WO-3,2,1,review,lot_not_received,Component lot RL-599 (GSK-220) used in FG-1003 is not in the receipts or production records.,
+FG-1005,finished_lot,WO-5,1,0,ok,,,
+WO-4 (no finished lot),finished_lot,WO-4,1,0,flag,consumed_without_lot,Work order WO-4 consumed material with no finished lot recorded.,
+S5 (no lot),shipment,,0,1,flag,shipped_no_lot,Shipment S5 of PMP-100 to Demo Ag Equipment has no lot or serial number.,
+SN-7001,shipped_lot,,0,2,flag,shipped_unknown_lot serial_shipped_twice,"Lot or serial SN-7001 shipped on S3, S4 was never produced or received in these records. Serial SN-7001 went out on 2 shipments (S3 2026-11-10, S4 2026-11-12).",

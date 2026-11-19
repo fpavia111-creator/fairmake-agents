@@ -1,0 +1,10 @@
+item,description,hts_code,country_of_origin,supplier,entry_lines,duty_difference,status,findings,reasons,decision
+BOLT-M8,Hex bolt M8 steel,7318.15.2065,CN,Fastener Example Co,1,0,watch,same_description_split,"BOLT-M8 and BOLT-M8-ZP share the description ""Hex bolt M8 steel"" but sit under different headings (7318.15.2065 and 7318.16.0085).",
+BOLT-M8-ZP,Hex bolt M8 steel,7318.16.0085,CN,Fastener Example Co,0,0,watch,same_description_split,"BOLT-M8-ZP and BOLT-M8 share the description ""Hex bolt M8 steel"" but sit under different headings (7318.16.0085 and 7318.15.2065).",
+BRG-6204,Ball bearing 6204,8482.10.5044,JP,Bearing Sample Ltd,2,0,review,entry_coo_differs,Entry line E2-2 declared origin CN; the item master says JP.,
+CAS-310,Gray iron casting,,MX,Demo Castings LLC,0,0,flag,missing_hts,CAS-310 has no tariff code in the item master.,
+GSK-220,Gasket,84849,US,Demo Seals Inc,0,0,review,hts_format,"GSK-220 has tariff code ""8484.9"", which is not 6, 8 or 10 digits.",
+HSG-300,Pump housing,8413.91.9095,MX,Demo Castings LLC,1,250,flag,duty_rate_differs,"Entry line E3-1: duty 2.5% on 8413.91.9095, your list says 0% (250 on 10000 entered value, possibly overpaid).",
+NUT-M8,Hex nut M8 steel,7318.16.0085,CN,Fastener Example Co,1,0,flag,entry_hts_differs,Entry line E2-1 declared NUT-M8 under 7318.15.2065; the item master says 7318.16.0085.,
+PLT-A36,Steel plate A36,7208.51.00,US,Sample Steel Supply,0,0,ok,,,
+SEAL-10,Rubber seal,401693,,Demo Seals Inc,0,0,review,hts_not_in_list missing_coo,"SEAL-10 uses 401693, which is not in your list of codes. SEAL-10 has no country of origin.",

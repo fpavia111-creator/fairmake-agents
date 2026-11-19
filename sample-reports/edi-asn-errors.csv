@@ -1,0 +1,7 @@
+po_number,ordered,asn_qty,shipped,asns,fines_at_risk,status,findings,reasons,decision
+PO-8001,36,36,36,1,25,flag,duplicate_sscc,SSCC 000123450000000011 on PO PO-8001 also appears on another ASN.,
+PO-8002,10,12,10,1,200,flag,asn_over_po asn_qty_mismatch asn_late,"ASN for PO PO-8002 lists 12 of BRK-300 against 10 ordered. PO PO-8002, BRK-300: ASN says 12, the shipment record says 10. ASN ASN-2 for PO PO-8002 was sent 2026-11-08T10:00:00, 50 hours after shipping (2026-11-06T08:00:00).",
+PO-8003,48,48,48,1,0,review,missing_sscc,1 ASN line(s) for PO PO-8003 carry no SSCC carton label.,
+PO-8004,30,30,30,1,200,flag,asn_item_not_on_po asn_qty_mismatch asn_qty_mismatch duplicate_sscc,"ASN for PO PO-8004 lists BRK-999, which is not on the PO. PO PO-8004, BRK-200: ASN says 0, the shipment record says 30. PO PO-8004, BRK-999: ASN says 30, the shipment record says 0. SSCC 000123450000000011 on PO PO-8004 also appears on another ASN.",
+PO-8005,12,0,12,0,250,flag,no_asn,PO PO-8005 shipped on 2026-11-09 with no ASN sent.,
+PO-8099,0,5,0,1,0,review,po_not_found,ASN for PO PO-8099 but the PO is not in the orders file.,

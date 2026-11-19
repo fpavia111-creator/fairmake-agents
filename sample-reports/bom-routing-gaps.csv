@@ -1,0 +1,10 @@
+item,item_type,components,operations,status,findings,reasons,decision
+CART-50,Make,2,1,review,component_unknown routing_no_time,Component WHEEL-X of CART-50 is not in the item master. Operation 10 of CART-50 has no setup or run time.,
+FRAME-20,Make,2,2,flag,zero_qty component_inactive routing_no_work_center,Component BOLT-M8 of FRAME-20 has quantity 0. Component OLD-BRKT of FRAME-20 is obsolete. Operation 20 of FRAME-20 has no work center.,
+GUARD-30,Make,0,1,flag,no_bom,GUARD-30 is a made item with no bill of materials: a work order for it would issue no material.,
+KIT-60,,1,0,review,parent_unknown,KIT-60 has a BOM but is not in the item master.,
+LOOP-A,Make,1,1,flag,circular_bom,The BOM of LOOP-A loops: LOOP-A > LOOP-B > LOOP-A.,
+LOOP-B,Make,1,1,flag,circular_bom,The BOM of LOOP-B loops: LOOP-B > LOOP-A > LOOP-B.,
+PANEL-40,Make,1,0,flag,no_routing,PANEL-40 is a made item with no routing: no labor or machine time would be planned or costed.,
+PUMP-100,Make,2,1,ok,,,
+SEAL-10,Buy,1,0,watch,buy_with_bom,SEAL-10 is a bought item but has a BOM; check the make/buy setting.,

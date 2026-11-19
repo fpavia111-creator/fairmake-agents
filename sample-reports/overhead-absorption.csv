@@ -1,0 +1,7 @@
+work_center,hours,budget_hours,rate,applied,actual,under_absorbed,proposed_rate,status,findings,reasons,decision
+ASSY,500,,,,9000,,18,review,no_rate,"ASSY has 500 hours and no overhead rate, so none of its 9000 overhead was applied to jobs.",
+CNC,650,800,45,29250,36000,6750,55.3846,flag,under_absorbed low_volume,"CNC: 36000 spent, 29250 applied (650 h at 45): 6750 under-absorbed (18.8%). Jobs through it are under-costed. CNC ran 650 hours against 800 budgeted (-18.7%): fixed overhead is spread over fewer hours.",
+INSP,95,100,15,1425,1450,25,15.2632,ok,,,
+PAINT,320,300,25,8000,6800,-1200,21.25,watch,over_absorbed,PAINT: 8000 applied against 6800 spent: 1200 over-absorbed (17.6%). Jobs through it are over-costed.,
+SAW,200,,20,4000,0,-4000,,review,no_actual,SAW applied 4000 but has no actual overhead in the file.,
+WELD,410,400,30,12300,12400,100,30.2439,ok,,,

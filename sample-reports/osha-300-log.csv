@@ -1,0 +1,9 @@
+case_number,employee,job_title,incident_date,outcome,days_away,days_restricted,status,findings,reasons,decision
+2026-001,Alex Sample,Machine operator,2026-02-03,other_recordable,0,0,ok,,,
+2026-002,Blair Example,Welder,2026-03-10,days_away,5,0,ok,,,
+2026-003,Casey Fictional,Assembler,2026-04-15,restricted,0,0,review,days_missing open_case,Case 2026-003 is a restriction case with no restricted days entered. Case 2026-003 has no return-to-work date; keep counting days.,
+2026-004,Dana Placeholder,Press operator,2026-05-20,other_recordable,3,0,flag,outcome_days_mismatch late_entry,"Case 2026-004 shows 3 days away but its outcome is ""Other recordable"". Case 2026-004 was entered 26 days after it happened.",
+2026-005,Eli Demo,Painter,2026-06-02,days_away,0,0,flag,days_missing privacy_name_on_log,Case 2026-005 is a days-away case with no days entered. Case 2026-005 is marked as a privacy case but a name is entered; the name column should say privacy case.,
+2026-006,Fran Test,,2026-07-08,other_recordable,0,0,review,missing_field,"Case 2026-006 is missing job_title, location.",
+2026-007,Gale Sample,Material handler,2026-08-12,days_away,120,90,review,days_over_cap open_case,Case 2026-007 counts 210 days; the log caps the count at 180. Case 2026-007 has no return-to-work date; keep counting days.,
+2026-008,Hale Example,Machinist,2026-09-01,first_aid,0,0,review,first_aid_recordable,Case 2026-008 is marked recordable with a first-aid outcome; check the classification.,

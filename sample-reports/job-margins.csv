@@ -1,0 +1,11 @@
+job,customer,estimator,quoted_price,quoted_cost,actual_cost,invoiced,margin,margin_pct,status,findings,reasons,decision
+J-5001,Example Pumps Co,Riley Example,10000,7500,7600,10000,2400,24,ok,,,
+J-5002,Example Pumps Co,Riley Example,8000,6000,8600,8000,-600,-7.5,flag,loss cost_overrun,J-5002 lost 600: 8000 invoiced against 8600 actual cost. J-5002 cost 8600 against 6000 quoted (43.3% over).,
+J-5003,Sample Robotics LLC,Avery Sample,15000,11000,12500,15000,2500,16.7,flag,cost_overrun below_target,J-5003 cost 12500 against 11000 quoted (13.6% over). J-5003 made 16.7% against a 20% target.,
+J-5004,Sample Robotics LLC,Avery Sample,6000,4200,4300,5200,900,17.3,flag,under_billed below_target,J-5004 is closed with 5200 invoiced against 6000 quoted: 800 not billed. J-5004 made 17.3% against a 20% target.,
+J-5005,Demo Ag Equipment,Riley Example,4000,2800,2900,,1100,27.5,ok,,,
+J-5006,Demo Ag Equipment,Avery Sample,,,1800,2500,700,28,review,no_quote,"J-5006 has no quoted price, so it cannot be compared with its quote.",
+J-5007,Example Pumps Co,Riley Example,12000,9000,9800,12000,2200,18.3,watch,below_target,J-5007 made 18.3% against a 20% target.,
+J-5008,Sample Robotics LLC,Riley Example,20000,14000,14500,20000,5500,27.5,ok,,,
+J-5009,Demo Ag Equipment,Avery Sample,3000,2000,3300,3000,-300,-10,flag,loss cost_overrun,J-5009 lost 300: 3000 invoiced against 3300 actual cost. J-5009 cost 3300 against 2000 quoted (65% over).,
+J-5010,Example Pumps Co,Avery Sample,5000,3500,3550,5000,1450,29,ok,,,

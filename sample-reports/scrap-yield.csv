@@ -1,0 +1,11 @@
+work_order,item,work_center,started,good,scrap,scrap_pct,std_scrap_pct,scrap_cost,reason,status,findings,reasons,decision
+WO-4001,BRK-100,PRESS,500,490,10,2,3,40,Burr,ok,,,
+WO-4002,HSG-300,CNC,100,82,18,18,5,810,Porosity,flag,scrap_over_standard,"WO-4002 scrapped 18 of 100 (18%) against a 5% standard: 13 more than standard, 585 at 45 each.",
+WO-4003,SHF-400,CNC,200,186,14,7,3,308,,flag,scrap_over_standard no_reason,"WO-4003 scrapped 14 of 200 (7%) against a 3% standard: 8 more than standard, 176 at 22 each. WO-4003 scrapped 14 with no reason recorded.",
+WO-4004,GER-600,HOB,300,290,6,2,2.5,72,Chipped tooth,review,qty_mismatch,"WO-4004: 290 good plus 6 scrap is 296, not the 300 started. 4 unaccounted for.",
+WO-4005,BRK-200,PRESS,1000,960,40,4,2,40,Split,ok,,,
+WO-4006,PLT-500,LASER,80,81,0,0,1,0,,review,yield_over_100,WO-4006 reports 81 good from 80 started.,
+WO-4007,HSG-300,CNC,120,114,6,5,5,270,Porosity,ok,,,
+WO-4008,BRK-100,PRESS,500,465,35,7,3,140,Burr; Die wear,flag,scrap_over_standard,"WO-4008 scrapped 35 of 500 (7%) against a 3% standard: 20 more than standard, 80 at 4 each.",
+WO-4009,GER-600,HOB,150,147,3,2,2.5,36,Chipped tooth,ok,,,
+WO-4010,SHF-400,LASER,100,95,5,5,3,110,Dross,ok,,,

@@ -1,0 +1,6 @@
+rank,supplier,receipts,on_time_pct,ppm,price_variance_pct,score,status,findings,reasons,decision
+1,Demo Seals Inc,3,100,0,0,100,ok,,,
+2,Sample Steel Supply,2,100,0,0,100,review,few_receipts,Sample Steel Supply has 2 receipt(s); the score rests on little data.,
+3,Fastener Example Co,3,100,200,2.4,97.48,watch,price_over_po,Fastener Example Co invoiced 60 above PO prices (2.4%).,
+4,Demo Castings LLC,3,100,25000,0,85,flag,high_ppm,"Demo Castings LLC: 3 rejected of 120 received (25000 ppm, target 5000).",
+5,Northwind Metals,3,66.7,0,0.69,82.66,flag,low_on_time,"Northwind Metals delivered 2 of 3 receipts on time (66.7%, target 95%).",

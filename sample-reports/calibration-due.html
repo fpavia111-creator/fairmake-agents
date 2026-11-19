@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calibration due dates as of 2026-11-18</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#6b6760;--line:#e4e0d8;--ok:#1f7a4d;--bad:#b42318;--warn:#a15c07;--card:#fff}
+@media (prefers-color-scheme:dark){:root{--bg:#161514;--fg:#ecebe8;--mut:#a29d94;--line:#34312d;--ok:#4ade80;--bad:#f87171;--warn:#fbbf24;--card:#1f1e1c}}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,Segoe UI,"Hiragino Sans","Yu Gothic UI","Microsoft YaHei","PingFang SC","Malgun Gothic","Apple SD Gothic Neo","Noto Sans CJK",sans-serif}
+main{max-width:1040px;margin:0 auto;padding:24px 16px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:28px 0 8px}
+.mut{color:var(--mut)}.ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}
+table{border-collapse:collapse;width:100%;background:var(--card);font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{font-weight:600}td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.tiles{display:flex;gap:12px;flex-wrap:wrap}.tile{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 14px;min-width:120px}
+.tile b{display:block;font-size:22px}code{font-size:13px;overflow-wrap:anywhere}pre{overflow-x:auto}
+.wrap{overflow-x:auto;max-width:100%}svg,img{max-width:100%;height:auto}figure{margin:16px 0}p,li,h1,h2,h3{overflow-wrap:break-word}
+</style></head><body><main>
+<h1>Calibration due dates as of 2026-11-18</h1>
+<p class="mut">9 gauge(s) as of 2026-11-18: 1 overdue, 3 measurement(s) with a suspect gauge, 2 to review, 2 due soon, 3 in calibration.</p>
+<h2>Suspect work orders</h2><div class="wrap"><table><thead><tr><th scope="col">gauge</th><th scope="col">work order</th><th scope="col">used date</th><th scope="col">why</th></tr></thead><tbody>
+<tr><td>CAL-003</td><td>WO-310</td><td>2026-11-10</td><td>used while overdue</td></tr>
+<tr><td>MIC-002</td><td>WO-301</td><td>2026-11-02</td><td>used after a failed calibration</td></tr>
+<tr><td>MIC-002</td><td>WO-305</td><td>2026-11-05</td><td>used after a failed calibration</td></tr>
+</tbody></table></div>
+<h2>By finding</h2><div class="wrap"><table><thead><tr><th scope="col">code</th><th scope="col">count</th></tr></thead><tbody>
+<tr><td>due_soon</td><td>2</td></tr>
+<tr><td>failed_then_used</td><td>1</td></tr>
+<tr><td>never_calibrated</td><td>1</td></tr>
+<tr><td>no_interval</td><td>1</td></tr>
+<tr><td>overdue</td><td>1</td></tr>
+<tr><td>used_while_overdue</td><td>1</td></tr>
+</tbody></table></div>
+<h2>All rows (9)</h2>
+<div class="wrap"><table><thead><tr><th scope="col">gauge</th><th scope="col">description</th><th scope="col">location</th><th scope="col">last cal</th><th scope="col">due date</th><th scope="col">days</th><th scope="col">status</th><th scope="col">reasons</th></tr></thead><tbody>
+<tr><td>CAL-003</td><td>Caliper 6 in</td><td>Cell 1</td><td>2025-11-01</td><td>2026-11-01</td><td>-17</td><td>flag</td><td>CAL-003 was due for calibration 2026-11-01 (17 days ago). CAL-003 was used past its due date 2026-11-01 on WO-310 (2026-11-10).</td></tr>
+<tr><td>CMM-007</td><td>Coordinate measuring machine</td><td>QC Lab</td><td>2025-09-01</td><td>2026-09-01</td><td>-78</td><td>ok</td><td></td></tr>
+<tr><td>HG-004</td><td>Height gauge</td><td>QC Lab</td><td>2026-01-10</td><td>2026-12-06</td><td>18</td><td>watch</td><td>HG-004 is due for calibration 2026-12-06 (in 18 days).</td></tr>
+<tr><td>MIC-001</td><td>0-1 in micrometer</td><td>QC Lab</td><td>2026-06-01</td><td>2027-06-01</td><td>195</td><td>ok</td><td></td></tr>
+<tr><td>MIC-002</td><td>Outside micrometer</td><td>Cell 2</td><td>2026-10-20</td><td>2027-04-18</td><td>151</td><td>flag</td><td>MIC-002 failed its calibration on 2026-10-20 and was used afterwards on WO-301 (2026-11-02), WO-305 (2026-11-05). Review that product.</td></tr>
+<tr><td>MIC-008</td><td>Micrometer 1-2 in</td><td>Cell 1</td><td>2026-09-01</td><td>2027-02-28</td><td>102</td><td>ok</td><td></td></tr>
+<tr><td>PG-005</td><td>Pin gauge set</td><td>Cell 3</td><td></td><td></td><td></td><td>review</td><td>PG-005 has no calibration on record.</td></tr>
+<tr><td>THR-009</td><td>Thread ring gauge</td><td>Cell 2</td><td>2026-05-25</td><td>2026-11-21</td><td>3</td><td>watch</td><td>THR-009 is due for calibration 2026-11-21 (in 3 days).</td></tr>
+<tr><td>TW-006</td><td>Torque wrench</td><td>Assembly</td><td>2026-08-01</td><td></td><td></td><td>review</td><td>TW-006 has no calibration interval.</td></tr>
+</tbody></table></div>
+<h2>Limits</h2><ul><li>Whether product measured with a suspect gauge must be re-inspected or reported is a quality decision; the agent only lists it.</li><li>Reads only the files you give it. It does not log in to an ERP, MES, CMMS, QMS, EDI network, bank, supplier or customer portal, and changes nothing in them.</li><li>Not legal, tax, customs, safety or accounting advice. A person decides what to change, post, send or pay.</li></ul>
+<p class="mut" style="margin-top:32px">Written by a Fairmake agent from your files. Nothing was sent or paid.</p>
+</main></body></html>

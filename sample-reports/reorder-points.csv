@@ -1,0 +1,9 @@
+item,on_hand,on_order,allocated,available,safety_stock,reorder_point,proposed_rop,status,findings,reasons,decision
+BAR-4140,900,1000,400,1500,500,1500,1900,review,at_reorder_point rop_stale,"BAR-4140: 1500 available (on hand plus on order less allocated) is at or under the reorder point 1500. Order now. BAR-4140: reorder point 1500, but 50 a day over 90 days times 28 days lead time plus safety stock 500 gives 1900.",
+BOLT-M8,8000,0,1000,7000,2000,5000,5000,ok,,,
+BRG-6204,50,0,60,-10,100,300,380,flag,stockout rop_stale,"BRG-6204: 50 on hand, 60 allocated, 0 on order: nothing available (-10). BRG-6204: reorder point 300, but 20 a day over 90 days times 14 days lead time plus safety stock 100 gives 380.",
+CAS-310,40,20,10,50,15,30,60,review,rop_stale,"CAS-310: reorder point 30, but 1 a day over 90 days times 45 days lead time plus safety stock 15 gives 60.",
+GSK-220,600,0,0,600,100,500,160,review,rop_stale,"GSK-220: reorder point 500, but 2 a day over 90 days times 30 days lead time plus safety stock 100 gives 160.",
+HSG-300,25,0,0,25,5,10,11,ok,,,
+PLT-A36,30,0,0,30,10,,10,review,no_rop,PLT-A36 has no reorder point.,
+SEAL-10,150,200,0,350,200,400,410,flag,below_safety_stock at_reorder_point,SEAL-10: 150 free stock against safety stock 200 (200 on order). SEAL-10: 350 available (on hand plus on order less allocated) is at or under the reorder point 400. Order now.,

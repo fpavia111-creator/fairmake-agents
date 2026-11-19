@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WIP aging as of 2026-11-30</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#6b6760;--line:#e4e0d8;--ok:#1f7a4d;--bad:#b42318;--warn:#a15c07;--card:#fff}
+@media (prefers-color-scheme:dark){:root{--bg:#161514;--fg:#ecebe8;--mut:#a29d94;--line:#34312d;--ok:#4ade80;--bad:#f87171;--warn:#fbbf24;--card:#1f1e1c}}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,Segoe UI,"Hiragino Sans","Yu Gothic UI","Microsoft YaHei","PingFang SC","Malgun Gothic","Apple SD Gothic Neo","Noto Sans CJK",sans-serif}
+main{max-width:1040px;margin:0 auto;padding:24px 16px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:28px 0 8px}
+.mut{color:var(--mut)}.ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}
+table{border-collapse:collapse;width:100%;background:var(--card);font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{font-weight:600}td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.tiles{display:flex;gap:12px;flex-wrap:wrap}.tile{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 14px;min-width:120px}
+.tile b{display:block;font-size:22px}code{font-size:13px;overflow-wrap:anywhere}pre{overflow-x:auto}
+.wrap{overflow-x:auto;max-width:100%}svg,img{max-width:100%;height:auto}figure{margin:16px 0}p,li,h1,h2,h3{overflow-wrap:break-word}
+</style></head><body><main>
+<h1>WIP aging as of 2026-11-30</h1>
+<p class="mut">10 work order(s) as of 2026-11-30, 8 open, 22650 in WIP: 9500 on stale orders, 2150 on closed ones. 4 to act on, 1 to review, 2 past due, 3 fine.</p>
+<h2>By age</h2><div class="wrap"><table><thead><tr><th scope="col">age bucket</th><th scope="col">count</th><th scope="col">wip value</th></tr></thead><tbody>
+<tr><td>0-30</td><td>3</td><td>2000</td></tr>
+<tr><td>31-60</td><td>2</td><td>4100</td></tr>
+<tr><td>61-90</td><td>1</td><td>8800</td></tr>
+<tr><td>90+</td><td>1</td><td>5600</td></tr>
+<tr><td>unknown</td><td>1</td><td>0</td></tr>
+</tbody></table></div>
+<h2>By finding</h2><div class="wrap"><table><thead><tr><th scope="col">code</th><th scope="col">count</th><th scope="col">amount</th></tr></thead><tbody>
+<tr><td>closed_with_wip</td><td>1</td><td>2150</td></tr>
+<tr><td>negative_wip</td><td>1</td><td>0</td></tr>
+<tr><td>over_completed</td><td>1</td><td>0</td></tr>
+<tr><td>past_due</td><td>3</td><td>0</td></tr>
+<tr><td>stale</td><td>2</td><td>9500</td></tr>
+</tbody></table></div>
+<h2>All rows (10)</h2>
+<div class="wrap"><table><thead><tr><th scope="col">work order</th><th scope="col">item</th><th scope="col">wo status</th><th scope="col">days open</th><th scope="col">age bucket</th><th scope="col">wip value</th><th scope="col">status</th><th scope="col">reasons</th></tr></thead><tbody>
+<tr><td>WO-2001</td><td>BRK-100</td><td>Released</td><td>10</td><td>0-30</td><td>1200</td><td>ok</td><td></td></tr>
+<tr><td>WO-2002</td><td>BRK-200</td><td>Released</td><td>46</td><td>31-60</td><td>3400</td><td>watch</td><td>WO-2002 was due 2026-11-10 (20 days ago) and is still open.</td></tr>
+<tr><td>WO-2003</td><td>HSG-300</td><td>Released</td><td>90</td><td>61-90</td><td>8800</td><td>flag</td><td>WO-2003 holds 8800 with no activity for 71 days (since 2026-09-20). WO-2003 was due 2026-09-30 (61 days ago) and is still open.</td></tr>
+<tr><td>WO-2004</td><td>SHF-400</td><td>Closed</td><td>121</td><td>closed</td><td>2150</td><td>flag</td><td>WO-2004 is closed but still holds 2150 of WIP. Close it out or find the missing completion.</td></tr>
+<tr><td>WO-2005</td><td>PLT-500</td><td>Complete</td><td>60</td><td>closed</td><td>0</td><td>ok</td><td></td></tr>
+<tr><td>WO-2006</td><td>GER-600</td><td>Released</td><td>5</td><td>0-30</td><td>-150</td><td>flag</td><td>WO-2006 has negative WIP (-150): more was relieved than charged. Check completions and backflush.</td></tr>
+<tr><td>WO-2007</td><td>BRK-100</td><td>Released</td><td>28</td><td>0-30</td><td>950</td><td>review</td><td>WO-2007 completed 60 against 50 ordered.</td></tr>
+<tr><td>WO-2008</td><td>HSG-300</td><td>Released</td><td>168</td><td>90+</td><td>5600</td><td>watch</td><td>WO-2008 was due 2026-07-30 (123 days ago) and is still open.</td></tr>
+<tr><td>WO-2009</td><td>BRK-200</td><td>Firmed</td><td></td><td>unknown</td><td>0</td><td>ok</td><td></td></tr>
+<tr><td>WO-2010</td><td>GER-600</td><td>Released</td><td>41</td><td>31-60</td><td>700</td><td>flag</td><td>WO-2010 holds 700 with no activity for 41 days (since 2026-10-20).</td></tr>
+</tbody></table></div>
+<h2>Limits</h2><ul><li>WIP value is the figure in your export; the agent does not recompute it from issues, labor and completions.</li><li>Reads only the files you give it. It does not log in to an ERP, MES, CMMS, QMS, EDI network, bank, supplier or customer portal, and changes nothing in them.</li><li>Not legal, tax, customs, safety or accounting advice. A person decides what to change, post, send or pay.</li></ul>
+<p class="mut" style="margin-top:32px">Written by a Fairmake agent from your files. Nothing was sent or paid.</p>
+</main></body></html>

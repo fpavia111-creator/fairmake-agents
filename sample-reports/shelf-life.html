@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shelf life and expiry as of 2026-11-18</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#6b6760;--line:#e4e0d8;--ok:#1f7a4d;--bad:#b42318;--warn:#a15c07;--card:#fff}
+@media (prefers-color-scheme:dark){:root{--bg:#161514;--fg:#ecebe8;--mut:#a29d94;--line:#34312d;--ok:#4ade80;--bad:#f87171;--warn:#fbbf24;--card:#1f1e1c}}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,Segoe UI,"Hiragino Sans","Yu Gothic UI","Microsoft YaHei","PingFang SC","Malgun Gothic","Apple SD Gothic Neo","Noto Sans CJK",sans-serif}
+main{max-width:1040px;margin:0 auto;padding:24px 16px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:28px 0 8px}
+.mut{color:var(--mut)}.ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}
+table{border-collapse:collapse;width:100%;background:var(--card);font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{font-weight:600}td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.tiles{display:flex;gap:12px;flex-wrap:wrap}.tile{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 14px;min-width:120px}
+.tile b{display:block;font-size:22px}code{font-size:13px;overflow-wrap:anywhere}pre{overflow-x:auto}
+.wrap{overflow-x:auto;max-width:100%}svg,img{max-width:100%;height:auto}figure{margin:16px 0}p,li,h1,h2,h3{overflow-wrap:break-word}
+</style></head><body><main>
+<h1>Shelf life and expiry as of 2026-11-18</h1>
+<p class="mut">8 lot(s) as of 2026-11-18: 720 expired on hand, 2 expiring soon. 3 to act on, 3 to review, 1 to watch, 1 fine.</p>
+<h2>By finding</h2><div class="wrap"><table><thead><tr><th scope="col">code</th><th scope="col">count</th><th scope="col">amount</th></tr></thead><tbody>
+<tr><td>expired_on_hand</td><td>1</td><td>720</td></tr>
+<tr><td>expiring_soon</td><td>2</td><td>0</td></tr>
+<tr><td>fefo_skipped</td><td>2</td><td>0</td></tr>
+<tr><td>no_expiry</td><td>1</td><td>0</td></tr>
+<tr><td>shipped_expired</td><td>1</td><td>0</td></tr>
+<tr><td>short_dated_shipment</td><td>1</td><td>0</td></tr>
+</tbody></table></div>
+<h2>All rows (8)</h2>
+<div class="wrap"><table><thead><tr><th scope="col">lot</th><th scope="col">item</th><th scope="col">location</th><th scope="col">on hand</th><th scope="col">expiry date</th><th scope="col">days</th><th scope="col">value</th><th scope="col">status</th><th scope="col">reasons</th></tr></thead><tbody>
+<tr><td>L-2601</td><td>ADH-10</td><td>WH1</td><td>40</td><td>2026-10-31</td><td>-18</td><td>720</td><td>flag</td><td>Lot L-2601 (ADH-10) expired 2026-10-31 with 40 still on hand (720).</td></tr>
+<tr><td>L-2602</td><td>ADH-10</td><td>WH1</td><td>120</td><td>2026-12-15</td><td>27</td><td>2160</td><td>flag</td><td>Lot L-2602 (ADH-10) expires 2026-12-15 (in 27 days) with 120 on hand. Shipment S-1 to Example Mart on 2026-11-05 carried lot L-2602 with 40 days left; the customer needs 90.</td></tr>
+<tr><td>L-2603</td><td>ADH-10</td><td>WH2</td><td>200</td><td>2027-05-01</td><td>164</td><td>3600</td><td>review</td><td>Shipment S-2 on 2026-11-10 took lot L-2603 (expires 2027-05-01) while L-2602 (expires 2026-12-15) was in stock and is still on hand.</td></tr>
+<tr><td>L-2604</td><td>SEAL-K</td><td>WH1</td><td>60</td><td></td><td></td><td>540</td><td>review</td><td>Lot L-2604 (SEAL-K) holds 60 and has no expiry date.</td></tr>
+<tr><td>L-2605</td><td>LUB-5</td><td>WH1</td><td>0</td><td>2026-11-01</td><td>-17</td><td>0</td><td>flag</td><td>Shipment S-3 to Sample Hardware on 2026-11-03 carried lot L-2605, expired 2026-11-01.</td></tr>
+<tr><td>L-2606</td><td>LUB-5</td><td>WH1</td><td>300</td><td>2027-08-01</td><td>256</td><td>1500</td><td>ok</td><td></td></tr>
+<tr><td>L-2607</td><td>PAINT-RED</td><td>WH2</td><td>25</td><td>2027-01-10</td><td>53</td><td>550</td><td>watch</td><td>Lot L-2607 (PAINT-RED) expires 2027-01-10 (in 53 days) with 25 on hand.</td></tr>
+<tr><td>L-2608</td><td>PAINT-RED</td><td>WH2</td><td>80</td><td>2027-10-01</td><td>317</td><td>1760</td><td>review</td><td>Shipment S-4 on 2026-11-12 took lot L-2608 (expires 2027-10-01) while L-2607 (expires 2027-01-10) was in stock and is still on hand.</td></tr>
+</tbody></table></div>
+<h2>Limits</h2><ul><li>First-expired-first-out is checked against lots still on hand today; stock that was in a lot at shipment and has since gone is not reconstructed.</li><li>Reads only the files you give it. It does not log in to an ERP, MES, CMMS, QMS, EDI network, bank, supplier or customer portal, and changes nothing in them.</li><li>Not legal, tax, customs, safety or accounting advice. A person decides what to change, post, send or pay.</li></ul>
+<p class="mut" style="margin-top:32px">Written by a Fairmake agent from your files. Nothing was sent or paid.</p>
+</main></body></html>

@@ -1,0 +1,13 @@
+receipt,po_number,item,supplier,receipt_date,qty,unit_price,std_cost,ppv,status,findings,reasons,decision
+RC-1001-1,PO-501,BAR-4140,Northwind Metals,2026-10-02,200,4.1,4,20,ok,,,
+RC-1002-1,PO-502,BAR-4140,Northwind Metals,2026-10-20,250,4.75,4,187.5,flag,ppv_unfavorable price_jump,"BAR-4140 received at 4.75 against standard 4 (18.8% over) on 250: 187.5. Northwind Metals charged 4.75 for BAR-4140, up 15.9% from 4.1 on receipt RC-1001-1.",
+RC-1003-1,PO-503,BAR-4140,Northwind Metals,2026-11-04,300,4.8,4,240,flag,ppv_unfavorable,BAR-4140 received at 4.8 against standard 4 (20% over) on 300: 240.,
+RC-1004-1,PO-504,SCR-M8,Fastener Example Co,2026-10-05,5000,0.06,0.05,50,ok,,,
+RC-1005-1,PO-505,SCR-M8,Fastener Example Co,2026-11-02,4000,6,0.05,,review,uom_suspect,Price 6 is 120 times the standard 0.05: likely a unit-of-measure slip (each against box or pound against foot). Fix the unit before reading a variance.,
+RC-1006-1,PO-506,PLT-A36,Sample Steel Supply,2026-10-12,40,52,61,-360,watch,ppv_favorable,"PLT-A36 received at 52, 14.8% under standard 61 (360 on 40). Check the standard is still right.",
+RC-1007-1,PO-507,PLT-A36,Sample Steel Supply,2026-11-06,30,51.5,61,-285,watch,ppv_favorable,"PLT-A36 received at 51.5, 15.6% under standard 61 (285 on 30). Check the standard is still right.",
+RC-1008-1,PO-508,GSK-220,Demo Seals Inc,2026-10-15,600,1.25,,,review,no_standard,"GSK-220 has no standard cost, so receipt RC-1008-1 at 1.25 cannot be measured.",
+RC-1009-1,PO-509,CAS-310,Demo Castings LLC,2026-10-18,20,88,85,60,ok,,,
+RC-1010-1,PO-510,CAS-310,Demo Castings LLC,2026-11-08,25,99,85,350,flag,ppv_unfavorable price_jump,"CAS-310 received at 99 against standard 85 (16.5% over) on 25: 350. Demo Castings LLC charged 99 for CAS-310, up 12.5% from 88 on receipt RC-1009-1.",
+RC-1011-1,PO-511,BRG-6204,Fastener Example Co,2026-11-09,100,3.1,3,10,ok,,,
+RC-1012-1,PO-512,BAR-1018,Northwind Metals,2026-11-10,500,2.02,2,10,ok,,,

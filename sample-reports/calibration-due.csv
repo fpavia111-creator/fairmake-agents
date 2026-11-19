@@ -1,0 +1,10 @@
+gauge,description,location,last_cal,cal_result,due_date,days,status,findings,reasons,decision
+CAL-003,Caliper 6 in,Cell 1,2025-11-01,Pass,2026-11-01,-17,flag,overdue used_while_overdue,CAL-003 was due for calibration 2026-11-01 (17 days ago). CAL-003 was used past its due date 2026-11-01 on WO-310 (2026-11-10).,
+CMM-007,Coordinate measuring machine,QC Lab,2025-09-01,Pass,2026-09-01,-78,ok,,,
+HG-004,Height gauge,QC Lab,2026-01-10,Pass,2026-12-06,18,watch,due_soon,HG-004 is due for calibration 2026-12-06 (in 18 days).,
+MIC-001,0-1 in micrometer,QC Lab,2026-06-01,Pass,2027-06-01,195,ok,,,
+MIC-002,Outside micrometer,Cell 2,2026-10-20,Fail,2027-04-18,151,flag,failed_then_used,"MIC-002 failed its calibration on 2026-10-20 and was used afterwards on WO-301 (2026-11-02), WO-305 (2026-11-05). Review that product.",
+MIC-008,Micrometer 1-2 in,Cell 1,2026-09-01,Pass,2027-02-28,102,ok,,,
+PG-005,Pin gauge set,Cell 3,,,,,review,never_calibrated,PG-005 has no calibration on record.,
+THR-009,Thread ring gauge,Cell 2,2026-05-25,Pass,2026-11-21,3,watch,due_soon,THR-009 is due for calibration 2026-11-21 (in 3 days).,
+TW-006,Torque wrench,Assembly,2026-08-01,Pass,,,review,no_interval,TW-006 has no calibration interval.,

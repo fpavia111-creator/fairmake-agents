@@ -1,0 +1,6 @@
+work_center,direct_hours,indirect_hours,earned_hours,efficiency_pct,indirect_pct,status,findings,reasons,decision
+ASSY,12,0,15,125,0,review,high_efficiency hours_no_output,"ASSY earned 15 standard hours on 12 direct hours (125%): the standard may be loose, or hours were not clocked. ASSY clocked direct hours on WO-5 with no completions recorded there.",
+CNC,24,2,24,100,7.7,ok,,,
+PAINT,5,0,4.5,90,0,ok,,,
+SAW,0,0,2,,,review,output_no_hours,SAW completed WO-7 with no hours clocked there.,
+WELD,20,4,15,75,16.7,flag,low_efficiency high_indirect,"WELD earned 15 standard hours on 20 direct hours (75%, target at least 85%). WELD: 4 of 24 hours were indirect (16.7%).",

@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Overhead absorption</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#6b6760;--line:#e4e0d8;--ok:#1f7a4d;--bad:#b42318;--warn:#a15c07;--card:#fff}
+@media (prefers-color-scheme:dark){:root{--bg:#161514;--fg:#ecebe8;--mut:#a29d94;--line:#34312d;--ok:#4ade80;--bad:#f87171;--warn:#fbbf24;--card:#1f1e1c}}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,Segoe UI,"Hiragino Sans","Yu Gothic UI","Microsoft YaHei","PingFang SC","Malgun Gothic","Apple SD Gothic Neo","Noto Sans CJK",sans-serif}
+main{max-width:1040px;margin:0 auto;padding:24px 16px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:28px 0 8px}
+.mut{color:var(--mut)}.ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}
+table{border-collapse:collapse;width:100%;background:var(--card);font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{font-weight:600}td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.tiles{display:flex;gap:12px;flex-wrap:wrap}.tile{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 14px;min-width:120px}
+.tile b{display:block;font-size:22px}code{font-size:13px;overflow-wrap:anywhere}pre{overflow-x:auto}
+.wrap{overflow-x:auto;max-width:100%}svg,img{max-width:100%;height:auto}figure{margin:16px 0}p,li,h1,h2,h3{overflow-wrap:break-word}
+</style></head><body><main>
+<h1>Overhead absorption</h1>
+<p class="mut">6 work center(s): 54975 applied against 65650 spent (net 10675 under-absorbed). 1 under-absorbed past tolerance, 2 to review, 1 to watch, 2 in line.</p>
+<h2>Proposed rates</h2><div class="wrap"><table><thead><tr><th scope="col">work center</th><th scope="col">rate</th><th scope="col">proposed rate</th><th scope="col">hours</th></tr></thead><tbody>
+<tr><td>CNC</td><td>45</td><td>55.3846</td><td>650</td></tr>
+<tr><td>PAINT</td><td>25</td><td>21.25</td><td>320</td></tr>
+</tbody></table></div>
+<h2>By finding</h2><div class="wrap"><table><thead><tr><th scope="col">code</th><th scope="col">count</th><th scope="col">amount</th></tr></thead><tbody>
+<tr><td>low_volume</td><td>1</td><td>0</td></tr>
+<tr><td>no_actual</td><td>1</td><td>0</td></tr>
+<tr><td>no_rate</td><td>1</td><td>0</td></tr>
+<tr><td>over_absorbed</td><td>1</td><td>0</td></tr>
+<tr><td>under_absorbed</td><td>1</td><td>6750</td></tr>
+</tbody></table></div>
+<h2>All rows (6)</h2>
+<div class="wrap"><table><thead><tr><th scope="col">work center</th><th scope="col">hours</th><th scope="col">rate</th><th scope="col">applied</th><th scope="col">actual</th><th scope="col">under absorbed</th><th scope="col">proposed rate</th><th scope="col">status</th><th scope="col">reasons</th></tr></thead><tbody>
+<tr><td>ASSY</td><td>500</td><td></td><td></td><td>9000</td><td></td><td>18</td><td>review</td><td>ASSY has 500 hours and no overhead rate, so none of its 9000 overhead was applied to jobs.</td></tr>
+<tr><td>CNC</td><td>650</td><td>45</td><td>29250</td><td>36000</td><td>6750</td><td>55.3846</td><td>flag</td><td>CNC: 36000 spent, 29250 applied (650 h at 45): 6750 under-absorbed (18.8%). Jobs through it are under-costed. CNC ran 650 hours against 800 budgeted (-18.7%): fixed overhead is spread over fewer hours.</td></tr>
+<tr><td>INSP</td><td>95</td><td>15</td><td>1425</td><td>1450</td><td>25</td><td>15.2632</td><td>ok</td><td></td></tr>
+<tr><td>PAINT</td><td>320</td><td>25</td><td>8000</td><td>6800</td><td>-1200</td><td>21.25</td><td>watch</td><td>PAINT: 8000 applied against 6800 spent: 1200 over-absorbed (17.6%). Jobs through it are over-costed.</td></tr>
+<tr><td>SAW</td><td>200</td><td>20</td><td>4000</td><td>0</td><td>-4000</td><td></td><td>review</td><td>SAW applied 4000 but has no actual overhead in the file.</td></tr>
+<tr><td>WELD</td><td>410</td><td>30</td><td>12300</td><td>12400</td><td>100</td><td>30.2439</td><td>ok</td><td></td></tr>
+</tbody></table></div>
+<h2>Limits</h2><ul><li>Applied overhead is hours times your rate; it does not read the overhead your ERP actually applied, so compare with your own absorption account.</li><li>Reads only the files you give it. It does not log in to an ERP, MES, CMMS, QMS, EDI network, bank, supplier or customer portal, and changes nothing in them.</li><li>Not legal, tax, customs, safety or accounting advice. A person decides what to change, post, send or pay.</li></ul>
+<p class="mut" style="margin-top:32px">Written by a Fairmake agent from your files. Nothing was sent or paid.</p>
+</main></body></html>

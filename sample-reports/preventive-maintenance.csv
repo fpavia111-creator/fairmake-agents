@@ -1,0 +1,11 @@
+task,asset,description,critical,last_done,due_date,days,hours_since,status,findings,reasons,decision
+PM-101,CNC-1,Spindle lubrication,,2026-11-01,2026-12-01,13,,watch,due_soon,CNC-1 Spindle lubrication is due 2026-12-01 (in 13 days).,
+PM-107,CNC-1,Coolant concentration,,2026-11-17,2026-11-24,6,,watch,due_soon,CNC-1 Coolant concentration is due 2026-11-24 (in 6 days).,
+PM-102,CNC-2,Way cover inspection,yes,2026-09-15,2026-10-15,-34,,flag,overdue,CNC-2 Way cover inspection was due 2026-10-15 (34 days ago); marked safety critical.,
+PM-110,CNC-2,Chip conveyor,,2026-11-10,2026-12-10,22,,ok,,,
+PM-106,COMP-1,Air filter,,2026-10-01,,,,review,no_interval,"COMP-1 Air filter has no interval in days or hours, so it can never come due.",
+PM-109,COMP-1,Belt tension,,2026-10-01,2026-12-30,42,,ok,,,
+PM-108,LASER-1,Optics clean,,2026-11-10,2026-12-10,22,,ok,,,
+PM-103,PRESS-1,Light curtain test,yes,2026-11-12,2026-11-19,1,,watch,due_soon,PRESS-1 Light curtain test is due 2026-11-19 (in 1 days).,
+PM-104,PRESS-1,Hydraulic oil change,,2026-08-01,2027-01-28,71,1250,flag,meter_overdue,PRESS-1 Hydraulic oil change has run 1250 hours since its last PM against an interval of 1000.,
+PM-105,WELD-1,Ground cable check,,,,,,review,never_done,WELD-1 Ground cable check has no completion on record.,
