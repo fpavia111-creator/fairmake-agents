@@ -1,0 +1,371 @@
+{
+  "suite": "fairmake-hts-codes",
+  "root": "..",
+  "data_note": "Fictional items, entry lines and code list in ../fixtures. No model is called.",
+  "cases": [
+    {
+      "id": "check-totals",
+      "tool": "hts_check",
+      "args": {
+        "items": "fixtures/items.csv",
+        "entries": "fixtures/entries.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "equals": {
+          "result.items_checked": 9,
+          "result.entry_lines": 6,
+          "result.duty_difference": 250,
+          "result.flag": 3,
+          "result.review": 3,
+          "result.watch": 2,
+          "result.ok": 1,
+          "result.entry_items_not_in_master": [
+            "VALVE-9"
+          ]
+        }
+      }
+    },
+    {
+      "id": "every-planted-finding",
+      "tool": "hts_check",
+      "args": {
+        "items": "fixtures/items.csv",
+        "entries": "fixtures/entries.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "contains": [
+          "missing_hts",
+          "hts_format",
+          "hts_not_in_list",
+          "missing_coo",
+          "entry_hts_differs",
+          "entry_coo_differs",
+          "duty_rate_differs",
+          "same_description_split",
+          "declared NUT-M8 under 7318.15.2065"
+        ]
+      }
+    },
+    {
+      "id": "explain-duty-difference",
+      "tool": "hts_explain",
+      "args": {
+        "items": "fixtures/items.csv",
+        "entries": "fixtures/entries.csv",
+        "settings": "fixtures/settings.json",
+        "item": "hsg-300"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "duty 2.5% on 8413.91.9095, your list says 0% (250 on 10000 entered value, possibly overpaid)"
+        ]
+      }
+    },
+    {
+      "id": "without-a-code-list",
+      "tool": "hts_check",
+      "args": {
+        "items": "fixtures/items.csv",
+        "entries": "fixtures/entries.csv",
+        "settings": "fixtures/settings-nolist.json"
+      },
+      "expect": {
+        "equals": {
+          "result.flag": 2,
+          "result.review": 3,
+          "result.watch": 2,
+          "result.ok": 2,
+          "result.duty_difference": 0
+        },
+        "not_contains": [
+          "hts_not_in_list"
+        ]
+      }
+    },
+    {
+      "id": "acumatica-stock-items",
+      "tool": "hts_check",
+      "args": {
+        "items": "fixtures/exports/acumatica-stock-items.csv",
+        "entries": "fixtures/entries.csv"
+      },
+      "expect": {
+        "equals": {
+          "result.items_checked": 2,
+          "result.flag": 1,
+          "result.ok": 1
+        },
+        "length": {
+          "result.entry_items_not_in_master": 4
+        }
+      }
+    },
+    {
+      "id": "draft-broker-query-after-approval",
+      "tool": "hts_draft_broker_query",
+      "args": {
+        "items": "fixtures/items.csv",
+        "entries": "fixtures/entries.csv",
+        "settings": "fixtures/settings.json",
+        "from": "Taylor Trade (fictional)"
+      },
+      "approve": "Pat Example",
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.amount": 250,
+          "result.open_markers": 1
+        },
+        "contains": [
+          "broker query open drafted for 250"
+        ]
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "hts_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "items"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "hts_check",
+      "args": {
+        "items": "../../../outside.csv",
+        "entries": "fixtures/entries.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "hts_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "hts_check",
+      "mode": "review",
+      "args": {
+        "items": "fixtures/items.csv",
+        "entries": "fixtures/entries.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.items_checked": 9,
+          "result.entry_lines": 6,
+          "result.duty_difference": 250,
+          "result.flag": 3,
+          "result.review": 3,
+          "result.watch": 2,
+          "result.ok": 1,
+          "result.entry_items_not_in_master": [
+            "VALVE-9"
+          ]
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "hts_check",
+      "args": {
+        "items": "fixtures/items.csv",
+        "entries": "fixtures/entries.csv",
+        "settings": "fixtures/settings.json",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.entry_lines": 6,
+          "result.duty_difference": 250,
+          "result.flag": 3,
+          "result.review": 3,
+          "result.watch": 2,
+          "result.ok": 1,
+          "result.entry_items_not_in_master": [
+            "VALVE-9"
+          ]
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "hts_explain",
+      "args": {
+        "items": "fixtures/items.csv",
+        "entries": "fixtures/entries.csv",
+        "settings": "fixtures/settings.json",
+        "item": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-its-files",
+      "tool": "hts_write_report",
+      "args": {
+        "items": "fixtures/items.csv",
+        "entries": "fixtures/entries.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "min": {
+          "result.files.length": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "draft-waits-for-a-person",
+      "tool": "hts_draft_broker_query",
+      "args": {
+        "items": "fixtures/items.csv",
+        "entries": "fixtures/entries.csv",
+        "settings": "fixtures/settings.json",
+        "from": "Taylor Trade (fictional)"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-drafts-nothing",
+      "tool": "hts_draft_broker_query",
+      "mode": "review",
+      "args": {
+        "items": "fixtures/items.csv",
+        "entries": "fixtures/entries.csv",
+        "settings": "fixtures/settings.json",
+        "from": "Taylor Trade (fictional)"
+      },
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "request-stays-one-click-in-auto",
+      "tool": "hts_request_send",
+      "mode": "auto",
+      "auto_actions": [
+        "hts_draft_broker_query"
+      ],
+      "args": {
+        "draft": "fairmake-out/hts/drafts/none.md",
+        "draft_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-customs-filing-submit",
+      "tool": "customs_filing_submit",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-erp-write-item-master",
+      "tool": "erp_write_item_master",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-check-totals",
+      "tool": "hts_check",
+      "args": {
+        "items": "fixtures/intl/de/items.csv",
+        "entries": "fixtures/intl/de/entries.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "equals": {
+          "result.items_checked": 9,
+          "result.entry_lines": 6,
+          "result.duty_difference": 250,
+          "result.flag": 3,
+          "result.review": 3,
+          "result.watch": 2,
+          "result.ok": 1,
+          "result.entry_items_not_in_master": [
+            "VALVE-9"
+          ]
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"check-totals\"."
+    },
+    {
+      "id": "intl-ja-check-totals",
+      "tool": "hts_check",
+      "args": {
+        "items": "fixtures/intl/ja/items.csv",
+        "entries": "fixtures/intl/ja/entries.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "equals": {
+          "result.items_checked": 9,
+          "result.entry_lines": 6,
+          "result.duty_difference": 250,
+          "result.flag": 3,
+          "result.review": 3,
+          "result.watch": 2,
+          "result.ok": 1,
+          "result.entry_items_not_in_master": [
+            "VALVE-9"
+          ]
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"check-totals\"."
+    }
+  ]
+}

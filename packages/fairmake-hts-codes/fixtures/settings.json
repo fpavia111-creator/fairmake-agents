@@ -1,0 +1,10 @@
+{
+  "note": "Fictional code list kept with the customs broker.",
+  "codes": {
+    "7318.15.2065": { "duty_pct": 0 },
+    "7318.16.0085": { "duty_pct": 0 },
+    "8482.10.5044": { "duty_pct": 9 },
+    "7208.51.00": { "duty_pct": 0 },
+    "8413.91.9095": { "duty_pct": 0 }
+  }
+}
