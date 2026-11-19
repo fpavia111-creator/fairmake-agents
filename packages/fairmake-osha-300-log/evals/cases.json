@@ -1,0 +1,363 @@
+{
+  "suite": "fairmake-osha-300-log",
+  "root": "..",
+  "data_note": "Fictional injury and illness cases in ../fixtures; every name is made up. No model is called.",
+  "cases": [
+    {
+      "id": "check-totals",
+      "tool": "osha_log_check",
+      "args": {
+        "cases": "fixtures/cases.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "equals": {
+          "result.cases": 8,
+          "result.recordable": 8,
+          "result.dart_cases": 5,
+          "result.days_away": 128,
+          "result.days_restricted": 90,
+          "result.trir": 6.4,
+          "result.dart_rate": 4,
+          "result.flag": 2,
+          "result.review": 4,
+          "result.ok": 2
+        }
+      }
+    },
+    {
+      "id": "every-planted-finding-and-no-names",
+      "tool": "osha_log_check",
+      "args": {
+        "cases": "fixtures/cases.csv"
+      },
+      "expect": {
+        "contains": [
+          "missing_field",
+          "outcome_days_mismatch",
+          "days_missing",
+          "days_over_cap",
+          "privacy_name_on_log",
+          "open_case",
+          "late_entry",
+          "first_aid_recordable",
+          "missing job_title, location"
+        ],
+        "not_contains": [
+          "Alex Sample",
+          "Eli Demo",
+          "Gale Sample"
+        ]
+      }
+    },
+    {
+      "id": "explain-mismatch-case",
+      "tool": "osha_log_explain",
+      "args": {
+        "cases": "fixtures/cases.csv",
+        "case_number": "2026-004"
+      },
+      "expect": {
+        "status": "executed",
+        "contains": [
+          "shows 3 days away but its outcome is",
+          "entered 26 days after it happened"
+        ],
+        "not_contains": [
+          "Dana Placeholder"
+        ]
+      }
+    },
+    {
+      "id": "no-hours-no-rates",
+      "tool": "osha_log_check",
+      "args": {
+        "cases": "fixtures/cases.csv",
+        "settings": "fixtures/settings-nohours.json"
+      },
+      "expect": {
+        "equals": {
+          "result.trir": null,
+          "result.dart_rate": null,
+          "result.flag": 2,
+          "result.settings_used.entry_days": 30
+        },
+        "not_contains": [
+          "late_entry"
+        ]
+      }
+    },
+    {
+      "id": "ehs-incident-log-export",
+      "tool": "osha_log_check",
+      "args": {
+        "cases": "fixtures/exports/ehs-incident-log.csv"
+      },
+      "expect": {
+        "equals": {
+          "result.cases": 2,
+          "result.flag": 1,
+          "result.watch": 1
+        },
+        "not_contains": [
+          "Ivy Sample",
+          "Jon Example"
+        ]
+      }
+    },
+    {
+      "id": "draft-correction-list-after-approval",
+      "tool": "osha_log_draft_log_correction_list",
+      "args": {
+        "cases": "fixtures/cases.csv",
+        "from": "Casey Safety (fictional)"
+      },
+      "approve": "Pat Example",
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.open_markers": 1
+        },
+        "contains": [
+          "log correction list open drafted"
+        ],
+        "not_contains": [
+          "Eli Demo"
+        ]
+      }
+    },
+    {
+      "id": "missing-argument-named",
+      "tool": "osha_log_check",
+      "args": {},
+      "expect": {
+        "status": "error",
+        "contains": [
+          "cases"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "file-outside-root-refused",
+      "tool": "osha_log_check",
+      "args": {
+        "cases": "../../../outside.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "outside"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "invented-tool-name-refused",
+      "tool": "osha_log_pay_everything_now",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-still-reads",
+      "tool": "osha_log_check",
+      "mode": "review",
+      "args": {
+        "cases": "fixtures/cases.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "equals": {
+          "result.cases": 8,
+          "result.recordable": 8,
+          "result.dart_cases": 5,
+          "result.days_away": 128,
+          "result.days_restricted": 90,
+          "result.trir": 6.4,
+          "result.dart_rate": 4,
+          "result.flag": 2,
+          "result.review": 4,
+          "result.ok": 2
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "status-filter-keeps-totals",
+      "tool": "osha_log_check",
+      "args": {
+        "cases": "fixtures/cases.csv",
+        "settings": "fixtures/settings.json",
+        "status": "ok",
+        "limit": 1
+      },
+      "expect": {
+        "status": "executed",
+        "max": {
+          "result.items_shown": 1
+        },
+        "equals": {
+          "result.cases": 8,
+          "result.recordable": 8,
+          "result.dart_cases": 5,
+          "result.days_away": 128,
+          "result.days_restricted": 90,
+          "result.trir": 6.4,
+          "result.dart_rate": 4,
+          "result.flag": 2,
+          "result.review": 4,
+          "result.ok": 2
+        }
+      },
+      "generated": true
+    },
+    {
+      "id": "explain-unknown-item-is-a-readable-error",
+      "tool": "osha_log_explain",
+      "args": {
+        "cases": "fixtures/cases.csv",
+        "settings": "fixtures/settings.json",
+        "case_number": "No Such Thing Zz"
+      },
+      "expect": {
+        "status": "error",
+        "contains": [
+          "not found"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "report-writes-its-files",
+      "tool": "osha_log_write_report",
+      "args": {
+        "cases": "fixtures/cases.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "status": "executed",
+        "min": {
+          "result.files.length": 2
+        },
+        "matches": [
+          "[0-9a-f]{64}"
+        ]
+      },
+      "generated": true
+    },
+    {
+      "id": "draft-waits-for-a-person",
+      "tool": "osha_log_draft_log_correction_list",
+      "args": {
+        "cases": "fixtures/cases.csv",
+        "from": "Casey Safety (fictional)"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "review-mode-drafts-nothing",
+      "tool": "osha_log_draft_log_correction_list",
+      "mode": "review",
+      "args": {
+        "cases": "fixtures/cases.csv",
+        "from": "Casey Safety (fictional)"
+      },
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "request-stays-one-click-in-auto",
+      "tool": "osha_log_request_send",
+      "mode": "auto",
+      "auto_actions": [
+        "osha_log_draft_log_correction_list"
+      ],
+      "args": {
+        "draft": "fairmake-out/osha_log/drafts/none.md",
+        "draft_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expect": {
+        "status": "needs_approval",
+        "decision": "ask"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-osha-ita-submit",
+      "tool": "osha_ita_submit",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "refuses-hr-record-update",
+      "tool": "hr_record_update",
+      "mode": "auto",
+      "args": {},
+      "expect": {
+        "status": "blocked"
+      },
+      "generated": true
+    },
+    {
+      "id": "intl-de-check-totals",
+      "tool": "osha_log_check",
+      "args": {
+        "cases": "fixtures/intl/de/cases.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "equals": {
+          "result.cases": 8,
+          "result.recordable": 8,
+          "result.dart_cases": 5,
+          "result.days_away": 128,
+          "result.days_restricted": 90,
+          "result.trir": 6.4,
+          "result.dart_rate": 4,
+          "result.flag": 2,
+          "result.review": 4,
+          "result.ok": 2
+        }
+      },
+      "note": "German export of the same data (fixtures/intl/de); must match the English case \"check-totals\"."
+    },
+    {
+      "id": "intl-ja-check-totals",
+      "tool": "osha_log_check",
+      "args": {
+        "cases": "fixtures/intl/ja/cases.csv",
+        "settings": "fixtures/settings.json"
+      },
+      "expect": {
+        "equals": {
+          "result.cases": 8,
+          "result.recordable": 8,
+          "result.dart_cases": 5,
+          "result.days_away": 128,
+          "result.days_restricted": 90,
+          "result.trir": 6.4,
+          "result.dart_rate": 4,
+          "result.flag": 2,
+          "result.review": 4,
+          "result.ok": 2
+        }
+      },
+      "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"check-totals\"."
+    }
+  ]
+}
