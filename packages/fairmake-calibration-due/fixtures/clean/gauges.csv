@@ -1,0 +1,10 @@
+gauge,description,location,last_cal,interval_days,cal_result,gauge_status
+MIC-001,0-1 in micrometer,QC Lab,2026-06-01,365,Pass,Active
+MIC-002,Outside micrometer,Cell 2,2026-10-20,180,Pass,Active
+CAL-003,Caliper 6 in,Cell 1,2026-01-01,365,Pass,Active
+HG-004,Height gauge,QC Lab,2026-03-01,330,Pass,Active
+PG-005,Pin gauge set,Cell 3,2026-06-01,365,Pass,Active
+TW-006,Torque wrench,Assembly,2026-08-01,365,Pass,Active
+CMM-007,Coordinate measuring machine,QC Lab,2025-09-01,365,Pass,Out of service
+MIC-008,Micrometer 1-2 in,Cell 1,2026-09-01,180,Pass,Active
+THR-009,Thread ring gauge,Cell 2,2026-08-01,180,Pass,Active

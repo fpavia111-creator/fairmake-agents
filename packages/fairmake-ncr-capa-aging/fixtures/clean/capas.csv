@@ -1,0 +1,5 @@
+capa,opened,due,closed,root_cause,verified,capa_status,owner
+CAPA-20,2026-08-05,2026-09-30,2026-09-25,Fixture wear,Y,Closed,Morgan Engineer
+CAPA-21,2026-07-20,2026-12-15,,Deburr step skipped,,Open,Jamie Inspector
+CAPA-22,2026-09-01,2026-12-31,,Gauge drift,,Open,Riley Quality
+CAPA-23,2026-06-01,2026-08-01,2026-08-15,Supplier heat treat,Y,Closed,Morgan Engineer

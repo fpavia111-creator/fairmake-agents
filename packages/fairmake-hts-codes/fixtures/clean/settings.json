@@ -1,0 +1,32 @@
+{
+  "note": "Fictional code list kept with the customs broker (clean set: codes for every item added).",
+  "codes": {
+    "7318.15.2065": {
+      "duty_pct": 0
+    },
+    "7318.16.0085": {
+      "duty_pct": 0
+    },
+    "8482.10.5044": {
+      "duty_pct": 9
+    },
+    "7208.51.00": {
+      "duty_pct": 0
+    },
+    "8413.91.9095": {
+      "duty_pct": 0
+    },
+    "7325.10.0080": {
+      "duty_pct": 0
+    },
+    "4016.93.5050": {
+      "duty_pct": 2.5
+    },
+    "8484.90.0000": {
+      "duty_pct": 0
+    },
+    "8481.80.9050": {
+      "duty_pct": 2
+    }
+  }
+}

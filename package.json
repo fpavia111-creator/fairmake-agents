@@ -24,7 +24,9 @@
     "readme": "node scripts/readme-head.mjs && node scripts/readme-sections.mjs",
     "evals": "node scripts/run-all-evals.mjs",
     "evals:make": "node scripts/make-evals.mjs",
-    "masking": "node scripts/masking-check.mjs"
+    "masking": "node scripts/masking-check.mjs",
+    "accuracy": "node scripts/accuracy.mjs",
+    "model-view": "node scripts/model-view.mjs"
   },
   "engines": {
     "node": ">=20"

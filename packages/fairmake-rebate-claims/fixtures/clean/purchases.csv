@@ -1,0 +1,10 @@
+line,supplier,item,purchase_date,qty,unit_price
+P1,Northwind Metals,BAR-4140,2026-02-10,10000,4.00
+P2,Northwind Metals,BAR-4140,2026-05-10,10000,4.20
+P3,Northwind Metals,BAR-1018,2026-08-10,19000,2.00
+P4,Northwind Metals,BAR-4140,2026-10-20,1000,4.80
+P6,Fastener Example Co,SCR-M8,2026-11-01,20000,0.05
+P7,Fastener Example Co,BRG-6204,2026-06-01,100,3.00
+P9,Demo Seals Inc,GSK-220,2026-10-01,5200,1.25
+P10,Sample Steel Supply,PLT-A36,2025-06-01,100,60.00
+P11,Sample Steel Supply,PLT-A36,2026-03-01,50,52.00

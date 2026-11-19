@@ -1,0 +1,6 @@
+machine,scheduled_hours
+CNC-1,80
+CNC-2,80
+PRESS-1,120
+WELD-1,60
+LASER-1,40

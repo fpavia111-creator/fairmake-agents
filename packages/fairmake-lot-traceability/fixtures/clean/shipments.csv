@@ -1,0 +1,7 @@
+shipment,customer,item,lot_or_serial,ship_date,qty
+S1,Example Pumps Co,PMP-100,FG-1001,2026-11-08,5
+S2,Example Pumps Co,PMP-100,FG-1002,2026-11-09,5
+S3,Sample Robotics LLC,ACT-9,SN-7001,2026-11-10,1
+S5,Demo Ag Equipment,PMP-100,FG-1002,2026-11-12,2
+S6,Example Pumps Co,BAR-4140,RL-501,2026-11-13,1
+S7,Example Pumps Co,PMP-100,FG-1003,2026-11-14,3

@@ -1,0 +1,9 @@
+case_number,employee,job_title,incident_date,entered_date,location,description,injury_type,outcome,days_away,days_restricted,privacy_case,recordable,return_date
+2026-001,Alex Sample,Machine operator,2026-02-03,2026-02-04,CNC cell,Laceration to left hand from a burr,Injury,Other recordable,0,0,N,Y,
+2026-002,Blair Example,Welder,2026-03-10,2026-03-11,Weld bay,Burn to forearm,Injury,Days away,5,0,N,Y,2026-03-16
+2026-003,Casey Fictional,Assembler,2026-04-15,2026-04-16,Assembly,Strain lifting a housing,Injury,Restricted,0,10,N,Y,2026-04-26
+2026-004,Dana Placeholder,Press operator,2026-05-20,2026-05-21,Press line,Crushed finger,Injury,Days away,3,0,N,Y,2026-05-23
+2026-005,Privacy case,Painter,2026-06-02,2026-06-03,Paint booth,Respiratory irritation,Respiratory,Days away,1,0,Y,Y,2026-06-04
+2026-006,Fran Test,Machinist,2026-07-08,2026-07-08,CNC cell,Cut to thumb,Injury,Other recordable,0,0,N,Y,
+2026-007,Gale Sample,Material handler,2026-08-12,2026-08-12,Warehouse,Back injury,Injury,Days away,60,30,N,Y,2026-11-10
+2026-008,Hale Example,Machinist,2026-09-01,2026-09-01,CNC cell,Splinter removed,Injury,First aid,0,0,N,N,

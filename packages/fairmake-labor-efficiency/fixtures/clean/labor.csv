@@ -1,0 +1,11 @@
+entry,employee,work_center,work_order,labor_date,hours,indirect
+L1,Ana Fictional,CNC,WO-1,2026-11-02,8,N
+L2,Ben Example,CNC,WO-1,2026-11-02,8,N
+L3,Ana Fictional,CNC,WO-2,2026-11-03,8,N
+L4,Ben Example,CNC,,2026-11-03,2,Y
+L5,Cara Sample,WELD,WO-3,2026-11-02,10,N
+L6,Dev Sample,WELD,WO-3,2026-11-03,10,N
+L7,Cara Sample,WELD,,2026-11-04,2,Y
+L8,Eli Placeholder,ASSY,WO-4,2026-11-02,15,N
+L10,Fay Demo,PAINT,WO-6,2026-11-04,5,N
+L11,Gus Example,SAW,WO-7,2026-11-04,2,N

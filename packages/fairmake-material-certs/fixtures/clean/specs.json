@@ -1,0 +1,38 @@
+{
+  "note": "Fictional purchase specs (clean set: the gasket added). Values are illustrative, not taken from any standard.",
+  "items": {
+    "BAR-4140": {
+      "cert_required": true,
+      "properties": {
+        "tensile_ksi": {
+          "min": 95
+        },
+        "hardness_hrc": {
+          "max": 32
+        }
+      }
+    },
+    "PLT-A36": {
+      "cert_required": true,
+      "properties": {
+        "yield_ksi": {
+          "min": 36
+        }
+      }
+    },
+    "CAS-310": {
+      "cert_required": true,
+      "properties": {
+        "tensile_ksi": {
+          "min": 30
+        }
+      }
+    },
+    "SCR-M8": {
+      "cert_required": false
+    },
+    "GSK-220": {
+      "cert_required": false
+    }
+  }
+}
