@@ -1,0 +1,24 @@
+{
+  "name": "fairmake-edi-asn-errors",
+  "version": "0.1.0",
+  "description": "Fairmake EDI ASN Errors: advance ship notices (856) against customer POs (850) and shipment records: missing or late ASNs, quantity mismatches, items not ordered, SSCC problems. Transmits nothing.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairmake-agents/tree/main/packages/fairmake-edi-asn-errors#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "manufacturing",
+    "distribution",
+    "erp",
+    "fairmake",
+    "edi",
+    "asn",
+    "856",
+    "850",
+    "retail-compliance",
+    "x12"
+  ]
+}

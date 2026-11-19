@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairmake-purchase-price-variance": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairmake-purchase-price-variance@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

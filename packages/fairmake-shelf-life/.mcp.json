@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairmake-shelf-life": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairmake-shelf-life@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

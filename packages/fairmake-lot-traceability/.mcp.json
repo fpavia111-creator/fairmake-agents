@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairmake-lot-traceability": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairmake-lot-traceability@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "fairmake-osha-300-log",
+  "version": "0.1.0",
+  "description": "Fairmake OSHA 300 Log: completeness of the injury and illness case log: missing fields, outcomes against day counts, day caps, privacy cases with names, open cases and late entries. Names masked; decides and files nothing.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairmake-agents/tree/main/packages/fairmake-osha-300-log#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "manufacturing",
+    "distribution",
+    "erp",
+    "fairmake",
+    "osha-300",
+    "injury-log",
+    "safety",
+    "ehs",
+    "recordkeeping"
+  ]
+}

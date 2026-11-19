@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairmake-capacity-load": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairmake-capacity-load@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

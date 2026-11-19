@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairmake-material-certs": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairmake-material-certs@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

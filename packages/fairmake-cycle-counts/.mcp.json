@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairmake-cycle-counts": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairmake-cycle-counts@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

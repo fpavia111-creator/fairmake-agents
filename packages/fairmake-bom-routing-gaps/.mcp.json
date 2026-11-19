@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairmake-bom-routing-gaps": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairmake-bom-routing-gaps@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

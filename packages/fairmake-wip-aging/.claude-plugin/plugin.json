@@ -1,0 +1,23 @@
+{
+  "name": "fairmake-wip-aging",
+  "version": "0.1.0",
+  "description": "Fairmake WIP Aging: open work orders aged by days since release, stale and past-due orders, and closed orders still holding WIP. Closes nothing.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairmake-agents/tree/main/packages/fairmake-wip-aging#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "manufacturing",
+    "distribution",
+    "erp",
+    "fairmake",
+    "wip",
+    "work-in-process",
+    "work-orders",
+    "aging",
+    "netsuite"
+  ]
+}

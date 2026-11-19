@@ -1,0 +1,23 @@
+{
+  "name": "fairmake-job-margins",
+  "version": "0.1.0",
+  "description": "Fairmake Job Margins: quoted against actual cost and invoiced amount per job, with losses, overruns, under-billing and margins by customer and estimator. Changes no price.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairmake-agents/tree/main/packages/fairmake-job-margins#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "manufacturing",
+    "distribution",
+    "erp",
+    "fairmake",
+    "job-costing",
+    "job-shop",
+    "quote",
+    "margin",
+    "jobboss"
+  ]
+}

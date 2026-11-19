@@ -1,0 +1,23 @@
+{
+  "name": "fairmake-purchase-price-variance",
+  "version": "0.1.0",
+  "description": "Fairmake Purchase Price Variance: receipt prices against standard cost, price jumps and unit-of-measure slips by supplier, with a price query draft. Changes no standard.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairmake-agents/tree/main/packages/fairmake-purchase-price-variance#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "manufacturing",
+    "distribution",
+    "erp",
+    "fairmake",
+    "ppv",
+    "purchase-price-variance",
+    "purchasing",
+    "standard-cost",
+    "sap-business-one"
+  ]
+}

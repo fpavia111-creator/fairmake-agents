@@ -1,0 +1,24 @@
+{
+  "name": "fairmake-edi-invoice-check",
+  "version": "0.1.0",
+  "description": "Fairmake EDI Invoice Check: your invoices to customers (EDI 810 or tables) against their purchase orders (850): price and quantity differences, items not ordered, unknown POs and duplicates. Transmits nothing.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairmake-agents/tree/main/packages/fairmake-edi-invoice-check#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "manufacturing",
+    "distribution",
+    "erp",
+    "fairmake",
+    "edi",
+    "810",
+    "850",
+    "invoice",
+    "deductions",
+    "x12"
+  ]
+}

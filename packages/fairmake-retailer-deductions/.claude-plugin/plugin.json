@@ -1,0 +1,23 @@
+{
+  "name": "fairmake-retailer-deductions",
+  "version": "0.1.0",
+  "description": "Fairmake Retailer Deductions: customer deductions and retailer chargebacks by reason, late-ASN fines and shortages checked against your records, dispute-by dates and dispute drafts. Writes nothing off.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairmake-agents/tree/main/packages/fairmake-retailer-deductions#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "manufacturing",
+    "distribution",
+    "erp",
+    "fairmake",
+    "deductions",
+    "chargebacks",
+    "retail-compliance",
+    "accounts-receivable",
+    "edi"
+  ]
+}

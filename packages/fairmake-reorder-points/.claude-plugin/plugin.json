@@ -1,0 +1,23 @@
+{
+  "name": "fairmake-reorder-points",
+  "version": "0.1.0",
+  "description": "Fairmake Reorder Points: stockouts, stock under safety stock, items at the reorder point, and reorder points that no longer fit usage and lead time. Places no order.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairmake-agents/tree/main/packages/fairmake-reorder-points#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "manufacturing",
+    "distribution",
+    "erp",
+    "fairmake",
+    "reorder-point",
+    "safety-stock",
+    "inventory-planning",
+    "purchasing",
+    "mrpeasy"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairmake-preventive-maintenance": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairmake-preventive-maintenance@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

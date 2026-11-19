@@ -1,0 +1,23 @@
+{
+  "name": "fairmake-calibration-due",
+  "version": "0.1.0",
+  "description": "Fairmake Calibration Due: gauges overdue or due soon, never calibrated, and work orders measured with a gauge that was overdue or had failed calibration, with a due-date calendar. Releases no hold.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairmake-agents/tree/main/packages/fairmake-calibration-due#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "manufacturing",
+    "distribution",
+    "erp",
+    "fairmake",
+    "calibration",
+    "gauges",
+    "quality",
+    "iso-9001",
+    "instruments"
+  ]
+}

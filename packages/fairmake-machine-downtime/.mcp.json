@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairmake-machine-downtime": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairmake-machine-downtime@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

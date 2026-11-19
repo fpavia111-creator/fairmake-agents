@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairmake-late-purchase-orders": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairmake-late-purchase-orders@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

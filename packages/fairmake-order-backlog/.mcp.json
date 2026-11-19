@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairmake-order-backlog": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairmake-order-backlog@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

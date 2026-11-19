@@ -1,0 +1,23 @@
+{
+  "name": "fairmake-capacity-load",
+  "version": "0.1.0",
+  "description": "Fairmake Capacity Load: open operation hours by work center and week against available hours, overloaded weeks, past-due load and work centers with no calendar. Reschedules nothing.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairmake-agents/tree/main/packages/fairmake-capacity-load#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "manufacturing",
+    "distribution",
+    "erp",
+    "fairmake",
+    "capacity",
+    "load",
+    "scheduling",
+    "work-center",
+    "infor"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "name": "fairmake-overhead-absorption",
+  "version": "0.1.0",
+  "description": "Fairmake Overhead Absorption: overhead applied to jobs (hours times rate) against overhead spent, by work center, with proposed rates. Posts nothing.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairmake-agents/tree/main/packages/fairmake-overhead-absorption#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "manufacturing",
+    "distribution",
+    "erp",
+    "fairmake",
+    "overhead",
+    "absorption",
+    "burden-rate",
+    "work-center",
+    "cost-accounting",
+    "jobboss"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "name": "fairmake-rebate-claims",
+  "version": "0.1.0",
+  "description": "Fairmake Rebate Claims: supplier rebate tiers reached and not claimed, claim-by dates passed, spend near the next tier and purchases above the agreed price, with a claim draft per agreement.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairmake-agents/tree/main/packages/fairmake-rebate-claims#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "manufacturing",
+    "distribution",
+    "erp",
+    "fairmake",
+    "rebates",
+    "price-agreements",
+    "purchasing",
+    "supplier-contracts",
+    "netsuite"
+  ]
+}

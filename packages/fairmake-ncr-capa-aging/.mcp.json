@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairmake-ncr-capa-aging": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairmake-ncr-capa-aging@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

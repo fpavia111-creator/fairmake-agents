@@ -1,0 +1,23 @@
+{
+  "name": "fairmake-cycle-counts",
+  "version": "0.1.0",
+  "description": "Fairmake Cycle Counts: counted against system quantity with tolerances by ABC class, repeat variances, lines not counted and accuracy by class, with an adjustment list for approval. Posts nothing.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairmake-agents/tree/main/packages/fairmake-cycle-counts#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "manufacturing",
+    "distribution",
+    "erp",
+    "fairmake",
+    "cycle-count",
+    "inventory",
+    "abc",
+    "inventory-accuracy",
+    "fishbowl"
+  ]
+}

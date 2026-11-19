@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairmake-edi-invoice-check": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairmake-edi-invoice-check@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

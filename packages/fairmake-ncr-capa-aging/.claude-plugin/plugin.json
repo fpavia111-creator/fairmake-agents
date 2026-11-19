@@ -1,0 +1,24 @@
+{
+  "name": "fairmake-ncr-capa-aging",
+  "version": "0.1.0",
+  "description": "Fairmake NCR CAPA Aging: open nonconformances past the limit, overdue or unverified corrective actions, missing dispositions and root causes, and repeat defects with no CAPA. Owners masked; closes nothing.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairmake-agents/tree/main/packages/fairmake-ncr-capa-aging#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "manufacturing",
+    "distribution",
+    "erp",
+    "fairmake",
+    "ncr",
+    "capa",
+    "nonconformance",
+    "corrective-action",
+    "quality",
+    "qms"
+  ]
+}

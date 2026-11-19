@@ -1,0 +1,23 @@
+{
+  "name": "fairmake-bom-cost-rollup",
+  "version": "0.1.0",
+  "description": "Fairmake BOM Cost Rollup: every assembly's cost rebuilt from its bill of materials and latest purchase prices, against its standard cost, with missing and stale prices and BOM loops. Loads nothing.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairmake-agents/tree/main/packages/fairmake-bom-cost-rollup#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "manufacturing",
+    "distribution",
+    "erp",
+    "fairmake",
+    "bom",
+    "bill-of-materials",
+    "cost-rollup",
+    "standard-cost",
+    "katana"
+  ]
+}

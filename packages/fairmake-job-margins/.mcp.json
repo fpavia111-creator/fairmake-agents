@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairmake-job-margins": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairmake-job-margins@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairmake-overhead-absorption": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairmake-overhead-absorption@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

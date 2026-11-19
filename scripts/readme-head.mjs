@@ -11,6 +11,8 @@ import { tmpdir } from 'node:os';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { AgentRuntime, FAIRMAKE_LIMITS } from '../packages/fairmake-core/src/index.js';
 
+const ACR = { wip: 'WIP', bom: 'BOM', ncr: 'NCR', capa: 'CAPA', osha: 'OSHA', hts: 'HTS', edi: 'EDI', asn: 'ASN' };
+export const titleOf = (n) => n.split('-').map((w) => ACR[w] || w[0].toUpperCase() + w.slice(1)).join(' ');
 const PK = join(dirname(fileURLToPath(import.meta.url)), '..', 'packages');
 const only = process.argv.slice(2).filter((a) => !a.startsWith('--'));
 const esc = (s) => String(s ?? '').replace(/\|/g, '\|').replace(/\n/g, ' ');
@@ -27,7 +29,7 @@ for (const n of readdirSync(PK).filter((x) => /^fairmake-(?!core$)/.test(x) && (
   const props = manifest.configSchemas.settings ? manifest.configSchemas.settings.properties : {};
   const pkg = JSON.parse(readFileSync(join(PK, n, 'package.json'), 'utf8'));
   const desc = pkg.description.replace(/^[^:]+:\s*/, '');
-  const L = [`# ${n}`, '', desc.charAt(0).toUpperCase() + desc.slice(1), '',
+  const L = [`# ${titleOf(n)}`, '', ``${n}` · MCP server and CLI · MIT`, '', desc.charAt(0).toUpperCase() + desc.slice(1), '',
     `Part of **Fairmake**, the back-office agents for small and mid-size manufacturers and distributors by Mythos Machines. The software is free (MIT); the paid part is a fixed-price setup on your own files. Every result is computed from your files with plain arithmetic, on your computer; no AI model is called by the tools.`, '',
     '## What it checks', '', manifest.tools[0].description, '',
     '| Finding | Example from the fictional demo data |', '|---|---|',
@@ -35,7 +37,7 @@ for (const n of readdirSync(PK).filter((x) => /^fairmake-(?!core$)/.test(x) && (
     'Each item gets the most serious level of its findings: **flag** (act on it), **review** (data is missing or unclear; a person looks), **watch** (worth knowing) or **ok**. Every finding names the numbers it was worked out from.', ''];
   if (Object.keys(props).length) {
     L.push('## Settings', '', `Put the ones you want to change in a JSON file and pass it as \`settings\`; anything left out uses the default. The result lists the settings it used under \`settings_used\`.`, '', '| Setting | Default | Meaning |', '|---|---|---|');
-    for (const [k, v] of Object.entries(props)) L.push(`| \`${k}\` | \`${esc(JSON.stringify(DEFAULTS ? DEFAULTS[k] : null))}\` | ${esc(v.description)} |`);
+    for (const [k, v] of Object.entries(props).filter(([k]) => k !== 'note')) L.push(`| \`${k}\` | \`${esc(JSON.stringify(DEFAULTS ? DEFAULTS[k] : null))}\` | ${esc(v.description)} |`);
     L.push('');
   }
   L.push('## Limits', '', `- ${FAIRMAKE_LIMITS.files}`, `- ${FAIRMAKE_LIMITS.settings}`, `- ${FAIRMAKE_LIMITS.advice}`, ...(personal ? [`- ${FAIRMAKE_LIMITS.masking}`] : []), '- Column names for the named exports were written from knowledge of those systems and not checked against a live account; `inspect` shows how a file was read and `fairmake-sources.json` names columns by hand.', '- The bundled fixtures are fictional. Version 0.1.0; nothing has been published yet.', '');

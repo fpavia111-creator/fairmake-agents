@@ -1,0 +1,23 @@
+{
+  "name": "fairmake-late-purchase-orders",
+  "version": "0.1.0",
+  "description": "Fairmake Late Purchase Orders: open PO lines past due, unconfirmed, promised after the production need date or over-received, by supplier, with delivery status requests. Changes no PO.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairmake-agents/tree/main/packages/fairmake-late-purchase-orders#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "manufacturing",
+    "distribution",
+    "erp",
+    "fairmake",
+    "purchase-orders",
+    "expediting",
+    "supplier-delivery",
+    "purchasing",
+    "sap-business-one"
+  ]
+}

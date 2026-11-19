@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairmake-calibration-due": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairmake-calibration-due@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

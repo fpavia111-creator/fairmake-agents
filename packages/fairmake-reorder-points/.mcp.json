@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairmake-reorder-points": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairmake-reorder-points@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

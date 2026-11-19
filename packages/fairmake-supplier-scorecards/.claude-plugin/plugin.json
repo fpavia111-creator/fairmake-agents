@@ -1,0 +1,23 @@
+{
+  "name": "fairmake-supplier-scorecards",
+  "version": "0.1.0",
+  "description": "Fairmake Supplier Scorecards: on-time delivery, rejects in ppm and price against PO per supplier, weighted and ranked, with a scorecard draft per supplier. Disqualifies nobody.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairmake-agents/tree/main/packages/fairmake-supplier-scorecards#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "manufacturing",
+    "distribution",
+    "erp",
+    "fairmake",
+    "supplier-scorecard",
+    "vendor-performance",
+    "on-time-delivery",
+    "ppm",
+    "acumatica"
+  ]
+}

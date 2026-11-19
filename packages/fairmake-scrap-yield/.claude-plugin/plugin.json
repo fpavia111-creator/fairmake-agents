@@ -1,0 +1,23 @@
+{
+  "name": "fairmake-scrap-yield",
+  "version": "0.1.0",
+  "description": "Fairmake Scrap Yield: scrap rates against standard by work order with the cost of the excess, missing reasons and counts that do not add up, by work center and reason. Posts no scrap.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairmake-agents/tree/main/packages/fairmake-scrap-yield#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "manufacturing",
+    "distribution",
+    "erp",
+    "fairmake",
+    "scrap",
+    "yield",
+    "quality",
+    "mes",
+    "production"
+  ]
+}

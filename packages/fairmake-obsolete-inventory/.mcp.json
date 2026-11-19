@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairmake-obsolete-inventory": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairmake-obsolete-inventory@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

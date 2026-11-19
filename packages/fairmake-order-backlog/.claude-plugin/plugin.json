@@ -1,0 +1,23 @@
+{
+  "name": "fairmake-order-backlog",
+  "version": "0.1.0",
+  "description": "Fairmake Order Backlog: open customer order lines past due, due soon, never promised, promised after the requested date or on hold, by promise month and customer, with status update drafts. Changes no date.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairmake-agents/tree/main/packages/fairmake-order-backlog#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "manufacturing",
+    "distribution",
+    "erp",
+    "fairmake",
+    "order-backlog",
+    "promise-date",
+    "sales-orders",
+    "customer-service",
+    "netsuite"
+  ]
+}

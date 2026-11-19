@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairmake-retailer-deductions": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairmake-retailer-deductions@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

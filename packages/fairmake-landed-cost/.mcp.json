@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairmake-landed-cost": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairmake-landed-cost@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

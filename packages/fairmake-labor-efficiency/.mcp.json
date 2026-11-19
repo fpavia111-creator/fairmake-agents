@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairmake-labor-efficiency": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairmake-labor-efficiency@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

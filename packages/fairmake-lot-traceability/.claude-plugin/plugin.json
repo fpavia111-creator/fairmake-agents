@@ -1,0 +1,24 @@
+{
+  "name": "fairmake-lot-traceability",
+  "version": "0.1.0",
+  "description": "Fairmake Lot Traceability: breaks in the chain from received lots through production to shipments: missing lots, lots never received or used before receipt, unknown shipped lots and serials shipped twice.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairmake-agents/tree/main/packages/fairmake-lot-traceability#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "manufacturing",
+    "distribution",
+    "erp",
+    "fairmake",
+    "traceability",
+    "lot-control",
+    "serial-numbers",
+    "genealogy",
+    "recall-readiness",
+    "netsuite"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairmake-wip-aging": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairmake-wip-aging@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

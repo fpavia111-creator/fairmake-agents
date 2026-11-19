@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairmake-hts-codes": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairmake-hts-codes@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

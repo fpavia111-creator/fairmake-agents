@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairmake-supplier-scorecards": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairmake-supplier-scorecards@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairmake-osha-300-log": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairmake-osha-300-log@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

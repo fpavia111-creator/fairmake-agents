@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairmake-scrap-yield": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairmake-scrap-yield@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

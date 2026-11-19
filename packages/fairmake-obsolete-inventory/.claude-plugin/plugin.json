@@ -1,0 +1,23 @@
+{
+  "name": "fairmake-obsolete-inventory",
+  "version": "0.1.0",
+  "description": "Fairmake Obsolete Inventory: stock sorted into obsolete, slow-moving, excess and active by months since it moved and months of supply, inactive items with stock, and a reserve proposal. Scraps nothing.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairmake-agents/tree/main/packages/fairmake-obsolete-inventory#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "manufacturing",
+    "distribution",
+    "erp",
+    "fairmake",
+    "obsolete-inventory",
+    "slow-moving",
+    "excess-inventory",
+    "inventory-reserve",
+    "quickbooks-enterprise"
+  ]
+}

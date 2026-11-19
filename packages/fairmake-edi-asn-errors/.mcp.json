@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairmake-edi-asn-errors": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairmake-edi-asn-errors@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

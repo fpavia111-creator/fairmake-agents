@@ -1,0 +1,24 @@
+{
+  "name": "fairmake-cost-variance",
+  "version": "0.1.0",
+  "description": "Fairmake Cost Variance: standard against actual cost by work order (material, labor, overhead), with a variance review draft for the production manager. Posts nothing.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairmake-agents/tree/main/packages/fairmake-cost-variance#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "manufacturing",
+    "distribution",
+    "erp",
+    "fairmake",
+    "cost-variance",
+    "job-costing",
+    "standard-cost",
+    "work-orders",
+    "epicor",
+    "jobboss"
+  ]
+}

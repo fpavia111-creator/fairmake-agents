@@ -1,0 +1,24 @@
+{
+  "name": "fairmake-material-certs",
+  "version": "0.1.0",
+  "description": "Fairmake Material Certs: mill test reports and certificates of conformance on receipts against your purchase specs: missing, wrong lot or heat, out of spec or incomplete. Releases no hold.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairmake-agents/tree/main/packages/fairmake-material-certs#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "manufacturing",
+    "distribution",
+    "erp",
+    "fairmake",
+    "material-certs",
+    "mill-test-report",
+    "certificate-of-conformance",
+    "receiving-inspection",
+    "quality",
+    "epicor"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fairmake-bom-cost-rollup": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "fairmake-bom-cost-rollup@0.1.0",
+        "mcp"
+      ]
+    }
+  }
+}

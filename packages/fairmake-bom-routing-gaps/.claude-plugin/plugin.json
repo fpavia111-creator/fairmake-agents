@@ -1,0 +1,23 @@
+{
+  "name": "fairmake-bom-routing-gaps",
+  "version": "0.1.0",
+  "description": "Fairmake BOM Routing Gaps: made items with no BOM or routing, inactive or unknown components, zero quantities, routing steps with no work center or time, and BOM loops. Edits nothing.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairmake-agents/tree/main/packages/fairmake-bom-routing-gaps#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "manufacturing",
+    "distribution",
+    "erp",
+    "fairmake",
+    "bom",
+    "routing",
+    "item-master",
+    "engineering",
+    "mrpeasy"
+  ]
+}

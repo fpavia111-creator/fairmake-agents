@@ -1,0 +1,24 @@
+{
+  "name": "fairmake-hts-codes",
+  "version": "0.1.0",
+  "description": "Fairmake HTS Codes: tariff codes and countries of origin checked for gaps, format and consistency with your own code list and with customs entry lines. No classification advice; files nothing.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairmake-agents/tree/main/packages/fairmake-hts-codes#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "manufacturing",
+    "distribution",
+    "erp",
+    "fairmake",
+    "hts",
+    "tariff",
+    "customs",
+    "country-of-origin",
+    "trade-compliance",
+    "acumatica"
+  ]
+}

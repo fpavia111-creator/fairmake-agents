@@ -1,0 +1,23 @@
+{
+  "name": "fairmake-labor-efficiency",
+  "version": "0.1.0",
+  "description": "Fairmake Labor Efficiency: standard hours earned against direct hours clocked by work center, indirect time, and hours or completions with nothing on the other side. By work center, names masked.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairmake-agents/tree/main/packages/fairmake-labor-efficiency#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "manufacturing",
+    "distribution",
+    "erp",
+    "fairmake",
+    "labor",
+    "efficiency",
+    "work-center",
+    "standard-hours",
+    "jobboss"
+  ]
+}

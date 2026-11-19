@@ -1,0 +1,23 @@
+{
+  "name": "fairmake-shelf-life",
+  "version": "0.1.0",
+  "description": "Fairmake Shelf Life: expired lots on hand, lots expiring soon or with no expiry, and shipments that went out expired, short-dated or out of first-expired-first-out order, with an expiry calendar.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairmake-agents/tree/main/packages/fairmake-shelf-life#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "manufacturing",
+    "distribution",
+    "erp",
+    "fairmake",
+    "shelf-life",
+    "expiry",
+    "lot-control",
+    "fefo",
+    "fishbowl"
+  ]
+}

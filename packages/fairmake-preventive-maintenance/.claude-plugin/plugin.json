@@ -1,0 +1,23 @@
+{
+  "name": "fairmake-preventive-maintenance",
+  "version": "0.1.0",
+  "description": "Fairmake Preventive Maintenance: PM tasks overdue by date or run hours, due soon, never done or with no interval, with a due-date calendar. Opens nothing in the CMMS.",
+  "author": {
+    "name": "Kurt Francisco"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/fpavia111-creator/fairmake-agents/tree/main/packages/fairmake-preventive-maintenance#readme",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "manufacturing",
+    "distribution",
+    "erp",
+    "fairmake",
+    "preventive-maintenance",
+    "pm",
+    "cmms",
+    "maintenance",
+    "assets"
+  ]
+}
