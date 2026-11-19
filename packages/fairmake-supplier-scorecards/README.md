@@ -14,7 +14,7 @@ Per supplier: on-time % (received by the due date plus grace), rejects in ppm, p
 |---|---|
 | `few_receipts` | Sample Steel Supply has 2 receipt(s); the score rests on little data. |
 | `high_ppm` | Demo Castings LLC: 3 rejected of 120 received (25000 ppm, target 5000). |
-| `low_on_time` | Northwind Metals delivered 2 of 3 receipts on time (66.7%, target 95%). |
+| `low_on_time` | North Example Metals delivered 2 of 3 receipts on time (66.7%, target 95%). |
 | `price_over_po` | Fastener Example Co invoiced 60 above PO prices (2.4%). |
 
 Each item gets the most serious level of its findings: **flag** (act on it), **review** (data is missing or unclear; a person looks), **watch** (worth knowing) or **ok**. Every finding names the numbers it was worked out from.
@@ -58,7 +58,7 @@ Fairmake Supplier Scorecards demo: fourteen fictional receipt lines from five su
     review       Sample Steel Supply             few_receipts
     watch        Fastener Example Co             price_over_po
     flag         Demo Castings LLC               high_ppm
-    flag         Northwind Metals                low_on_time
+    flag         North Example Metals            low_on_time
 
 ▶ Explain Demo Castings LLC
   status: executed  decision: allow

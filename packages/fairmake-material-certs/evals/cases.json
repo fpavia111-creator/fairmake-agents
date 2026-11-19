@@ -113,7 +113,7 @@
         "receipts": "fixtures/receipts.csv",
         "specs": "fixtures/specs.json",
         "certs": "fixtures/certs.csv",
-        "supplier": "northwind metals",
+        "supplier": "north example metals",
         "from": "Quinn Quality (fictional)"
       },
       "approve": "Pat Example",
@@ -123,7 +123,7 @@
           "result.open_markers": 1
         },
         "contains": [
-          "cert request Northwind Metals drafted"
+          "cert request North Example Metals drafted"
         ]
       }
     },
@@ -255,7 +255,7 @@
         "receipts": "fixtures/receipts.csv",
         "specs": "fixtures/specs.json",
         "certs": "fixtures/certs.csv",
-        "supplier": "northwind metals",
+        "supplier": "north example metals",
         "from": "Quinn Quality (fictional)"
       },
       "expect": {
@@ -272,7 +272,7 @@
         "receipts": "fixtures/receipts.csv",
         "specs": "fixtures/specs.json",
         "certs": "fixtures/certs.csv",
-        "supplier": "northwind metals",
+        "supplier": "north example metals",
         "from": "Quinn Quality (fictional)"
       },
       "expect": {

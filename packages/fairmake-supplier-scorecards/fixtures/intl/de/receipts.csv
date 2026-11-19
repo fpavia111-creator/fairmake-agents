@@ -1,7 +1,7 @@
 Wareneingang;Lieferant;Artikel;Fälligkeitsdatum;Eingangsdatum;Gelieferte Menge;Rückweisungsmenge;Einzelpreis;po_price
-R1;Northwind Metals;BAR-4140;10.10.2026;09.10.2026;1.000;0;4,80;4,80
-R2;Northwind Metals;BAR-4140;20.10.2026;20.10.2026;1.000;0;4,80;4,80
-R3;Northwind Metals;BAR-4140;01.11.2026;03.11.2026;1.000;0;4,90;4,80
+R1;North Example Metals;BAR-4140;10.10.2026;09.10.2026;1.000;0;4,80;4,80
+R2;North Example Metals;BAR-4140;20.10.2026;20.10.2026;1.000;0;4,80;4,80
+R3;North Example Metals;BAR-4140;01.11.2026;03.11.2026;1.000;0;4,90;4,80
 R4;Demo Castings LLC;CAS-310;05.10.2026;05.10.2026;40;2;99,00;99,00
 R5;Demo Castings LLC;CAS-310;25.10.2026;24.10.2026;40;1;99,00;99,00
 R6;Demo Castings LLC;CAS-310;10.11.2026;10.11.2026;40;0;99,00;99,00

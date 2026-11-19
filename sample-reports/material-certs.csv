@@ -1,7 +1,7 @@
 receipt,item,lot,supplier,receipt_date,cert_id,status,findings,reasons,decision
-RC-2001,BAR-4140,H-1001,Northwind Metals,2026-11-02,MTR-1001,ok,,,
-RC-2002,BAR-4140,H-1002,Northwind Metals,2026-11-05,MTR-1002,flag,out_of_spec,Certificate MTR-1002 reports tensile_ksi 92; your spec is min 95.,
-RC-2003,BAR-4140,H-1003,Northwind Metals,2026-11-08,,flag,cert_missing,Receipt RC-2003 of BAR-4140 lot H-1003 from Northwind Metals has no certificate; your spec requires one.,
+RC-2001,BAR-4140,H-1001,North Example Metals,2026-11-02,MTR-1001,ok,,,
+RC-2002,BAR-4140,H-1002,North Example Metals,2026-11-05,MTR-1002,flag,out_of_spec,Certificate MTR-1002 reports tensile_ksi 92; your spec is min 95.,
+RC-2003,BAR-4140,H-1003,North Example Metals,2026-11-08,,flag,cert_missing,Receipt RC-2003 of BAR-4140 lot H-1003 from North Example Metals has no certificate; your spec requires one.,
 RC-2004,PLT-A36,P-77,Sample Steel Supply,2026-11-04,MTR-2001,flag,cert_lot_mismatch,Certificate MTR-2001 is for lot P-76; receipt RC-2004 is lot P-77.,
 RC-2005,PLT-A36,P-78,Sample Steel Supply,2026-11-06,MTR-2002,review,property_missing,Certificate MTR-2002 does not report yield_ksi.,
 RC-2006,CAS-310,C-5,Demo Castings LLC,2026-11-07,COC-9,review,cert_not_found,"Receipt RC-2006 names certificate COC-9, which is not in the certificates file.",

@@ -26,7 +26,7 @@ th{font-weight:600}td.num,th.num{text-align:right;font-variant-numeric:tabular-n
 <h2>By supplier</h2><div class="wrap"><table><thead><tr><th scope="col">supplier</th><th scope="col">receipts</th><th scope="col">goods value</th><th scope="col">billed</th><th scope="col">landed pct</th></tr></thead><tbody>
 <tr><td>Demo Castings LLC</td><td>1</td><td>5000</td><td>0</td><td>0</td></tr>
 <tr><td>Fastener Example Co</td><td>2</td><td>4000</td><td>320</td><td>8</td></tr>
-<tr><td>Northwind Metals</td><td>3</td><td>22000</td><td>880</td><td>4</td></tr>
+<tr><td>North Example Metals</td><td>3</td><td>22000</td><td>880</td><td>4</td></tr>
 <tr><td>Overseas Example Ltd</td><td>1</td><td>20000</td><td>2250</td><td>11.3</td></tr>
 <tr><td>Sample Steel Supply</td><td>1</td><td>6000</td><td>0</td><td>0</td></tr>
 </tbody></table></div>
@@ -41,14 +41,14 @@ th{font-weight:600}td.num,th.num{text-align:right;font-variant-numeric:tabular-n
 <div class="wrap"><table><thead><tr><th scope="col">reference</th><th scope="col">kind</th><th scope="col">supplier</th><th scope="col">goods value</th><th scope="col">billed</th><th scope="col">allocated</th><th scope="col">landed pct</th><th scope="col">status</th><th scope="col">reasons</th></tr></thead><tbody>
 <tr><td>FB-7</td><td>charge</td><td>Ridgeline Freight Example</td><td></td><td>180</td><td></td><td></td><td>review</td><td>Freight FB-7 from Ridgeline Freight Example for 180 names receipt RCV-799, which is not in the receipts file. Match it before it lands in a variance account.</td></tr>
 <tr><td>FB-8</td><td>charge</td><td>Parcel Example Express</td><td></td><td>95</td><td></td><td></td><td>review</td><td>Freight FB-8 from Parcel Example Express for 95 names no receipt. Match it before it lands in a variance account.</td></tr>
-<tr><td>RCV-701</td><td>receipt</td><td>Northwind Metals</td><td>10000</td><td>400</td><td>0</td><td>4</td><td>flag</td><td>Receipt RCV-701: 400 of freight, duty and brokerage billed, 0 allocated into item cost. 400 is sitting outside inventory.</td></tr>
-<tr><td>RCV-702</td><td>receipt</td><td>Northwind Metals</td><td>8000</td><td>320</td><td>320</td><td>4</td><td>ok</td><td></td></tr>
+<tr><td>RCV-701</td><td>receipt</td><td>North Example Metals</td><td>10000</td><td>400</td><td>0</td><td>4</td><td>flag</td><td>Receipt RCV-701: 400 of freight, duty and brokerage billed, 0 allocated into item cost. 400 is sitting outside inventory.</td></tr>
+<tr><td>RCV-702</td><td>receipt</td><td>North Example Metals</td><td>8000</td><td>320</td><td>320</td><td>4</td><td>ok</td><td></td></tr>
 <tr><td>RCV-703</td><td>receipt</td><td>Overseas Example Ltd</td><td>20000</td><td>2250</td><td>1500</td><td>11.3</td><td>flag</td><td>Receipt RCV-703: 2250 of freight, duty and brokerage billed, 1500 allocated into item cost. 750 is sitting outside inventory. Landed cost is 11.3% of goods value on receipt RCV-703, against a median of 4%.</td></tr>
 <tr><td>RCV-704</td><td>receipt</td><td>Demo Castings LLC</td><td>5000</td><td>0</td><td>0</td><td>0</td><td>review</td><td>Demo Castings LLC ships freight collect and receipt RCV-704 has no freight bill yet. Accrue it or chase the carrier.</td></tr>
 <tr><td>RCV-705</td><td>receipt</td><td>Sample Steel Supply</td><td>6000</td><td>0</td><td>400</td><td>0</td><td>review</td><td>Receipt RCV-705: 400 allocated into item cost against 0 billed. Check for an estimate that was never trued up.</td></tr>
 <tr><td>RCV-706</td><td>receipt</td><td>Fastener Example Co</td><td>3000</td><td>60</td><td>60</td><td>2</td><td>ok</td><td></td></tr>
 <tr><td>RCV-707</td><td>receipt</td><td>Fastener Example Co</td><td>1000</td><td>260</td><td>0</td><td>26</td><td>flag</td><td>Receipt RCV-707: 260 of freight, duty and brokerage billed, 0 allocated into item cost. 260 is sitting outside inventory. Landed cost is 26% of goods value on receipt RCV-707, against a median of 4%.</td></tr>
-<tr><td>RCV-708</td><td>receipt</td><td>Northwind Metals</td><td>4000</td><td>160</td><td>160</td><td>4</td><td>ok</td><td></td></tr>
+<tr><td>RCV-708</td><td>receipt</td><td>North Example Metals</td><td>4000</td><td>160</td><td>160</td><td>4</td><td>ok</td><td></td></tr>
 </tbody></table></div>
 <h2>Limits</h2><ul><li>Bills are matched to receipts by the receipt reference on the bill. Goods invoice matching (PO, receipt, invoice) is a different job and is not done here.</li><li>Reads only the files you give it. It does not log in to an ERP, MES, CMMS, QMS, EDI network, bank, supplier or customer portal, and changes nothing in them.</li><li>Not legal, tax, customs, safety or accounting advice. A person decides what to change, post, send or pay.</li></ul>
 <p class="mut" style="margin-top:32px">Written by a Fairmake agent from your files. Nothing was sent or paid.</p>

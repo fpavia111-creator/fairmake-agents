@@ -69,7 +69,7 @@ Fairmake Rebate Claims demo: four fictional supplier agreements and a year of pu
 
 ▶ Write the draft (Auto is opted in for drafts)
   status: executed  decision: allow  (auto)
-  rebate claim NWM-2026 drafted for 1400 with 2 open marker(s) ([TO CONFIRM Northwind Metals rebate or account contact], [ATTACH purchase line detail]). Nothing was sent.
+  rebate claim NWM-2026 drafted for 1400 with 2 open marker(s) ([TO CONFIRM North Example Metals rebate or account contact], [ATTACH purchase line detail]). Nothing was sent.
 
 ▶ Auto: approving the draft stays one named click
   status: needs_approval  decision: ask

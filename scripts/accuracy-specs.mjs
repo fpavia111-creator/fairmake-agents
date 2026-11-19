@@ -373,7 +373,7 @@ export const SPECS = {
   },
 
   'fairmake-supplier-scorecards': {
-    planted: { 'Sample Steel Supply': ['few_receipts'], 'Fastener Example Co': ['price_over_po'], 'Demo Castings LLC': ['high_ppm'], 'Northwind Metals': ['low_on_time'] },
+    planted: { 'Sample Steel Supply': ['few_receipts'], 'Fastener Example Co': ['price_over_po'], 'Demo Castings LLC': ['high_ppm'], 'North Example Metals': ['low_on_time'] },
     clean: [
       ['set', 'receipts.csv', { receipt: 'R3' }, { receipt_date: '2026-11-01' }],
       ['set', 'receipts.csv', { receipt: 'R4' }, { qty_rejected: '0' }],

@@ -98,7 +98,7 @@
       "args": {
         "po_lines": "fixtures/po-lines.csv",
         "as_of": "2026-11-18",
-        "supplier": "northwind metals",
+        "supplier": "north example metals",
         "from": "Robin Buyer (fictional)"
       },
       "approve": "Pat Example",
@@ -109,7 +109,7 @@
           "result.open_markers": 1
         },
         "contains": [
-          "expedite request Northwind Metals drafted for 9650"
+          "expedite request North Example Metals drafted for 9650"
         ]
       }
     },
@@ -260,7 +260,7 @@
       "args": {
         "po_lines": "fixtures/po-lines.csv",
         "as_of": "2026-11-18",
-        "supplier": "northwind metals",
+        "supplier": "north example metals",
         "from": "Robin Buyer (fictional)"
       },
       "expect": {
@@ -276,7 +276,7 @@
       "args": {
         "po_lines": "fixtures/po-lines.csv",
         "as_of": "2026-11-18",
-        "supplier": "northwind metals",
+        "supplier": "north example metals",
         "from": "Robin Buyer (fictional)"
       },
       "expect": {

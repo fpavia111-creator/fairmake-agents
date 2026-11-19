@@ -96,7 +96,7 @@
       "tool": "ppv_draft_price_query",
       "args": {
         "receipts": "fixtures/receipts.csv",
-        "supplier": "northwind metals",
+        "supplier": "north example metals",
         "from": "Robin Buyer (fictional)"
       },
       "approve": "Pat Example",
@@ -107,7 +107,7 @@
           "result.open_markers": 1
         },
         "contains": [
-          "price query Northwind Metals drafted for 427.5"
+          "price query North Example Metals drafted for 427.5"
         ]
       }
     },
@@ -249,7 +249,7 @@
       "tool": "ppv_draft_price_query",
       "args": {
         "receipts": "fixtures/receipts.csv",
-        "supplier": "northwind metals",
+        "supplier": "north example metals",
         "from": "Robin Buyer (fictional)"
       },
       "expect": {
@@ -264,7 +264,7 @@
       "mode": "review",
       "args": {
         "receipts": "fixtures/receipts.csv",
-        "supplier": "northwind metals",
+        "supplier": "north example metals",
         "from": "Robin Buyer (fictional)"
       },
       "expect": {

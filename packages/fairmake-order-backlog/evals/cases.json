@@ -124,7 +124,7 @@
       "args": {
         "orders": "fixtures/orders.csv",
         "as_of": "2026-11-18",
-        "customer": "Northwind Tools"
+        "customer": "North Example Tools"
       },
       "approve": "Pat Example",
       "expect": {

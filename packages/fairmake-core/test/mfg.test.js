@@ -12,7 +12,7 @@ import {
 test('item and party keys: case and spacing fold, dashes and legal forms behave', () => {
   assert.equal(itemKey(' brk-100 '), 'BRK-100'); assert.notEqual(itemKey('AB-100'), itemKey('AB100')); assert.equal(itemKey('ｂｒｋ　１'), 'BRK 1');
   assert.ok(sameParty('Acme Castings, Inc.', 'ACME CASTINGS')); assert.ok(!sameParty('Acme Castings', 'Acme Forgings'));
-  assert.equal(partyKey('V1001'), 'v1001'); assert.ok(partyIs('Northwind Metals LLC')('northwind metals'));
+  assert.equal(partyKey('V1001'), 'v1001'); assert.ok(partyIs('North Example Metals LLC')('north example metals'));
 });
 
 test('numbers and dates: percentages, buckets, weeks and months', () => {

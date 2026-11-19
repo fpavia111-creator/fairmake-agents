@@ -49,5 +49,5 @@ export const DEMO = {
   intro: 'Fairmake Late Purchase Orders demo: ten fictional open PO lines from four suppliers, as of 2026-11-18.',
   files: { po_lines: 'po-lines.csv', settings: 'settings.json', as_of: '2026-11-18' },
   explain: { po_line: 'PO-601-1' },
-  draft: { supplier: 'Northwind Metals', from: 'Robin Buyer (fictional)' },
+  draft: { supplier: 'North Example Metals', from: 'Robin Buyer (fictional)' },
 };

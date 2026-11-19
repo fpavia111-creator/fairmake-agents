@@ -15,7 +15,7 @@ Measure every receipt line against standard cost. Flags lines over both the perc
 | `no_standard` | GSK-220 has no standard cost, so receipt RC-1008-1 at 1.25 cannot be measured. |
 | `ppv_favorable` | PLT-A36 received at 52, 14.8% under standard 61 (360 on 40). Check the standard is still right. |
 | `ppv_unfavorable` | BAR-4140 received at 4.75 against standard 4 (18.8% over) on 250: 187.5. |
-| `price_jump` | Northwind Metals charged 4.75 for BAR-4140, up 15.9% from 4.1 on receipt RC-1001-1. |
+| `price_jump` | North Example Metals charged 4.75 for BAR-4140, up 15.9% from 4.1 on receipt RC-1001-1. |
 | `uom_suspect` | Price 6 is 120 times the standard 0.05: likely a unit-of-measure slip (each against box or pound against foot). Fix the unit before reading a variance. |
 
 Each item gets the most serious level of its findings: **flag** (act on it), **review** (data is missing or unclear; a person looks), **watch** (worth knowing) or **ok**. Every finding names the numbers it was worked out from.
@@ -73,7 +73,7 @@ Fairmake Purchase Price Variance demo: twelve fictional receipt lines from four 
 
 ▶ Write the draft (Auto is opted in for drafts)
   status: executed  decision: allow  (auto)
-  price query Northwind Metals drafted for 427.5 with 1 open marker(s) ([TO CONFIRM Northwind Metals sales or account contact]). Nothing was sent.
+  price query North Example Metals drafted for 427.5 with 1 open marker(s) ([TO CONFIRM North Example Metals sales or account contact]). Nothing was sent.
 
 ▶ Auto: approving the draft stays one named click
   status: needs_approval  decision: ask
@@ -81,7 +81,7 @@ Fairmake Purchase Price Variance demo: twelve fictional receipt lines from four 
 
 ▶ Same call after the named click (recorded; a person acts on it)
   status: executed  decision: ask  approved by: Pat Planner (fictional)
-  price query Northwind-Metals approved and recorded. Nothing was sent or paid by the agent.
+  price query North-Example-Metals approved and recorded. Nothing was sent or paid by the agent.
 
 ▶ The agent tries erp_update_standard_cost itself
   status: blocked  decision: block

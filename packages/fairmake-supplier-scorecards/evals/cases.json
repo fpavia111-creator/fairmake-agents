@@ -19,7 +19,7 @@
           "result.watch": 1,
           "result.ok": 1,
           "result.items.0.supplier": "Demo Seals Inc",
-          "result.items.4.supplier": "Northwind Metals"
+          "result.items.4.supplier": "North Example Metals"
         }
       }
     },
@@ -161,7 +161,7 @@
           "result.watch": 1,
           "result.ok": 1,
           "result.items.0.supplier": "Demo Seals Inc",
-          "result.items.4.supplier": "Northwind Metals"
+          "result.items.4.supplier": "North Example Metals"
         }
       },
       "generated": true
@@ -308,7 +308,7 @@
           "result.watch": 1,
           "result.ok": 1,
           "result.items.0.supplier": "Demo Seals Inc",
-          "result.items.4.supplier": "Northwind Metals"
+          "result.items.4.supplier": "North Example Metals"
         }
       },
       "note": "German export of the same data (fixtures/intl/de); must match the English case \"check-totals\"."
@@ -329,7 +329,7 @@
           "result.watch": 1,
           "result.ok": 1,
           "result.items.0.supplier": "Demo Seals Inc",
-          "result.items.4.supplier": "Northwind Metals"
+          "result.items.4.supplier": "North Example Metals"
         }
       },
       "note": "Japanese export of the same data (fixtures/intl/ja); must match the English case \"check-totals\"."

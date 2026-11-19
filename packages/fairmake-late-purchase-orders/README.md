@@ -72,7 +72,7 @@ Fairmake Late Purchase Orders demo: ten fictional open PO lines from four suppli
 
 ▶ Write the draft (Auto is opted in for drafts)
   status: executed  decision: allow  (auto)
-  expedite request Northwind Metals drafted for 9650 with 1 open marker(s) ([TO CONFIRM Northwind Metals order desk or account contact]). Nothing was sent.
+  expedite request North Example Metals drafted for 9650 with 1 open marker(s) ([TO CONFIRM North Example Metals order desk or account contact]). Nothing was sent.
 
 ▶ Auto: approving the draft stays one named click
   status: needs_approval  decision: ask
@@ -80,7 +80,7 @@ Fairmake Late Purchase Orders demo: ten fictional open PO lines from four suppli
 
 ▶ Same call after the named click (recorded; a person acts on it)
   status: executed  decision: ask  approved by: Pat Planner (fictional)
-  expedite request Northwind-Metals approved and recorded. Nothing was sent or paid by the agent.
+  expedite request North-Example-Metals approved and recorded. Nothing was sent or paid by the agent.
 
 ▶ The agent tries supplier_portal_update itself
   status: blocked  decision: block

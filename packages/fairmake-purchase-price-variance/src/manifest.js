@@ -46,5 +46,5 @@ export const DEMO = {
   intro: 'Fairmake Purchase Price Variance demo: twelve fictional receipt lines from four fictional suppliers.',
   files: { receipts: 'receipts.csv', settings: 'settings.json' },
   explain: { receipt: 'RC-1003-1' },
-  draft: { supplier: 'Northwind Metals', from: 'Robin Buyer (fictional)' },
+  draft: { supplier: 'North Example Metals', from: 'Robin Buyer (fictional)' },
 };

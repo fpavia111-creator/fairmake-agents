@@ -3,7 +3,7 @@ NCR-101,2026-09-01,2026-09-20,HSG-300,Demo Castings LLC,POROSITY,Scrap,,Closed,R
 NCR-102,2026-09-20,2026-10-05,HSG-300,Demo Castings LLC,POROSITY,Scrap,,Closed,Riley Quality
 NCR-103,2026-10-15,2026-10-30,HSG-300,Demo Castings LLC,POROSITY,Rework,CAPA-22,Closed,Jamie Inspector
 NCR-104,2026-11-01,,BRK-100,,BURR,Rework,CAPA-21,Open,Jamie Inspector
-NCR-105,2026-11-10,,BRK-200,Northwind Metals,CRACK,Rework,CAPA-21,Open,Morgan Engineer
+NCR-105,2026-11-10,,BRK-200,North Example Metals,CRACK,Rework,CAPA-21,Open,Morgan Engineer
 NCR-106,2026-08-01,2026-08-20,SHF-400,,DIM,Use as is,CAPA-20,Closed,Morgan Engineer
 NCR-107,2026-10-01,2026-10-10,GEAR-6,,TOOTH,Scrap,,Closed,Riley Quality
 NCR-108,2026-11-15,,PLT-500,Sample Steel Supply,SCALE,,,Open,Jamie Inspector

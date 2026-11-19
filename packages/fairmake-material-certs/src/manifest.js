@@ -50,5 +50,5 @@ export const DEMO = {
   intro: 'Fairmake Material Certs demo: eight fictional receipt lines from four fictional suppliers.',
   files: { receipts: 'receipts.csv', specs: 'specs.json', certs: 'certs.csv' },
   explain: { receipt: 'RC-2002' },
-  draft: { supplier: 'Northwind Metals', from: 'Quinn Quality (fictional)' },
+  draft: { supplier: 'North Example Metals', from: 'Quinn Quality (fictional)' },
 };

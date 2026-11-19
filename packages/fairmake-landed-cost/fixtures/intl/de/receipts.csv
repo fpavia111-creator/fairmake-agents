@@ -1,9 +1,9 @@
 Wareneingang;Lieferant;Eingangsdatum;Warenwert;landed_allocated
-RCV-701;Northwind Metals;02.11.2026;10.000,00;0,00
-RCV-702;Northwind Metals;03.11.2026;8.000,00;320,00
+RCV-701;North Example Metals;02.11.2026;10.000,00;0,00
+RCV-702;North Example Metals;03.11.2026;8.000,00;320,00
 RCV-703;Overseas Example Ltd;04.11.2026;20.000,00;1.500,00
 RCV-704;Demo Castings LLC;05.11.2026;5.000,00;0,00
 RCV-705;Sample Steel Supply;06.11.2026;6.000,00;400,00
 RCV-706;Fastener Example Co;07.11.2026;3.000,00;60,00
 RCV-707;Fastener Example Co;08.11.2026;1.000,00;0,00
-RCV-708;Northwind Metals;09.11.2026;4.000,00;160,00
+RCV-708;North Example Metals;09.11.2026;4.000,00;160,00

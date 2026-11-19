@@ -13,7 +13,7 @@ For each receipt line of an item with a spec: flags a missing certificate where 
 | Finding | Example from the fictional demo data |
 |---|---|
 | `cert_lot_mismatch` | Certificate MTR-2001 is for lot P-76; receipt RC-2004 is lot P-77. |
-| `cert_missing` | Receipt RC-2003 of BAR-4140 lot H-1003 from Northwind Metals has no certificate; your spec requires one. |
+| `cert_missing` | Receipt RC-2003 of BAR-4140 lot H-1003 from North Example Metals has no certificate; your spec requires one. |
 | `cert_not_found` | Receipt RC-2006 names certificate COC-9, which is not in the certificates file. |
 | `no_spec` | GSK-220 has no spec in the specs file, so its certificate is not checked. |
 | `out_of_spec` | Certificate MTR-1002 reports tensile_ksi 92; your spec is min 95. |
@@ -63,7 +63,7 @@ Fairmake Material Certs demo: eight fictional receipt lines from four fictional 
 
 ▶ Write the draft (Auto is opted in for drafts)
   status: executed  decision: allow  (auto)
-  cert request Northwind Metals drafted with 1 open marker(s) ([TO CONFIRM Northwind Metals quality contact]). Nothing was sent.
+  cert request North Example Metals drafted with 1 open marker(s) ([TO CONFIRM North Example Metals quality contact]). Nothing was sent.
 
 ▶ Auto: approving the draft stays one named click
   status: needs_approval  decision: ask
@@ -71,7 +71,7 @@ Fairmake Material Certs demo: eight fictional receipt lines from four fictional 
 
 ▶ Same call after the named click (recorded; a person acts on it)
   status: executed  decision: ask  approved by: Pat Planner (fictional)
-  cert request Northwind-Metals approved and recorded. Nothing was sent or paid by the agent.
+  cert request North-Example-Metals approved and recorded. Nothing was sent or paid by the agent.
 
 ▶ The agent tries qms_release_hold itself
   status: blocked  decision: block
