@@ -34,3 +34,5 @@ export { parseX12, readX12, x12Segments, x12Delimiters, x12DateTime, n2, read850
 export { REPORT_TEXT, reportText } from './report-text.js';
 export { MODEL_PIN, OPEN_MARKER, filesHash, appendRow, htmlTable, writeWorklist, refusedTools, draftPair, LIMITS } from './kit.js';
 export { defineFairmakeAgent, fairmakeDemo, describeItem, FAIRMAKE_LIMITS, maskName, mergeSettings } from './agent.js';
+export { stateSeal, envSeal, generateStateKey, parseStateKey, convertStateFile, StateKeyError, STATE_KINDS } from './state.js';
+export { FAMILY_PROFILE } from './engine.js';

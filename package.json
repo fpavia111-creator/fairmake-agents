@@ -4,6 +4,7 @@
   "description": "Fairmake: back-office agents for small and mid-size manufacturers and distributors (monorepo).",
   "license": "MIT",
   "workspaces": [
+    "vendor/fair-agent-core",
     "packages/fairmake-core",
     "packages/*"
   ],
