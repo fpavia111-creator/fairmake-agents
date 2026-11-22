@@ -40,7 +40,7 @@
     "url": "git+https://github.com/fpavia111-creator/fairmake-agents.git",
     "directory": "packages/fairmake-supplier-scorecards"
   },
-  "homepage": "https://github.com/fpavia111-creator/fairmake-agents/tree/main/packages/fairmake-supplier-scorecards#readme",
+  "homepage": "https://github.com/fpavia111-creator/fairmake-agents/tree/master/packages/fairmake-supplier-scorecards#readme",
   "bugs": {
     "url": "https://github.com/fpavia111-creator/fairmake-agents/issues"
   },

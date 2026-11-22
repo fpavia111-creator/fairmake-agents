@@ -34,7 +34,7 @@
     "url": "git+https://github.com/fpavia111-creator/fairmake-agents.git",
     "directory": "packages/fairmake-core"
   },
-  "homepage": "https://github.com/fpavia111-creator/fairmake-agents/tree/main/packages/fairmake-core#readme",
+  "homepage": "https://github.com/fpavia111-creator/fairmake-agents/tree/master/packages/fairmake-core#readme",
   "bugs": {
     "url": "https://github.com/fpavia111-creator/fairmake-agents/issues"
   },

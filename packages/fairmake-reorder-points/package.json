@@ -40,7 +40,7 @@
     "url": "git+https://github.com/fpavia111-creator/fairmake-agents.git",
     "directory": "packages/fairmake-reorder-points"
   },
-  "homepage": "https://github.com/fpavia111-creator/fairmake-agents/tree/main/packages/fairmake-reorder-points#readme",
+  "homepage": "https://github.com/fpavia111-creator/fairmake-agents/tree/master/packages/fairmake-reorder-points#readme",
   "bugs": {
     "url": "https://github.com/fpavia111-creator/fairmake-agents/issues"
   },

@@ -23,7 +23,7 @@ write('package.json', JSON.stringify({
   scripts: { test: 'node scripts/run-tests.cjs', demo: `node bin/${name}.js demo`, eval: `node bin/${name}.js eval` },
   dependencies: { 'fairmake-core': `^${corePkg.version}` },
   repository: { type: 'git', url: 'git+https://github.com/fpavia111-creator/fairmake-agents.git', directory: `packages/${name}` },
-  homepage: `https://github.com/fpavia111-creator/fairmake-agents/tree/main/packages/${name}#readme`,
+  homepage: `https://github.com/fpavia111-creator/fairmake-agents/tree/master/packages/${name}#readme`,
   bugs: { url: 'https://github.com/fpavia111-creator/fairmake-agents/issues' },
   keywords: ['mcp', 'mcp-server', 'manufacturing', 'distribution', 'erp', 'fairmake', ...kw.split(',').filter(Boolean)],
 }, null, 2) + '\n', { keep: true });

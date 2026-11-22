@@ -40,7 +40,7 @@
     "url": "git+https://github.com/fpavia111-creator/fairmake-agents.git",
     "directory": "packages/fairmake-machine-downtime"
   },
-  "homepage": "https://github.com/fpavia111-creator/fairmake-agents/tree/main/packages/fairmake-machine-downtime#readme",
+  "homepage": "https://github.com/fpavia111-creator/fairmake-agents/tree/master/packages/fairmake-machine-downtime#readme",
   "bugs": {
     "url": "https://github.com/fpavia111-creator/fairmake-agents/issues"
   },
