@@ -40,7 +40,7 @@
     "url": "git+https://github.com/fpavia111-creator/fairmake-agents.git",
     "directory": "packages/fairmake-cost-variance"
   },
-  "homepage": "https://github.com/fpavia111-creator/fairmake-agents/tree/main/packages/fairmake-cost-variance#readme",
+  "homepage": "https://github.com/fpavia111-creator/fairmake-agents/tree/master/packages/fairmake-cost-variance#readme",
   "bugs": {
     "url": "https://github.com/fpavia111-creator/fairmake-agents/issues"
   },
